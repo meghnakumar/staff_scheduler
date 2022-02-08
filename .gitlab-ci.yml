@@ -7,11 +7,15 @@ maven-build:
   image: maven:3-jdk-11
   stage: build
   script: "mvn package -B"
+  only:
+  - main,develop,test
 
 maven-test:
   image: maven:3-jdk-11
   stage: test
   script: "mvn test -B"
+  only:
+  - main,develop,test
 
 deploy:
   stage: deploy
@@ -22,4 +26,4 @@ deploy:
   - gem install dpl
   - dpl --provider=heroku --app=app-staff-scheduler --api-key=$HEROKU_API_KEY
   only:
-  - master
+  - main
