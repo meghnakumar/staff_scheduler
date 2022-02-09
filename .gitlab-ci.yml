@@ -12,6 +12,7 @@ maven-build:
       - main
       - develop
       - test
+      - merge_requests
 
 maven-test:
   image: maven:3-jdk-11
@@ -22,6 +23,7 @@ maven-test:
       - main
       - develop
       - test
+      - merge_requests
 
 deploy:
   stage: deploy
