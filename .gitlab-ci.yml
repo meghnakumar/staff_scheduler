@@ -13,6 +13,9 @@ maven-build:
       - develop
       - test
       - merge_requests
+      - feature-admin
+      - feature-frontend
+      - feature-backend
 
 maven-test:
   image: maven:3-jdk-11
@@ -24,6 +27,9 @@ maven-test:
       - develop
       - test
       - merge_requests
+      - feature-admin
+      - feature-frontend
+      - feature-backend
 
 deploy:
   stage: deploy
