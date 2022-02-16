@@ -11,7 +11,7 @@
 	<groupId>com.scheduler</groupId>
 	<artifactId>staff-scheduler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>setup</name>
+	<name>Staff Scheduler</name>
 	<description>Staff Scheduler</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0</version>
+			<version>2.1.1</version>
 		</dependency>
 	</dependencies>
 

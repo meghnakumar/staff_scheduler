@@ -1,4 +1,4 @@
-package com.scheduler.database;
+package com.scheduler.app.database;
 
 public class DatabaseConnection {
 }
