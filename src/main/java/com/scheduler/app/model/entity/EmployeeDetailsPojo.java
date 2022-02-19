@@ -5,24 +5,36 @@ import javax.persistence.*;
 @Entity
 @Table(name = "EmployeeDetails")
 public class EmployeeDetailsPojo {
-
+    @Column(name="pk_employee_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int employeeId;
-
+    @Column(name="fk_department_id")
     private String departmentId;
+    @Column(name="employee_number")
     private String employeeNumber;
+    @Column(name="email_id")
     private String emailId;
+    @Column(name="login_password")
     private String loginPassword;
+    @Column(name="first_name")
     private String firstName;
+    @Column(name="last_name")
     private String lastName;
+    @Column(name="phone_number")
     private String phoneNumber;
-    private String jobRole;
+    @Column(name="fk_job_role_id")
+    private String jobRoleId;
+    @Column(name="photo")
     private String photo;
+    @Column(name="sin_number")
     private String sinNumber;
+    @Column(name="date_of_joining")
     private String dateOfJoining;
     //jobType => part-time,full-time
+    @Column(name="job_type")
     private int jobType;
+    @Column(name="max_availability_hours")
     private double maxAvailabilityHours;
 
     public int getEmployeeId() {
@@ -89,12 +101,12 @@ public class EmployeeDetailsPojo {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getJobRole() {
-        return jobRole;
+    public String getJobRoleId() {
+        return jobRoleId;
     }
 
     public void setJobRole(String jobRole) {
-        this.jobRole = jobRole;
+        this.jobRoleId = jobRole;
     }
 
     public String getPhoto() {

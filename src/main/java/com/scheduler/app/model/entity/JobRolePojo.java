@@ -5,11 +5,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "JobRole")
 public class JobRolePojo {
+    @Column(name="pk_role_id")
     @Id
     private String roleId;
-
+    @Column(name="fk_department_id")
     private String departmentId;
+    @Column(name="role_title")
     private String roleTitle;
+    @Column(name="total_shifts_week")
     private int shiftsPerWeek;
 
     public String getRoleId() {
