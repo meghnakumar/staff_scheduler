@@ -17,16 +17,12 @@ mvn spring-boot:run
 
 ### CI/CD with Auto DevOps
 
-This template is compatible with [Auto DevOps](https://docs.gitlab.com/ee/topics/autodevops/).
+This project is configured with pipelines to ensure code quality using unit tests, build checks and auto-deployment using the Heroku cloud server.
 
-If Auto DevOps is not already enabled for this project, you can [turn it on](https://docs.gitlab.com/ee/topics/autodevops/#enabling-auto-devops) in the project settings.
-
-## Production URL
+## Production applicaiton URL
 https://app-staff-scheduler.herokuapp.com/
 
 ## Environment selectors
-spring.profiles.active=
-
+spring.profiles.active=develop
 spring.profiles.active=test
-
 spring.profiles.active=prod
