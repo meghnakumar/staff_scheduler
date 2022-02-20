@@ -19,8 +19,15 @@ mvn spring-boot:run
 
 This project is configured with pipelines to ensure code quality using unit tests, build checks and auto-deployment using the Heroku cloud server.
 
-## Production applicaiton URL
-https://app-staff-scheduler.herokuapp.com/
+## Appication Development URL's
+base URL - https://app-staff-scheduler-dev.herokuapp.com/
+swagger UI - https://app-staff-scheduler-dev.herokuapp.com/scheduler/swagger-ui/index.html
+swagger api-docs - https://app-staff-scheduler-dev.herokuapp.com/scheduler/api-docs/
+
+## Applciation Production URL's
+base URL - https://app-staff-scheduler.herokuapp.com/
+swagger UI - https://app-staff-scheduler.herokuapp.com/scheduler/swagger-ui/index.html
+swagger api-docs - https://app-staff-scheduler.herokuapp.com/scheduler/api-docs/
 
 ## Environment selectors
 spring.profiles.active=develop
