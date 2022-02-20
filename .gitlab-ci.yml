@@ -31,7 +31,7 @@ maven-test:
       - feature-frontend
       - feature-backend
 
-deploy:
+deploy-prod:
   stage: deploy
   image: ruby:latest
   script:
@@ -42,3 +42,15 @@ deploy:
   only:
     refs:
       - main
+
+deploy-dev:
+  stage: deploy
+  image: ruby:latest
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=app-staff-scheduler-dev --api-key=$HEROKU_API_KEY
+  only:
+    refs:
+      - develop
