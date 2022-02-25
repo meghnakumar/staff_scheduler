@@ -8,7 +8,7 @@ $(document).ready(function(){
                     headers: { "Accept": "application/json", "id": loginId, "pswd" : loginPwd},
                     type: 'POST',
                     //url: 'http://localhost:8086/login/request',
-                    url: 'https://app-staff-scheduler.herokuapp.com/scheduler/login/request',
+                    url: '/login/request',
                     success: function(data, textStatus, request){
                         console.log(data);
                         if(data.userType == "ADMIN") {
