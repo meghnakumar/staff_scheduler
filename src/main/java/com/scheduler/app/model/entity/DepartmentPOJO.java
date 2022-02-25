@@ -32,21 +32,6 @@ public class DepartmentPOJO {
     @Setter
     private SupervisorPOJO supervisorPOJO;
 
-    @OneToMany(mappedBy = "department")
-    @Getter
-    @Setter
-    private Set<JobrolePOJO> jobroles = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "department")
-    @Getter
-    @Setter
-    private Set<EmpDetailPOJO> empDetailPOJOS = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "department")
-    @Getter
-    @Setter
-    private Set<DailyShiftPOJO> dailyshifts = new LinkedHashSet<>();
-
 
 
 }

@@ -15,10 +15,10 @@ public class LoginController {
 
 
     @PostMapping("/request")
-
     public LoginResponse inputCredentials(@RequestBody LoginRequest loginRequest){
 
-        return loginService.inputCredentials(loginRequest);
+        LoginResponse loginResponse = loginService.inputCredentials(loginRequest);
+        return loginResponse;
     }
 
 

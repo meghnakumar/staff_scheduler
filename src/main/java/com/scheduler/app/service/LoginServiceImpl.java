@@ -1,64 +1,89 @@
 package com.scheduler.app.service;
 
+import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.constants.USER_TYPE;
+import com.scheduler.app.model.dto.EmployeeCredsDTO;
+import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.request.LoginRequest;
 import com.scheduler.app.model.response.LoginResponse;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class LoginServiceImpl implements LoginService{
 
+    @Autowired
+    EmpDetailRepository empDetailRepository;
+
     public LoginResponse inputCredentials(LoginRequest loginRequest) {
 
-        loginRequest.getPassword();
-
-
+        LoginResponse loginResponse = new LoginResponse();
         if(Strings.isNotEmpty(loginRequest.getUserID()) && Strings.isNotEmpty(loginRequest.getPassword())){
 
-            // Code to send the incoming values to back-end
+            Integer empID = Integer.parseInt(loginRequest.getUserID());
+            EmployeeCredsDTO employeeCredsDTO = empDetailRepository.getLoginCredsById(empID);
+
+            //Flag for checking validity of Credentials
+            boolean isValidPassword = checkPasswordMatch(employeeCredsDTO, loginRequest);
+            if(isValidPassword && employeeCredsDTO != null) {
+
+                switch (employeeCredsDTO.getJobType()){
 
 
-            //todo change the return type & value
-            //Currently returning the input values
+                    case 1 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                                loginResponse.setValid(true);
+                                loginResponse.setUserType(USER_TYPE.ADMIN);
+                                break;
 
+                    case 2 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                                loginResponse.setValid(true);
+                                loginResponse.setUserType(USER_TYPE.SUPERVISOR);
+                                break;
 
-            LoginResponse loginResponse = new LoginResponse();
+                    case 3 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                                loginResponse.setValid(true);
+                                loginResponse.setUserType(USER_TYPE.STAFF);
+                                break;
 
-            //Flag for the User type
-            Boolean typeFlag = true;
+                    default :   loginResponse.setStatus(REQUEST_STATUS.INVALID_REQUEST);
+                                loginResponse.setValid(false);
+                                loginResponse.setUserType(USER_TYPE.INVALID);
+                }
 
-            // If the User data from the DB is for Admin
-            if(typeFlag){
+            } else if (employeeCredsDTO != null && employeeCredsDTO.getId().equals(empID)){
 
-                loginResponse.setStatus(HttpStatus.ACCEPTED);
-                loginResponse.setValid(true);
-                loginResponse.setUserType(USER_TYPE.ADMIN);
-
-            } else if (!typeFlag){
-
-                //If the User Data from the DB is for Supervisor
-
-                loginResponse.setStatus(HttpStatus.ACCEPTED);
-                loginResponse.setValid(true);
-                loginResponse.setUserType(USER_TYPE.SUPERVISOR);
-
-                //todo Add conditional block for Staff type
-            } else {
-
-                loginResponse.setStatus(HttpStatus.BAD_REQUEST);
+                loginResponse.setStatus(REQUEST_STATUS.INCORRECT_PASSWORD);
                 loginResponse.setValid(false);
                 loginResponse.setUserType(USER_TYPE.INVALID);
-            }
 
+            } else {
+
+                loginResponse.setStatus(REQUEST_STATUS.ERROR);
+                loginResponse.setValid(false);
+                loginResponse.setUserType(USER_TYPE.INVALID);
+
+            }
 
             return loginResponse;
 
         } else {
 
-            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Reason");
+            loginResponse.setStatus(REQUEST_STATUS.BAD_REQUEST);
+            loginResponse.setValid(false);
+            loginResponse.setUserType(USER_TYPE.INVALID);
         }
+
+        return loginResponse;
+    }
+
+    private Boolean checkPasswordMatch(EmployeeCredsDTO employeeCredsDTO, LoginRequest loginRequest) {
+
+        if(employeeCredsDTO != null && loginRequest != null){
+
+            return employeeCredsDTO.getLoginPassword().equals(loginRequest.getPassword());
+        }
+
+        return false;
     }
 }
