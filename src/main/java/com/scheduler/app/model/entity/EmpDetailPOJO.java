@@ -9,9 +9,9 @@ import java.time.LocalDate;
 
 //Does not Require maintaining order of Columns, but it's a Good Practice.
 // DOES  MANDATE THAT THE DTO HAVE SAME FIELD NAMES AS POJO
-@NamedNativeQuery(name = "Fetch_Credentials",
+@NamedNativeQuery(name = "FETCH_LOGIN_CREDENTIALS",
         query = "select e.employee_id, e.employee_number, e.email_id, e.login_password, e.job_type FROM empdetails e WHERE e.employee_id = ?1 ")
-@SqlResultSetMapping(name = "Fetch_Credentials", classes = @ConstructorResult(targetClass = EmployeeCredsDTO.class,
+@SqlResultSetMapping(name = "FETCH_LOGIN_CREDENTIALS", classes = @ConstructorResult(targetClass = EmployeeCredsDTO.class,
         columns = {@ColumnResult(name = "id"),@ColumnResult(name = "employeeNumber"),@ColumnResult(name = "emailId"), @ColumnResult(name = "loginPassword"),@ColumnResult(name = "jobType")}))
 
 @Entity(name = "empdetails")
