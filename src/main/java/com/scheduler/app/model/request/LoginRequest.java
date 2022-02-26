@@ -1,23 +1,16 @@
 package com.scheduler.app.model.request;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class LoginRequest {
 
+    @Getter
+    @Setter
     private String userID;
+
+    @Getter
+    @Setter
     private String password;
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
