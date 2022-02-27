@@ -1,4 +1,9 @@
 package com.scheduler.app.service;
 
-public class LoginService {
+import com.scheduler.app.model.request.LoginRequest;
+import com.scheduler.app.model.response.LoginResponse;
+
+public interface LoginService {
+
+    public LoginResponse inputCredentials(LoginRequest loginRequest);
 }
