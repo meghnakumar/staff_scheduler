@@ -7,7 +7,6 @@ $(document).ready(function(){
               $.ajax({
                     headers: { "Accept": "application/json", "id": loginId, "pswd" : loginPwd},
                     type: 'POST',
-                    //url: 'http://localhost:8086/login/request',
                     url: '/login/request',
                     success: function(data, textStatus, request){
                         console.log(data);
