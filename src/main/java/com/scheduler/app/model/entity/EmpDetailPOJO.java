@@ -7,13 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-//Does not Require maintaining order of Columns, but it's a Good Practice.
-// DOES  MANDATE THAT THE DTO HAVE SAME FIELD NAMES AS POJO
-@NamedNativeQuery(name = "FETCH_LOGIN_CREDENTIALS",
-        query = "select e.employee_id, e.employee_number, e.email_id, e.login_password, e.job_type FROM empdetails e WHERE e.employee_id = ?1 ")
-@SqlResultSetMapping(name = "FETCH_LOGIN_CREDENTIALS", classes = @ConstructorResult(targetClass = EmployeeCredsDTO.class,
-        columns = {@ColumnResult(name = "id"),@ColumnResult(name = "employeeNumber"),@ColumnResult(name = "emailId"), @ColumnResult(name = "loginPassword"),@ColumnResult(name = "jobType")}))
-
 @Entity(name = "empdetails")
 @Table(name = "empdetails")
 public class EmpDetailPOJO {
@@ -23,13 +16,6 @@ public class EmpDetailPOJO {
     @Getter
     @Setter
     private Integer id;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
-    @Getter
-    @Setter
-    private DepartmentPOJO department;
 
     @Column(name = "employee_number")
     @Getter
@@ -75,6 +61,11 @@ public class EmpDetailPOJO {
     @Getter
     @Setter
     private String sinNumber;
+
+    @Column(name = "department_id")
+    @Getter
+    @Setter
+    private String departmentId;
 
     @Column(name = "date_of_joining", nullable = false)
     @Getter
