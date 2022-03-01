@@ -1,10 +1,14 @@
 $(document).ready(function(){
     $("#login-form").submit(function(e) {
         e.preventDefault();
-        let loginId = $("#loginId").val();
+        let loginId = $("#loginId").val().toUpperCase();
         let loginPwd = $("#loginPwd").val();
+        var loginIdInitial = loginId.slice(0, 3);
+//        if(loginIdInitial != "EMP") {
+//            alert("User name should start with 'emp'");
+//            return;
+//        }
         if(loginId !== "" && loginPwd !== "" ) {
-
             $.ajax({
                 contentType: 'application/json',
                 dataType: 'json',
@@ -26,7 +30,9 @@ $(document).ready(function(){
                     } else {
                         alert("Invalid Credentials");
                     }
-                }
+                },error: function(response) {
+                     console.log("Error status", response.status, "Error text", response.statusText);
+                 }
             });
         }
     });
