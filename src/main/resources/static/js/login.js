@@ -4,10 +4,10 @@ $(document).ready(function(){
         let loginId = $("#loginId").val().toUpperCase();
         let loginPwd = $("#loginPwd").val();
         var loginIdInitial = loginId.slice(0, 3);
-//        if(loginIdInitial != "EMP") {
-//            alert("User name should start with 'emp'");
-//            return;
-//        }
+       if(loginIdInitial != "EMP") {
+            alert("User name should start with 'emp'");
+            return;
+      }
         if(loginId !== "" && loginPwd !== "" ) {
             $.ajax({
                 contentType: 'application/json',
