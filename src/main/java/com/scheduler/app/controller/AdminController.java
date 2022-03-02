@@ -21,6 +21,7 @@ public class AdminController {
 
     @Autowired
     EmployeeCreationService employeeCreationService;
+    @Autowired
     HolidayCreationService holidayCreationService;
 
 

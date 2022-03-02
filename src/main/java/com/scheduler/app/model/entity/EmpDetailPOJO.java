@@ -50,7 +50,7 @@ public class EmpDetailPOJO {
     @Column(name = "role_id", nullable = false, length = 50)
     @Getter
     @Setter
-    private String roleId;
+    private Integer roleId;
 
     @Column(name = "photo")
     @Getter

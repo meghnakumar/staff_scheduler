@@ -10,6 +10,6 @@ public class EmployeeCredsDTO implements Serializable{
     private String employeeNumber;
     private String emailId;
     private String loginPassword;
-    private Integer jobType;
+    private Integer roleId;
 }
 
