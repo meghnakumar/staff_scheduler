@@ -21,27 +21,26 @@ public class LoginServiceImpl implements LoginService{
         LoginResponse loginResponse = new LoginResponse();
         if(Strings.isNotEmpty(loginRequest.getUserID()) && Strings.isNotEmpty(loginRequest.getPassword())){
 
-            Integer empID = Integer.parseInt(loginRequest.getUserID());
-            EmployeeCredsDTO employeeCredsDTO = empDetailRepository.getLoginCredsById(empID);
+            EmployeeCredsDTO employeeCredsDTO = empDetailRepository.getTopByEmployeeNumber(loginRequest.getUserID());
 
             //Flag for checking validity of Credentials
             boolean isValidPassword = checkPasswordMatch(employeeCredsDTO, loginRequest);
             if(isValidPassword && employeeCredsDTO != null) {
 
-                switch (employeeCredsDTO.getJobType()){
+                switch (employeeCredsDTO.getRoleId()){
 
 
-                    case 1 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                    case 0 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
                                 loginResponse.setValid(true);
                                 loginResponse.setUserType(USER_TYPE.ADMIN);
                                 break;
 
-                    case 2 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                    case 1 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
                                 loginResponse.setValid(true);
                                 loginResponse.setUserType(USER_TYPE.SUPERVISOR);
                                 break;
 
-                    case 3 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                    case 2 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
                                 loginResponse.setValid(true);
                                 loginResponse.setUserType(USER_TYPE.STAFF);
                                 break;
@@ -51,7 +50,7 @@ public class LoginServiceImpl implements LoginService{
                                 loginResponse.setUserType(USER_TYPE.INVALID);
                 }
 
-            } else if (employeeCredsDTO != null && employeeCredsDTO.getId().equals(empID)){
+            } else if (employeeCredsDTO != null && employeeCredsDTO.getEmployeeNumber().equals(loginRequest.getUserID())){
 
                 loginResponse.setStatus(REQUEST_STATUS.INCORRECT_PASSWORD);
                 loginResponse.setValid(false);
