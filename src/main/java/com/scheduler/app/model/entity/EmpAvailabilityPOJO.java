@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "empavailability")
@@ -17,31 +17,34 @@ public class EmpAvailabilityPOJO {
     @Setter
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
+    @Column(name = "employee_id")
     @Getter
     @Setter
-    private EmpDetailPOJO empdetails;
+    private Integer employee_id;
+
+    @Column(name = "employee_number")
+    @Getter
+    @Setter
+    private String employeeNumber;
 
     @Column(name = "available_date")
     @Getter
     @Setter
-    private LocalDate availableDate;
+    private Date availableDate;
 
     @Column(name = "available_day")
     @Getter
     @Setter
-    private LocalDate availableDay;
+    private String availableDay;
 
     @Column(name = "start_time")
     @Getter
     @Setter
-    private Instant startTime;
+    private Timestamp startTime;
 
     @Column(name = "end_time", nullable = false)
     @Getter
     @Setter
-    private Instant endTime;
-
+    private Timestamp endTime;
 
 }
