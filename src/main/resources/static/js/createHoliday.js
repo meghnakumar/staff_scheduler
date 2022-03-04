@@ -2,7 +2,18 @@ $(document).ready(function(){
     $("#holiday-form").submit(function(e) {
     e.preventDefault();
 
+        var badCreds = function () {
+            var inputs = document.getElementsByName("employeeNumber")
+            if (inputs.length > 0) {
+                inputs[0].classList.add(["is-invalid"]);
+            }
+            $("#error").show();
+            var valid = false;
+            return false;
+        };
+
     let formData = {};
+    var valid = false;
     var values = $("#holiday-form :input").serializeArray();
     values.map( input => formData[input.name] = input.value);
 
@@ -10,6 +21,14 @@ $(document).ready(function(){
         formData["endDate"] = endDate
         formData[endDate] = formData.startDate;
     }
+
+    if(formData.holidayTitle === ''){
+        badCreds();
+    }  else{
+        valid = true;
+    }
+
+    if(valid){
 
         $.ajax({
             contentType: 'application/json',
@@ -30,5 +49,6 @@ $(document).ready(function(){
                 console.log("Error status", response.status, "Error text", response.statusText);
             }
         });
+    }
     });
 });

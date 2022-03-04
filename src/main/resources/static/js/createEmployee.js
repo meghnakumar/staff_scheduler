@@ -1,35 +1,56 @@
 $(document).ready(function(){
-    $("#holiday-form").submit(function(e) {
+    $("#register").submit(function(e) {
         e.preventDefault();
 
+        var badCreds = function () {
+            var inputs = document.getElementsByName("employeeNumber")
+            if (inputs.length > 0) {
+                inputs[0].classList.add(["is-invalid"]);
+            }
+            $("#error").show();
+            var valid = false;
+            return false;
+        };
+
         let formData = {};
-        var values = $("#holiday-form :input").serializeArray();
+        var valid = false;
+        var values = $("#register :input").serializeArray();
         values.map( input => formData[input.name] = input.value);
 
-        if(!formData.endDate){
-            formData["endDate"] = endDate
-            formData[endDate] = formData.startDate;
+        if(formData.employeeNumber === ''){
+            badCreds();
+        } else{
+            valid = true;
         }
+
+        if(formData.jobType === 'on'){
+            formData["jobType"] = 1;
+        } else {
+            formData["photo"] = 0;
+        }
+    if(valid){
 
         $.ajax({
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(formData),
             type: 'POST',
-            url: '/admin/create/holiday',
+            url: '/admin/create/employee',
             passwordType: false,
             success: function(data, response){
                 console.log(response);
                 if(data.status === 'SUCCESS' && data.created === true){
-
-                    $("#informDialog").modal('show');
-                    $("#close").click(function(){
-                        $("#informDialog").modal('hide');
-                    });
+                    $("#informSuccess").modal('show');
+                } else if (data.status === 'INVALID_REQUEST' && data.created === false){
+                    $("#informClash").modal('show');
+                } else {
+                    $("#informFailure").modal('show');
                 }
             },error: function(response) {
+                $("#informFailure").modal('show');
                 console.log("Error status", response.status, "Error text", response.statusText);
             }
         });
+    }
     });
 });
