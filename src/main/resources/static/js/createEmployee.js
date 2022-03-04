@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $("#holiday-form").submit(function(e) {
-    e.preventDefault();
+    $("#register").submit(function(e) {
+        e.preventDefault();
 
         var badCreds = function () {
             var inputs = document.getElementsByName("employeeNumber")
@@ -12,22 +12,22 @@ $(document).ready(function(){
             return false;
         };
 
-    let formData = {};
-    var valid = false;
-    var values = $("#holiday-form :input").serializeArray();
-    values.map( input => formData[input.name] = input.value);
+        let formData = {};
+        var valid = false;
+        var values = $("#register :input").serializeArray();
+        values.map( input => formData[input.name] = input.value);
 
-    if(!formData.endDate){
-        formData["endDate"] = endDate
-        formData[endDate] = formData.startDate;
-    }
+        if(formData.employeeNumber === ''){
+            badCreds();
+        } else{
+            valid = true;
+        }
 
-    if(formData.holidayTitle === ''){
-        badCreds();
-    }  else{
-        valid = true;
-    }
-
+        if(formData.jobType === 'on'){
+            formData["jobType"] = 1;
+        } else {
+            formData["photo"] = 0;
+        }
     if(valid){
 
         $.ajax({
@@ -35,12 +35,14 @@ $(document).ready(function(){
             dataType: 'json',
             data: JSON.stringify(formData),
             type: 'POST',
-            url: '/admin/create/holiday',
+            url: '/admin/create/employee',
             passwordType: false,
             success: function(data, response){
                 console.log(response);
                 if(data.status === 'SUCCESS' && data.created === true){
                     $("#informSuccess").modal('show');
+                } else if (data.status === 'INVALID_REQUEST' && data.created === false){
+                    $("#informClash").modal('show');
                 } else {
                     $("#informFailure").modal('show');
                 }
