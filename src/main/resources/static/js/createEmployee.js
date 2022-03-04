@@ -1,8 +1,15 @@
 $(document).ready(function(){
     $("#holiday-form").submit(function(e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    var formData = new FormData(document.querySelector('#holiday-form'));
+        let formData = {};
+        var values = $("#holiday-form :input").serializeArray();
+        values.map( input => formData[input.name] = input.value);
+
+        if(!formData.endDate){
+            formData["endDate"] = endDate
+            formData[endDate] = formData.startDate;
+        }
 
         $.ajax({
             contentType: 'application/json',

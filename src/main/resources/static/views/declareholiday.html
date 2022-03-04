@@ -2,47 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Declare Holiday</title>
+    <title>Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="./css/all.min.css">
-    <link rel="stylesheet" href="./css/fontawesome.min.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../js/createHoliday.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/createHoliday.js"></script>
 
-
+    <style>body{background-color: #ffffff
+    }</style>
 </head>
 <body>
-        <h1 align="center" >RECORD HOLIDAY</h1>
-        <br>
-        <a href="/views/admin.html" style="margin-left:100px "> < Go back</a>
-        <div class="row">
-            <div class="col-md-3">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">ICON</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../views/admin.html"><h5>Admin Home</h5>
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+
+        <div class = "container">
+                <div class="col-sm-4" style="margin: inherit"> <h1 >Declare Holiday</h1> </div>
+        <div class="row">
+                <div class="col-md-3"></div>
         <div class="col-md-5">
-            <form id="holiday-form" action="/" method="post">
-                <hr>
-                    <div>
-                        <label for="comment"><b>Add the Holiday Name</b></label>
-                        <input type="text" class = "form-control" placeholder="" name="holidayTitle" id="comment" required>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="j_date"><b>Select a Date for Holiday</b></label>
-                        <input type="date" class="form-control" placeholder="Enter Holiday Date" name="startDate" id="j_date" required>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="j_edate"><b>Select a End Date for Holiday</b></label>
-                        <input type="date" class="form-control" placeholder="Enter Holiday Date" name="endDate" id="j_edate" required>
-                    </div>
-                    <br>
-                    <button type="submit" class="form-control" name="holidaybtn" id="holidaybtn"> Record Holiday </button>
-           </form>
+                    <form id="holiday-form" action="/" method="post">
+                        <div class="form-group">
+                            <label class="col-form-label mt-4" for="holidayTitle"> <b>Enter the Holiday Name:</b></label>
+                            <input type="text" class="form-control" placeholder="What's the Ocassion?" id="holidayTitle" spellcheck="false" data-ms-editor="true">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label mt-4" for="startDate"> <b>Enter the Start Date:</b></label>
+                            <input type="date" class="form-control" placeholder="When Does it begin?" id="startDate" spellcheck="false" data-ms-editor="true">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label mt-4" for="endDate"> </label>
+                            <input type="date" class="form-control" placeholder="When Does it End?" id="endDate" spellcheck="false" data-ms-editor="true">
+                        </div>
+                        <br>
+
+                        <button type="submit" class="form-control btn btn-success " name="holidaybtn" id="holidaybtn"> Submit </button>
+                    </form>
+                </div>
+            </div>
         </div>
-        </div>
+
 </body>
 </html>
