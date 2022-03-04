@@ -14,7 +14,7 @@
 	<name>Staff Scheduler</name>
 	<description>Staff Scheduler</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -61,12 +61,12 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.4</version>
+			<version>1.6.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-data-rest</artifactId>
-			<version>1.6.4</version>
+			<version>1.6.5</version>
 		</dependency>
 	</dependencies>
 
@@ -88,4 +88,242 @@
 		</plugins>
 	</build>
 
+	<profiles>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<finalName>staffscheduler-dev</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>3.0.0</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<delete file="${project.build.outputDirectory}/application.properties"/>
+										<copy file="src/main/resources/application.dev.properties"
+											  tofile="${project.build.outputDirectory}/application.properties"/>
+
+										<delete file="${project.build.outputDirectory}/application.dev.properties"/>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.8.1</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<!--suppress UnresolvedMavenProperty -->
+							<source>11</source>
+
+							<!--suppress UnresolvedMavenProperty -->
+							<target>11</target>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.2.2</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+
+		<profile>
+			<id>test</id>
+			<build>
+				<finalName>staffscheduler-test</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>3.0.0</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<delete file="${project.build.outputDirectory}/application.properties"/>
+										<copy file="src/main/resources/application.test.properties"
+											  tofile="${project.build.outputDirectory}/application.properties"/>
+
+										<delete file="${project.build.outputDirectory}/application.test.properties"/>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.8.1</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<!--suppress UnresolvedMavenProperty -->
+							<source>11</source>
+
+							<!--suppress UnresolvedMavenProperty -->
+							<target>11</target>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.2.2</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<build>
+				<finalName>staffscheduler-prod</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>3.0.0</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<delete file="${project.build.outputDirectory}/application.properties"/>
+										<copy file="src/main/resources/application.prod.properties"
+											  tofile="${project.build.outputDirectory}/application.properties"/>
+
+										<delete file="${project.build.outputDirectory}/application.prod.properties"/>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.8.1</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<!--suppress UnresolvedMavenProperty -->
+							<source>11</source>
+
+							<!--suppress UnresolvedMavenProperty -->
+							<target>11</target>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.2.2</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>local</id>
+			<build>
+				<finalName>local</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>3.0.0</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<delete file="${project.build.outputDirectory}/application.properties"/>
+										<copy file="src/main/resources/application.local.properties"
+											  tofile="${project.build.outputDirectory}/application.properties"/>
+
+										<delete file="${project.build.outputDirectory}/application.local.properties"/>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.8.1</version>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<!--suppress UnresolvedMavenProperty -->
+							<source>11</source>
+
+							<!--suppress UnresolvedMavenProperty -->
+							<target>11</target>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.2.2</version>
+						<executions>
+							<execution>
+								<phase>install</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
