@@ -11,5 +11,5 @@ import lombok.Setter;
 public class EmployeeCreationResponse {
 
     private REQUEST_STATUS status;
-    private boolean empCreated;
+    private boolean created;
 }
