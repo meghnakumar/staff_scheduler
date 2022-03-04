@@ -21,13 +21,12 @@ $(document).ready(function(){
             success: function(data, response){
                 console.log(response);
                 if(data.status === 'SUCCESS' && data.created === true){
-
-                    $("#informDialog").modal('show');
-                    $("#close").click(function(){
-                        $("#informDialog").modal('hide');
-                    });
+                    $("#informSuccess").modal('show');
+                } else {
+                    $("#informFailure").modal('show');
                 }
             },error: function(response) {
+                $("#informFailure").modal('show');
                 console.log("Error status", response.status, "Error text", response.statusText);
             }
         });
