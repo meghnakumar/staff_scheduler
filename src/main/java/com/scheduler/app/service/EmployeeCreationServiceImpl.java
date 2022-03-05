@@ -30,6 +30,9 @@ public class EmployeeCreationServiceImpl implements EmployeeCreationService{
             EmployeeCredsDTO emp = empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber());
             if(emp == null && Strings.isNotBlank(employeeCreationRequest.getEmployeeNumber())){
 
+
+//                Continue from here
+//                String generatedPassword = generateUser
                 newEmployee.setId(null);
                 newEmployee.setEmployeeNumber(employeeCreationRequest.getEmployeeNumber());
                 newEmployee.setEmailId(employeeCreationRequest.getEmailId());
