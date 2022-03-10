@@ -19,7 +19,7 @@ public final class MailService {
     private static MailService mailServiceInstance;
 
     @Getter
-    @Value("${mail-service.emailid}")
+    @Value("${mail-service.email}")
     private String STAFF_SCHEDULER_EMAIL_ID;
 
     @Getter
@@ -27,11 +27,11 @@ public final class MailService {
     private String STAFF_SCHEDULER_PASSWORD;
 
     @Getter
-    @Value("${mail-service.firstName}")
+    @Value("${mail-service.firstname}")
     private String SENDER_FIRST_NAME;
 
 
-    @Value("${mail-service.password}")
+    @Value("${mail-service.lastname}")
     private String SENDER_LAST_NAME;
 
     @Getter
@@ -55,7 +55,7 @@ public final class MailService {
         return mailServiceInstance;
     }
 
-    private boolean sendMail(String toMail, String subject, String message){
+    public boolean sendMail(String toMail, String subject, String message){
 
         Properties property = new Properties();
         property.put("mail.smtp.host", "smtp.gmail.com");
@@ -66,6 +66,7 @@ public final class MailService {
 
         Session session = Session.getInstance(property,
                 new javax.mail.Authenticator() {
+                    @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(STAFF_SCHEDULER_EMAIL_ID, STAFF_SCHEDULER_PASSWORD);
                     }
@@ -85,10 +86,10 @@ public final class MailService {
             Transport.send(mimeMessage);
 
             System.out.println("Mail Sent");
-
+            return true;
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
-        return true;
     }
 }
