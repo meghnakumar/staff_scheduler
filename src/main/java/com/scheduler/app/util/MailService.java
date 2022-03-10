@@ -1,20 +1,20 @@
 package com.scheduler.app.util;
 
+import com.scheduler.app.model.entity.EmpDetailPOJO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Session;
-import java.util.ArrayList;
-import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Properties;
 
 @Service
 public final class MailService {
-
 
     private static MailService mailServiceInstance;
 
@@ -46,17 +46,17 @@ public final class MailService {
     @Setter
     private String body;
 
-    private  MailService(){}
+    private MailService() {
+    }
 
-    private static MailService getInstance(){
-        if(mailServiceInstance == null){
+    private static MailService getInstance() {
+        if (mailServiceInstance == null) {
             mailServiceInstance = new MailService();
         }
         return mailServiceInstance;
     }
 
-    public boolean sendMail(String toMail, String subject, String message){
-
+    public boolean sendMail(String toMail, String subject, String message) {
         Properties property = new Properties();
         property.put("mail.smtp.host", "smtp.gmail.com");
         property.put("mail.smtp.port", "465");
@@ -71,9 +71,7 @@ public final class MailService {
                         return new PasswordAuthentication(STAFF_SCHEDULER_EMAIL_ID, STAFF_SCHEDULER_PASSWORD);
                     }
                 });
-
         try {
-
             Message mimeMessage = new MimeMessage(session);
             mimeMessage.setFrom(new InternetAddress(STAFF_SCHEDULER_EMAIL_ID));
             mimeMessage.setRecipients(
@@ -81,15 +79,25 @@ public final class MailService {
                     InternetAddress.parse(toMail)
             );
             mimeMessage.setSubject(subject);
-            mimeMessage.setText(message);
-
+            mimeMessage.setContent(message, "text/html; charset=utf-8");
             Transport.send(mimeMessage);
-
-            System.out.println("Mail Sent");
+//            System.out.println("Mail Sent");
             return true;
         } catch (MessagingException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean sendMailToEmployee(EmpDetailPOJO employee, String subject, String message) {
+        String html = "";
+        FileResourceUtils htmlTemplate = new FileResourceUtils();
+        String htmlTemplatePath = "templates/EmailTemplate.HTML";
+        InputStream is = htmlTemplate.getFileFromResourceAsStream(htmlTemplatePath);
+        html = htmlTemplate.getStringInputStream(is);
+        html = html.replaceFirst("FirstName", employee.getFirstName());
+        html = html.replaceFirst("LastName", employee.getLastName());
+        html = html.replaceFirst("MessageContent", message);
+        return sendMail(employee.getEmailId(), subject, html);
     }
 }
