@@ -34,6 +34,22 @@
                 </div>
             </div>
         </nav>
+        <script>
+            //Script to Make sure that while a new user is being registered, the data of joining falls after the Registration date.
+            $( document ).ready(function() {
+                var today = new Date().toISOString().split('T')[0];
+                //Setting Min to Today
+                document.getElementsByName("dateOfJoining")[0].setAttribute('min', today);
+                console.log( "Min : " + today );
+                var date = new Date();
+                //Logic to Set Max - Disabled because max date of joining can be anything after the registration is done.
+                var max = date.setDate(date.getDate() + 7 );
+                max = new Date(max).toISOString().split('T')[0]
+                //document.getElementsByName("dateOfJoining")[0].setAttribute('max', max);
+                console.log( "Max : " + max );
+                console.log( "document loaded" );
+            });
+        </script>
 
         <div class = "container">
             <div class="col-md-6" style="margin: inherit"> <h1 >Register A New Employee</h1> </div>
