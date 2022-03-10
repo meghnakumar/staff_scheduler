@@ -130,11 +130,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<!--suppress UnresolvedMavenProperty -->
-							<source>11</source>
-
-							<!--suppress UnresolvedMavenProperty -->
-							<target>11</target>
+							<release>11</release>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -189,11 +185,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<!--suppress UnresolvedMavenProperty -->
-							<source>11</source>
-
-							<!--suppress UnresolvedMavenProperty -->
-							<target>11</target>
+							<release>11</release>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -247,11 +239,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<!--suppress UnresolvedMavenProperty -->
-							<source>11</source>
-
-							<!--suppress UnresolvedMavenProperty -->
-							<target>11</target>
+							<release>11</release>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -305,11 +293,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<!--suppress UnresolvedMavenProperty -->
-							<source>11</source>
-
-							<!--suppress UnresolvedMavenProperty -->
-							<target>11</target>
+							<release>11</release>
 						</configuration>
 					</plugin>
 					<plugin>
