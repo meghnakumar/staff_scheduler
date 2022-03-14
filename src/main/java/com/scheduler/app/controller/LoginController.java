@@ -1,8 +1,16 @@
 package com.scheduler.app.controller;
 
+import com.scheduler.app.model.entity.Book;
+import com.scheduler.app.model.entity.BookDTO;
 import com.scheduler.app.model.request.LoginRequest;
 import com.scheduler.app.model.response.LoginResponse;
 import com.scheduler.app.service.LoginService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.Consumes;
