@@ -1,3 +1,11 @@
 input.invalid, textarea.invalid{
 	border: 2px solid red;
 }
+
+#bar{
+	display: none;
+	background-image: linear-gradient(to right, lawngreen, green 50% ,forestgreen 100%);
+	animation-timing-function: linear;
+	animation-duration: 3s;
+	outline-color: lightseagreen;
+}

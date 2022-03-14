@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/createHoliday.js"></script>
+
+    <style>body{background-color: #ffffff
+    }</style>
+</head>
+<body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">ICON</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../views/admin.html"><h5>Admin Home</h5>
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class = "container">
+                <div class="col-sm-4" style="margin: inherit"> <h1 >Declare Holiday</h1> </div>
+        <div class="row">
+                <div class="col-md-3"></div>
+        <div class="col-md-5">
+                    <form id="holiday-form" action="/" method="post">
+                        <div >
+                            <label class="col-form-label mt-4" for="holidayTitle"> <b>Enter the Holiday Name:</b></label>
+                            <input type="text" class="form-control" placeholder="What's the Ocassion?" id="holidayTitle" name='holidayTitle' spellcheck="false" data-ms-editor="true">
+                            <div id="error" class="invalid-feedback"> <b>Sorry, Name is Mandatory</b> <br></div>
+                        </div>
+                        <div >
+                            <label class="col-form-label mt-4" for="startDate"> <b>Enter the Start Date:</b></label>
+                            <input type="date" class="form-control" placeholder="When Does it begin?" id="startDate" name='startDate' spellcheck="false" data-ms-editor="true">
+                        </div>
+                        <div >
+                            <label class="col-form-label mt-4" for="endDate"> </label>
+                            <input type="date" class="form-control" placeholder="When Does it End?" id="endDate" name='endDate' spellcheck="false" data-ms-editor="true">
+                        </div>
+                        <br>
+
+                        <button type="submit" class="form-control btn btn-success " name="holidaybtn" id="holidaybtn"> Submit </button>
+                    </form>
+                </div>
+
+            <div class="modal fade" id="informSuccess">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content card">
+                        <div class="text-black bg-success" >
+                            <div class="card-header text-center"> <b>Successful</b> </div>
+                            <div class="card-body text-center">
+                                <h4 class="card-title "> Holiday has been Added to the System</h4>
+                                <br>
+                                <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bs-dismiss="modal"> Close </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="informFailure">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content card">
+                        <div class="text-white bg-danger" >
+                            <div class="card-header text-center"> <b>Failure!</b> </div>
+                            <div class="card-body text-center">
+                                <h4 class="card-title ">Holiday was not Registered.</h4>
+                                <br>
+                                <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bs-dismiss="modal"> Close </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+</body>
+</html>
