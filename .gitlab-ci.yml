@@ -29,7 +29,7 @@ maven-build-test:
   script: "mvn -Ptest install -B"
   only:
     refs:
-      - test
+      - test-app
 
 maven-test:
   image: maven:3-jdk-11
@@ -39,7 +39,7 @@ maven-test:
     refs:
       - main
       - develop
-      - test
+      - test-app
       - merge_requests
       - feature-admin
       - feature-frontend
