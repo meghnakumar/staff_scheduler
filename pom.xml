@@ -14,7 +14,7 @@
 	<name>Staff Scheduler</name>
 	<description>Staff Scheduler</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -130,7 +130,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<release>11</release>
+							<release>1.8</release>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -185,7 +185,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<release>11</release>
+							<release>1.8</release>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -239,7 +239,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<release>11</release>
+							<release>1.8</release>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -293,7 +293,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<release>11</release>
+							<release>1.8</release>
 						</configuration>
 					</plugin>
 					<plugin>
