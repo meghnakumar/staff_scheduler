@@ -43,7 +43,7 @@ $(document).ready(function(){
         formData.endTime = $("#end-time-1").val();
         for(var i = 1; i <= employeeSectionCount; i++) {
             var roleVal = $("#employee-type-" + i).children("option:selected").val();
-            var countVal = $("#employeesCount-" + i).val();
+            var countVal = $("#hoursCount-" + i).val();
             empDetails.push({"role": roleVal, "numberOfEmployees": countVal});
         }
         formData.empDetails = empDetails;
@@ -62,8 +62,8 @@ function addEmpSection(index, roles) {
     html += '        </select>';
     html += '    </div>';
     html += '    <div class="form-group col-md-6">';
-    html += '        <label for="employeesCount-'  + index + '">Number of Employees:</label>';
-    html += '        <input type="number" class="form-control" id="employeesCount-'  + index + '">';
+    html += '        <label for="hoursCount-'  + index + '">Number of Hours:</label>';
+    html += '        <input type="number" class="form-control" id="hoursCount-'  + index + '">';
     html += '    </div>';
     html += '</div>';
     $('#add-emp-sec').append(html);
