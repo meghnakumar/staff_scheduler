@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Date;
 
 @Entity
 @Table(name = "holiday")
@@ -19,12 +19,12 @@ public class HolidayPOJO {
     @Column(name = "start_date", nullable = false)
     @Getter
     @Setter
-    private LocalDate startDate;
+    private Date startDate;
 
     @Column(name = "end_date")
     @Getter
     @Setter
-    private LocalDate endDate;
+    private Date endDate;
 
     @Column(name = "holiday_title", nullable = false, length = 50)
     @Getter

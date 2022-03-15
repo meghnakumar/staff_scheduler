@@ -6,16 +6,30 @@ stages:
 maven-build:
   image: maven:3-jdk-11
   stage: build
-  script: "mvn package -B"
+  script: "mvn install -B"
   only:
     refs:
-      - main
       - develop
-      - test
       - merge_requests
       - feature-admin
       - feature-frontend
       - feature-backend
+
+maven-build-prod:
+  image: maven:3-jdk-11
+  stage: build
+  script: "mvn -Pprod install -B"
+  only:
+    refs:
+      - main
+
+maven-build-test:
+  image: maven:3-jdk-11
+  stage: build
+  script: "mvn -Ptest install -B"
+  only:
+    refs:
+      - test-app
 
 maven-test:
   image: maven:3-jdk-11
@@ -25,7 +39,7 @@ maven-test:
     refs:
       - main
       - develop
-      - test
+      - test-app
       - merge_requests
       - feature-admin
       - feature-frontend
@@ -54,3 +68,15 @@ deploy-dev:
   only:
     refs:
       - develop
+
+deploy-test:
+  stage: deploy
+  image: ruby:latest
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=app-staff-scheduler-test --api-key=$HEROKU_API_KEY
+  only:
+    refs:
+      - test-app
