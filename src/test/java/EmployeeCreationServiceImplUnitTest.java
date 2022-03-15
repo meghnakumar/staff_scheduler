@@ -7,7 +7,6 @@ import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.request.EmployeeCreationRequest;
 import com.scheduler.app.model.response.EmployeeCreationResponse;
 import com.scheduler.app.service.EmployeeCreationServiceImpl;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootConfiguration
-public class EmployeeCreationServiceImplUnitTests {
+public class EmployeeCreationServiceImplUnitTest {
 
     @InjectMocks
     private EmployeeCreationServiceImpl employeeCreationService = new EmployeeCreationServiceImpl();
