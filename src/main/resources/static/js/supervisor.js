@@ -11,6 +11,7 @@ $(document).ready(function(){
         showOtherMonths: true,
         selectOtherMonths: true,
         multiselect: true,
+        minDate:0,
         onSelect: function(selectedDate, instance) {
             $( "#department-type" ).show();
             $( "#employee-detail" ).show();
@@ -29,6 +30,8 @@ $(document).ready(function(){
     });
 
     $( "#add-emp-details").click(function() {
+        var roleSelected = $( "#employee-type-" + employeeSectionCount).val();
+        roles.splice(roleSelected,1);
         employeeSectionCount++;
         addEmpSection(employeeSectionCount, roles);
     });
@@ -42,7 +45,7 @@ $(document).ready(function(){
         formData.startTime = $("#start-time-1").val();
         formData.endTime = $("#end-time-1").val();
         for(var i = 1; i <= employeeSectionCount; i++) {
-            var roleVal = $("#employee-type-" + i).children("option:selected").val();
+            var roleVal = $("#employee-type-" + i).val();
             var countVal = $("#hoursCount-" + i).val();
             empDetails.push({"role": roleVal, "numberOfEmployees": countVal});
         }
@@ -56,15 +59,21 @@ function addEmpSection(index, roles) {
     html += '<div class="row">';
     html += '    <div class="form-group col-md-6">';
     html += '        <label for="employee-type-'  + index + '">Employee role:</label>';
-    html += '        <select class="form-control" id="employee-type-' + index + ' ">';
-    html += '            <option>'+ roles[0] + '</option>';
-    html += '            <option>' + roles[1] + '</option>';
+    html += '        <select class="form-control form-select" id="employee-type-' + index + '">';
+    for(var i = 0; i < roles.length; i++) {
+        html += '            <option>'+ roles[i] + '</option>';
+    }
     html += '        </select>';
     html += '    </div>';
     html += '    <div class="form-group col-md-6">';
     html += '        <label for="hoursCount-'  + index + '">Number of Hours:</label>';
-    html += '        <input type="number" class="form-control" id="hoursCount-'  + index + '">';
+    html += '        <input type="number" class="form-control" id="hoursCount-'  + index + '" min="1" value="1">';
     html += '    </div>';
     html += '</div>';
     $('#add-emp-sec').append(html);
+    if(roles.length == 1) {
+        $("#dynamic-emp").hide();
+    }else {
+        $("#dynamic-emp").show();
+    }
 }
