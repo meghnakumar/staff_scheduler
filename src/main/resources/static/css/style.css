@@ -1,3 +1,7 @@
+html, body {
+	height: 100%;
+}
+
 input.invalid, textarea.invalid{
 	border: 2px solid red;
 }
@@ -8,4 +12,13 @@ input.invalid, textarea.invalid{
 	animation-timing-function: linear;
 	animation-duration: 3s;
 	outline-color: lightseagreen;
+}
+
+.custom-form div {
+	margin-bottom: 16px;
+}
+.shift-section {
+	padding: 14px;
+	border: 1px dashed;
+	border-radius: 8px;
 }
