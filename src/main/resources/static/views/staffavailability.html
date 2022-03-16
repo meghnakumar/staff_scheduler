@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <label for="monday"><b>Monday</b></label>
-            <input type="text" name="employeeNumber" id="employeeNumber" class = "form-control" placeholder="employee ID"/>
+            <input type="hidden" name="employeeNumber" id="employeeNumber" class = "form-control" value="<%=userId>" placeholder="employee ID"/>
             <select name="slots" id="monday" class = "form-control" placeholder="select slot">
                 <option value="NA">NA</option>
                 <option value="8AM-12PM">8AM-12PM</option>
@@ -80,6 +80,6 @@
 
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../js/useravailability.js"></script>
+<script type="text/javascript" src="../js/staffavailability.js"></script>
 </body>
 </html>

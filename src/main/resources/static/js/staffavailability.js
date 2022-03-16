@@ -2,6 +2,7 @@ $( document ).ready(function() {
     console.log( "ready!" );
     let userId = sessionStorage.getItem('userId');
     console.log("userID--", userId );
+    document.getElementById("employeeNumber").value = userId;
     const form = document.querySelector("#user-registration");
     if(form){
         form.addEventListener("submit",function (e){
