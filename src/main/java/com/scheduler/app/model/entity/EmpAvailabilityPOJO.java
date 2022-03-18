@@ -20,7 +20,7 @@ public class EmpAvailabilityPOJO {
     @Column(name = "employee_id")
     @Getter
     @Setter
-    private Integer employee_id;
+    private Integer employeeId;
 
     @Column(name = "employee_number")
     @Getter
@@ -40,11 +40,11 @@ public class EmpAvailabilityPOJO {
     @Column(name = "start_time")
     @Getter
     @Setter
-    private Timestamp startTime;
+    private Integer startTime;
 
-    @Column(name = "end_time", nullable = false)
+    @Column(name = "end_time")
     @Getter
     @Setter
-    private Timestamp endTime;
+    private Integer endTime;
 
 }

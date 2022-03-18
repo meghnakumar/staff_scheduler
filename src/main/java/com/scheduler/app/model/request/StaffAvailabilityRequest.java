@@ -10,8 +10,8 @@ import java.sql.Timestamp;
 public class StaffAvailabilityRequest {
 
     private String employeeNumber;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private Integer startTime;
+    private Integer endTime;
     private Date availableDate;
     private String availableDay;
 }

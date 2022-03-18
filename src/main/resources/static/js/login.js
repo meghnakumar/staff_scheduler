@@ -59,8 +59,12 @@ $(document).ready(function(){
                 url: '/login/request',
                 passwordType: true,
                 success: function(data, response){
-                    console.log(response)
+                    if(response == "success") {
+                        sessionStorage.setItem('userId', loginId);
+                    }
 
+                    // Get userId from session storage which will be used in request body of APIs
+                    let userId = sessionStorage.getItem('userId');
                     if (data.userType === "ADMIN" && data.status === 'SUCCESS') {
                         $(location).attr('href',"/views/admin.html");
                     } else if (data.userType === "SUPERVISOR" && data.status === 'SUCCESS') {
