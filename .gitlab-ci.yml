@@ -1,5 +1,8 @@
 image: ubuntu:latest
 stages:
+  - build
+  - test
+  - deploy
   - code_quality
 
 code_quality:
@@ -22,86 +25,12 @@ code_quality:
     refs:
       - test-app
 
-
-
-maven-build:
-  image: maven:3-jdk-11
-  stage: build
-  script:
-    - mvn compile
-    - "mvn install -B"
-  only:
-    refs:
-      - develop
-      - merge_requests
-      - feature-admin
-      - feature-frontend
-      - feature-backend
-
-maven-build-prod:
-  image: maven:3-jdk-11
-  stage: build
-  script: "mvn -Pprod install -B"
-  only:
-    refs:
-      - main
-
 maven-build-test:
   image: maven:3-jdk-11
   stage: build
   script:
     - mvn test
     - "mvn -Ptest install -B"
-  only:
-    refs:
-      - test-app
-
-maven-test:
-  image: maven:3-jdk-11
-  stage: test
-  script: "mvn test -B"
-  only:
-    refs:
-      - main
-      - develop
-      - test-app
-      - merge_requests
-      - feature-admin
-      - feature-frontend
-      - feature-backend
-
-deploy-prod:
-  stage: deploy
-  image: ruby:latest
-  script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=app-staff-scheduler --api-key=$HEROKU_API_KEY
-  only:
-    refs:
-      - main
-
-deploy-dev:
-  stage: deploy
-  image: ruby:latest
-  script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=app-staff-scheduler-dev --api-key=$HEROKU_API_KEY
-  only:
-    refs:
-      - develop
-
-deploy-test:
-  stage: deploy
-  image: ruby:latest
-  script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=app-staff-scheduler-test --api-key=$HEROKU_API_KEY
   only:
     refs:
       - test-app
