@@ -19,7 +19,8 @@ code_quality:
     - wget -O DesigniteJava.jar https://www.dropbox.com/s/mwizkj8uhplz4x3/DesigniteJava.jar?dl=1
     - echo $CI_PROJECT_PATH
     - echo $PAT
-    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_PATH -pat $PAT -host "git.cs.dal.ca"
+#    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_PATH -pat $PAT -host "git.cs.dal.ca"
+    - java -jar DesigniteJava.jar -ci -repo courses/2022-winter/csci-5308/group20/ -pat $PAT -host "git.cs.dal.ca"
     - 'eval "$UPLOAD_QUALITY_REPORT"'
   only:
     refs:
