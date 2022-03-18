@@ -1,8 +1,5 @@
 image: ubuntu:latest
 stages:
-  - build
-  - test
-  - deploy
   - code_quality
 
 code_quality:
