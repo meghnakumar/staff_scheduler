@@ -11,14 +11,18 @@ import java.util.List;
 @Service
 public class SchedulerServiceImpl implements SchedulerService {
 
+    public String department = "Dept01";
+    public int roleId = 2;
+
     @Autowired
     EmpAvailabilityRepository empAvailabilityRepository;
 
     public List<EmpAvailabilityPOJO> getEmployees(Date date) {
-        List<EmpAvailabilityPOJO> empAvailabilityList = empAvailabilityRepository.findByAvailableDate(date);
-//        for(EmpAvailabilityPOJO employee: empAvailabilityList) {
-//            System.out.println(employee.getEmployee_id());
-//        }
-        return empAvailabilityList;
+//        List<EmpAvailabilityPOJO> empAvailabilityList = empAvailabilityRepository.findByAvailableDate(date);
+        List<EmpAvailabilityPOJO> availableEmployees =empAvailabilityRepository.findEmployeeByDateAndRoleAndDeparment(date, department, roleId);
+        for(EmpAvailabilityPOJO employee: availableEmployees) {
+            System.out.println(employee.getEmployeeId() +" " +  employee.getStartTime() + " " + employee.getEndTime());
+        }
+        return availableEmployees;
     }
 }

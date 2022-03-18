@@ -1,6 +1,5 @@
 package com.scheduler.app.service;
 
-import com.scheduler.app.model.entity.BookDTO;
 import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
 
 import java.sql.Date;
