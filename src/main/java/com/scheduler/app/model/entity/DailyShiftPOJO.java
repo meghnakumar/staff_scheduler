@@ -24,7 +24,7 @@ public class DailyShiftPOJO {
     @JoinColumn(name = "department_id")
     @Getter
     @Setter
-    private DepartmentPOJO department;
+    private DepartmentPOJO departmentId;
 
     @Column(name = "shift_type", length = 50)
     @Getter

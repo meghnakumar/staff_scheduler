@@ -8,6 +8,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
-public interface EmployeeHistoryRepository extends JpaRepository {
+public interface EmployeeHistoryRepository extends JpaRepository<EmpHistoryPOJO, Integer> {
     List<EmpHistoryPOJO> findEmpHistoryById(int employeeId);
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface SchedulerService {
     public List<EmpAvailabilityPOJO> getEmployees(Date date);
-    public List<DailyShiftPOJO> getShifts(Date date, Time startTime, Time endTime);
+    public List<DailyShiftPOJO> getShifts(Date date);
     public List<EmpHistoryPOJO> getEmpHistory(int employeeId);
     public void addEmpHistory(int employeeId);
 

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -21,7 +20,11 @@ public class SchedulerServiceImpl implements SchedulerService {
 
     @Autowired
     EmpAvailabilityRepository empAvailabilityRepository;
+
+    @Autowired
     DailyShiftRepository dailyShiftRepository;
+
+    @Autowired
     EmployeeHistoryRepository employeeHistoryRepository;
 
     public List<EmpAvailabilityPOJO> getEmployees(Date date) {
@@ -34,8 +37,8 @@ public class SchedulerServiceImpl implements SchedulerService {
     }
 
     @Override
-    public List<DailyShiftPOJO> getShifts(Date date, Time startTime, Time endTime) {
-        List<DailyShiftPOJO> dailyShiftList = dailyShiftRepository.findByShiftDateTime(date,startTime,endTime);
+    public List<DailyShiftPOJO> getShifts(Date date) {
+        List<DailyShiftPOJO> dailyShiftList = dailyShiftRepository.findByShiftDate(date);
         return dailyShiftList;
     }
 

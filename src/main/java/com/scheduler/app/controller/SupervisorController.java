@@ -1,8 +1,6 @@
 package com.scheduler.app.controller;
 
-
-import com.scheduler.app.model.request.EmployeeCreationRequest;
-import com.scheduler.app.model.response.EmployeeCreationResponse;
+import com.scheduler.app.model.entity.DailyShiftPOJO;
 import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
 import com.scheduler.app.service.SchedulerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 
 @RestController
@@ -31,9 +30,8 @@ public class SupervisorController {
     @GetMapping("/dailyshifts")
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    String getShifts(@RequestParam Date shiftDate, @RequestParam Time startTime, @RequestParam Time endTime){
-        schedulerService.getShifts(shiftDate,startTime,endTime);
-        return "success";
+    List<DailyShiftPOJO> getShifts(@RequestParam Date shiftDate){
+        return schedulerService.getShifts(shiftDate);
     }
 
     @GetMapping("/emphistory")
