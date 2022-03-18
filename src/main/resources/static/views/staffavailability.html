@@ -4,74 +4,165 @@
     <meta charset="UTF-8">
     <title>Register User</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/jquery-ui.min.css">
     <link rel="stylesheet" href="../css/style.css">
-<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>-->
 
 </head>
 <body>
-<h1 align="center" >USER AVAILABILITY DETAILS</h1>
-<form id="user-registration" action="" method="post">
 
-    <div class = "container" class = "col-md-7">
-        <a href="../views/admin.html"> < Go back</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Staff Scheduler</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <!--                    <li class="nav-item">-->
+                <!--                        <a class="nav-link active" href="../views/registeruser.html"><h5>Register Employee</h5>-->
+                <!--                            <span class="visually-hidden">(current)</span>-->
+                <!--                        </a>-->
+                <!--                    </li>-->
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h1 align="center">USER AVAILABILITY DETAILS</h1>
+<form id="user-registration" action="" method="post" class="col-md-7 custom-form">
+
+    <div class="container" class="col-md-7">
+        <!--        <a href="../views/admin.html"> < Go back</a>-->
         <hr align="center">
-
         <div class="form-group">
-            <label for="monday"><b>Monday</b></label>
-            <input type="hidden" name="employeeNumber" id="employeeNumber" class = "form-control" value="<%=userId>" placeholder="employee ID"/>
-            <select name="slots" id="monday" class = "form-control" placeholder="select slot">
-                <option value="NA">NA</option>
-                <option value="8AM-12PM">8AM-12PM</option>
-                <option value="10AM-2PM">10AM-2PM</option>
-                <option value="12PM-4PM">12PM-4PM</option>
-                <option value="2PM-6PM">2PM-6PM</option>
-                <option value="4PM-8PM">4PM-8PM</option>
-            </select>
-            <label for="tuesday"><b>Tuesday</b></label>
-            <select name="slots" id="tuesday" class = "form-control" placeholder="select slot">
-                <option value="NA">NA</option>
-                <option value="8AM-12PM">8AM-12PM</option>
-                <option value="10AM-2PM">10AM-2PM</option>
-                <option value="12PM-4PM">12PM-4PM</option>
-                <option value="2PM-6PM">2PM-6PM</option>
-                <option value="4PM-8PM">4PM-8PM</option>
-            </select>
+            <!--            <input type="hidden" name="employeeNumber" id="employeeNumber" placeholder="employee ID"/>-->
+            <label for="userDate-monday"></label><input type="text" id="userDate-monday" readonly/>
+            <label><b>Monday</b></label>
+            <input class="form-control form-check-input" type="radio" id="yes-monday" name="monday" value="yes" onclick="radioFunction(this, 'monday')"
+                   checked="checked">
+<!--            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">-->
+            <label for="yes-monday">Available</label>
+            <input type="radio" id="no-monday" name="monday" value="no" onclick="radioFunction(this, 'monday')">
+            <label for="no-monday">Not Available</label><br>
 
-            <label for="wednesday"><b>Wednesday</b></label>
-            <select name="slots" id="wednesday" class = "form-control" placeholder="select slot">
-                <option value="NA">NA</option>
-                <option value="8AM-12PM">8AM-12PM</option>
-                <option value="10AM-2PM">10AM-2PM</option>
-                <option value="12PM-4PM">12PM-4PM</option>
-                <option value="2PM-6PM">2PM-6PM</option>
-                <option value="4PM-8PM">4PM-8PM</option>
-            </select>
+            <div id="monday-group">
+                <label for="monday-start-time">Select shift start time</label>
+                <select name="monday-start-time" id="monday-start-time" placeholder="select time">
+                    <option value="420">6:00 AM</option>
+                    <option value="480">7:00 AM</option>
+                    <option value="540">8:00 AM</option>
+                </select>
 
-            <label for="thursday"><b>Thursday</b></label>
-            <select name="slots" id="thursday" class = "form-control" placeholder="select slot">
-                <option value="NA">NA</option>
-                <option value="8AM-12PM">8AM-12PM</option>
-                <option value="10AM-2PM">10AM-2PM</option>
-                <option value="12PM-4PM">12PM-4PM</option>
-                <option value="2PM-6PM">2PM-6PM</option>
-                <option value="4PM-8PM">4PM-8PM</option>
-            </select>
+                <label for="monday-end-time">Select shift end time</label>
+                <select name="monday-end-time" id="monday-end-time" placeholder="select time">
+                    <option value="1080">6:00 PM</option>
+                    <option value="1140">7:00 PM</option>
+                    <option value="1200">8:00 PM</option>
+                </select>
+            </div>
 
-            <label for="friday"><b>Friday</b></label>
-            <select name="slots" id="friday" class = "form-control" placeholder="select slot">
-                <option value="NA">NA</option>
-                <option value="8AM-12PM">8AM-12PM</option>
-                <option value="10AM-2PM">10AM-2PM</option>
-                <option value="12PM-4PM">12PM-4PM</option>
-                <option value="2PM-6PM">2PM-6PM</option>
-                <option value="4PM-8PM">4PM-8PM</option>
-            </select>
+
+            <label for="userDate-tuesday"></label><input type="text" id="userDate-tuesday" readonly/>
+            <label><b>Tuesday</b></label>
+            <input type="radio" id="yes-tuesday" name="tuesday" value="yes" onclick="radioFunction(this, 'tuesday')"
+                   checked="checked">
+            <label for="yes-tuesday">Available</label>
+            <input type="radio" id="no-tuesday" name="tuesday" value="no" onclick="radioFunction(this, 'tuesday')">
+            <label for="no-tuesday">Not Available</label><br>
+            <div id="tuesday-group">
+                <label for="tuesday-start-time">Select shift start time</label>
+                <select name="tuesday-start-time" id="tuesday-start-time" placeholder="select time">
+                    <option value="420">6:00 AM</option>
+                    <option value="480">7:00 AM</option>
+                    <option value="540">8:00 AM</option>
+                </select>
+
+                <label for="tuesday-end-time">Select shift end time</label>
+                <select name="tuesday-end-time" id="tuesday-end-time" placeholder="select time">
+                    <option value="1080">6:00 PM</option>
+                    <option value="1140">7:00 PM</option>
+                    <option value="1200">8:00 PM</option>
+                </select>
+            </div>
+
+            <label for="userDate-wednesday"></label><input type="text" id="userDate-wednesday" readonly/>
+            <label><b>Wednesday</b></label>
+            <input type="radio" id="yes-wednesday" name="wednesday" value="yes"
+                   onclick="radioFunction(this, 'wednesday')" checked="checked">
+            <label for="yes-wednesday">Available</label>
+            <input type="radio" id="no-wednesday" name="wednesday" value="no"
+                   onclick="radioFunction(this, 'wednesday')">
+            <label for="no-wednesday">Not Available</label><br>
+            <div id="wednesday-group">
+                <label for="wednesday-start-time">Select shift start time</label>
+                <select name="wednesday-start-time" id="wednesday-start-time" placeholder="select time">
+                    <option value="420">6:00 AM</option>
+                    <option value="480">7:00 AM</option>
+                    <option value="540">8:00 AM</option>
+                </select>
+
+                <label for="wednesday-end-time">Select shift end time</label>
+                <select name="wednesday-end-time" id="wednesday-end-time" placeholder="select time">
+                    <option value="1080">6:00 PM</option>
+                    <option value="1140">7:00 PM</option>
+                    <option value="1200">8:00 PM</option>
+                </select>
+            </div>
+
+            <label for="userDate-thursday"></label><input type="text" id="userDate-thursday" readonly/>
+            <label><b>Thursday</b></label>
+            <input type="radio" id="yes-thursday" name="thursday" value="yes" onclick="radioFunction(this, 'thursday')"
+                   checked="checked">
+            <label for="yes-thursday">Available</label>
+            <input type="radio" id="no-thursday" name="thursday" value="no" onclick="radioFunction(this, 'thursday')">
+            <label for="no-thursday">Not Available</label><br>
+            <div id="thursday-group">
+                <label for="thursday-start-time">Select shift start time</label>
+                <select name="thursday-start-time" id="thursday-start-time" placeholder="select time">
+                    <option value="420">6:00 AM</option>
+                    <option value="480">7:00 AM</option>
+                    <option value="540">8:00 AM</option>
+                </select>
+
+                <label for="thursday-end-time">Select shift end time</label>
+                <select name="thursday-end-time" id="thursday-end-time" placeholder="select time">
+                    <option value="1080">6:00 PM</option>
+                    <option value="1140">7:00 PM</option>
+                    <option value="1200">8:00 PM</option>
+                </select>
+            </div>
+
+            <label for="userDate-friday"></label><input type="text" id="userDate-friday" readonly/>
+            <label><b>Friday</b></label>
+            <input type="radio" id="yes-friday" name="friday" value="yes" onclick="radioFunction(this, 'friday')"
+                   checked="checked">
+            <label for="yes-friday">Available</label>
+            <input type="radio" id="no-friday" name="friday" value="no" onclick="radioFunction(this, 'friday')">
+            <label for="no-friday">Not Available</label><br>
+            <div id="friday-group">
+                <label for="friday-start-time">Select shift start time</label>
+                <select name="friday-start-time" id="friday-start-time" placeholder="select time">
+                    <option value="420">6:00 AM</option>
+                    <option value="480">7:00 AM</option>
+                    <option value="540">8:00 AM</option>
+                </select>
+
+                <label for="friday-end-time">Select shift end time</label>
+                <select name="friday-end-time" id="friday-end-time" placeholder="select time">
+                    <option value="1080">6:00 PM</option>
+                    <option value="1140">7:00 PM</option>
+                    <option value="1200">8:00 PM</option>
+                </select>
+            </div>
+
+
             <br>
-            <button type="submit" id="form-submit" class = "form-control" class="registerbtn">Submit Availability</button>
+            <button type="submit" id="form-submit" class="form-control" class="registerbtn">Submit Availability</button>
             <hr>
         </div>
     </div>
