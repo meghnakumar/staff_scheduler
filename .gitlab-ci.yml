@@ -17,7 +17,7 @@ code_quality:
 
   script:
     - wget -O DesigniteJava.jar https://www.dropbox.com/s/mwizkj8uhplz4x3/DesigniteJava.jar?dl=1
-    - java -jar DesigniteJava.jar -ci -repo "csci-5308/group20" -pat $PAT -host "git.cs.dal.ca/courses/2022-winter/"
+    - java -jar DesigniteJava.jar -ci -repo $CI_PROJECT_PATH -pat $PAT -host "git.cs.dal.ca/courses/2022-winter/"
     - 'eval "$UPLOAD_QUALITY_REPORT"'
   only:
     refs:
@@ -28,7 +28,9 @@ code_quality:
 maven-build:
   image: maven:3-jdk-11
   stage: build
-  script: "mvn install -B"
+  script:
+    - mvn compile
+    - "mvn install -B"
   only:
     refs:
       - develop
@@ -48,7 +50,9 @@ maven-build-prod:
 maven-build-test:
   image: maven:3-jdk-11
   stage: build
-  script: "mvn -Ptest install -B"
+  script:
+    - mvn test
+    - "mvn -Ptest install -B"
   only:
     refs:
       - test-app
@@ -71,10 +75,10 @@ deploy-prod:
   stage: deploy
   image: ruby:latest
   script:
-  - apt-get update -qy
-  - apt-get install -y ruby-dev
-  - gem install dpl
-  - dpl --provider=heroku --app=app-staff-scheduler --api-key=$HEROKU_API_KEY
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=app-staff-scheduler --api-key=$HEROKU_API_KEY
   only:
     refs:
       - main
