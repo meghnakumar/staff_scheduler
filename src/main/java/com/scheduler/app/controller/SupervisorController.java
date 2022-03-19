@@ -1,7 +1,6 @@
 package com.scheduler.app.controller;
 
 import com.scheduler.app.model.entity.DailyShiftPOJO;
-import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
 import com.scheduler.app.service.SchedulerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -23,7 +22,7 @@ public class SupervisorController {
     @GetMapping("/get-schedule")
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    List<EmpAvailabilityPOJO> getEmployees(@RequestParam Date startDate, @RequestParam Date endDate) {
+    Map<String, Map> getEmployees(@RequestParam Date startDate, @RequestParam Date endDate) {
         return  schedulerService.getEmployees(startDate);
     }
 

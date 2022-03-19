@@ -8,9 +8,10 @@ import com.scheduler.app.model.entity.EmpHistoryPOJO;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.Map;
 
 public interface SchedulerService {
-    public List<EmpAvailabilityPOJO> getEmployees(Date date);
+    public Map<String, Map> getEmployees(Date date);
     public List<DailyShiftPOJO> getShifts(Date date);
     public List<EmpHistoryPOJO> getEmpHistory(int employeeId);
     public void addEmpHistory(int employeeId);
