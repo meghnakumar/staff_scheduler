@@ -42,7 +42,7 @@ public class EmployeeCreationServiceImplUnitTest {
         setupEmployeeInputRequest();
         when(empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber())).thenReturn(null);
         when(empDetailRepository.saveAndFlush(any())).thenReturn(empDetailPOJO);
-        EmployeeCreationResponse employeeCreationResponse = employeeCreationService.createNewEmployee(employeeCreationRequest);
+        employeeCreationResponse = employeeCreationService.createNewEmployee(employeeCreationRequest);
         assertEquals(employeeCreationResponse.getStatus(),(REQUEST_STATUS.SUCCESS));
     }
 
@@ -53,7 +53,7 @@ public class EmployeeCreationServiceImplUnitTest {
         setupEmployeeInputRequest();
         when(empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber())).thenReturn(emp);
         when(empDetailRepository.saveAndFlush(any())).thenReturn(empDetailPOJO);
-        EmployeeCreationResponse employeeCreationResponse = employeeCreationService.createNewEmployee(employeeCreationRequest);
+        employeeCreationResponse = employeeCreationService.createNewEmployee(employeeCreationRequest);
         assertEquals(employeeCreationResponse.getStatus(),(REQUEST_STATUS.INVALID_REQUEST));
     }
 
