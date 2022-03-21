@@ -26,7 +26,7 @@ $(document).ready(function(){
         if(formData.jobType === 'on'){
             formData["jobType"] = 1;
         } else {
-            formData["photo"] = 0;
+            formData["jobType"] = 0;
         }
     if(valid){
 
