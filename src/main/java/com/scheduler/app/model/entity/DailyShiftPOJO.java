@@ -16,7 +16,7 @@ public class DailyShiftPOJO {
     @Setter
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     @Getter
     @Setter
