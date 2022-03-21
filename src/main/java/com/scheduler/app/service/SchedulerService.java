@@ -4,6 +4,8 @@ import com.scheduler.app.model.entity.BookDTO;
 import com.scheduler.app.model.entity.DailyShiftPOJO;
 import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
 import com.scheduler.app.model.entity.EmpHistoryPOJO;
+import com.scheduler.app.model.request.ScheduleRequest;
+import com.scheduler.app.model.response.ScheduleResponse;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -16,4 +18,5 @@ public interface SchedulerService {
     public List<EmpHistoryPOJO> getEmpHistory(int employeeId);
     public void addEmpHistory(int employeeId);
 
+    public ScheduleResponse getScheduleByDateTime(ScheduleRequest request);
 }

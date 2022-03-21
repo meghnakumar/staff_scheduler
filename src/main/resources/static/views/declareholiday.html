@@ -34,6 +34,17 @@
                 </div>
             </div>
         </nav>
+        <script>
+            //Script to Make sure that while a Holiday is being created, the start date is today or after today.
+            // Can't declare a holiday for the dates passed.
+            $( document ).ready(function() {
+                var today = new Date().toISOString().split('T')[0];
+                //Setting Min to Today
+                document.getElementsByName("startDate")[0].setAttribute('min', today);
+                console.log("Min : " + today);
+            });
+
+        </script>
 
         <div class = "container">
                 <div class="col-sm-4" style="margin: inherit"> <h1 >Declare Holiday</h1> </div>
