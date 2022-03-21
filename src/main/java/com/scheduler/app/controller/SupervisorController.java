@@ -45,8 +45,6 @@ public class SupervisorController {
     }
 
 
-
-
     @PostMapping("/fetch/schedule")
     @Consumes(value = MediaType.APPLICATION_JSON)
     @Produces(value = MediaType.APPLICATION_JSON)
