@@ -5,7 +5,6 @@ import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
-import com.scheduler.app.model.request.StaffAvailabilitiesRequest;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
 import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService{
                 empAvailabilityPOJO = new EmpAvailabilityPOJO();
                 empAvailabilityPOJO.setId(null);
                 empAvailabilityPOJO.setEmployeeNumber(request.getEmployeeNumber());
-                empAvailabilityPOJO.setEmployee_id(employeeCredsDTO.getId());
+                empAvailabilityPOJO.setEmployeeId(employeeCredsDTO.getId());
                 empAvailabilityPOJO.setAvailableDay(request.getAvailableDay());
                 empAvailabilityPOJO.setAvailableDate(request.getAvailableDate());
                 empAvailabilityPOJO.setStartTime(request.getStartTime());
