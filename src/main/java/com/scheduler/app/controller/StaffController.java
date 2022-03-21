@@ -4,6 +4,11 @@ import com.scheduler.app.model.request.StaffAvailabilitiesRequest;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
 import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.service.StaffAvailabilityService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +24,16 @@ public class StaffController {
         @Autowired
         StaffAvailabilityService staffAvailabilityService;
 
-
+    @Operation(summary = "Store the availability of staff for the next week in DB")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Provided staff availability is successfully added" +
+                    "to DB",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = StaffAvailabilityResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "not found",
+                    content = @Content)})
         @PostMapping("/input/availability")
         @Consumes(value = MediaType.APPLICATION_JSON)
         @Produces(value = MediaType.APPLICATION_JSON)
