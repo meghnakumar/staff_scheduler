@@ -4,7 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "dailyshift")
@@ -22,11 +26,6 @@ public class DailyShiftPOJO {
     @Setter
     private DepartmentPOJO department;
 
-    @Column(name = "shift_duration", length = 50)
-    @Getter
-    @Setter
-    private String shiftDuration;
-
     @Column(name = "shift_type", length = 50)
     @Getter
     @Setter
@@ -35,11 +34,27 @@ public class DailyShiftPOJO {
     @Column(name = "start_time")
     @Getter
     @Setter
-    private Instant startTime;
+    private Time startTime;
 
     @Column(name = "end_time")
     @Getter
     @Setter
-    private Instant endTime;
+    private Time endTime;
+
+    @Column(name = "shift_date")
+    @Getter
+    @Setter
+    private Date shiftDate;
+
+    @Column(name = "role_id")
+    @Getter
+    @Setter
+    private Integer roleId;
+
+    @Column(name = "employee_hours")
+    @Getter
+    @Setter
+    private Double employeeHours;
+
 
 }
