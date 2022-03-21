@@ -20,7 +20,7 @@ public class EmpAvailabilityPOJO {
     @Column(name = "employee_id")
     @Getter
     @Setter
-    private Integer employee_id;
+    private Integer employeeId;
 
     @Column(name = "employee_number")
     @Getter

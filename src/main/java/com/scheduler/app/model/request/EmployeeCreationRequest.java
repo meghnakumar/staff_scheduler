@@ -1,6 +1,5 @@
 package com.scheduler.app.model.request;
 
-import com.scheduler.app.model.entity.DepartmentPOJO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

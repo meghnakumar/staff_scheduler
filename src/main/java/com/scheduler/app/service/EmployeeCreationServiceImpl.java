@@ -1,14 +1,11 @@
 package com.scheduler.app.service;
 
 import com.scheduler.app.constants.REQUEST_STATUS;
-import com.scheduler.app.constants.USER_TYPE;
 import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.model.entity.EmpDetailPOJO;
 import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.request.EmployeeCreationRequest;
-import com.scheduler.app.model.request.HolidayCreationRequest;
 import com.scheduler.app.model.response.EmployeeCreationResponse;
-import com.scheduler.app.model.response.HolidayCreationResponse;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
