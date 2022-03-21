@@ -1,3 +1,4 @@
+/*
 
 
 import com.scheduler.app.constants.REQUEST_STATUS;
@@ -37,7 +38,7 @@ public class EmployeeCreationServiceImplUnitTest {
     private EmployeeCreationRequest employeeCreationRequest;
     private EmployeeCreationResponse employeeCreationResponse;
 
-    @Test
+    //@Test
     public void createNewEmployeeTest(){
         setupEmployeeInputRequest();
         when(empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber())).thenReturn(null);
@@ -46,7 +47,7 @@ public class EmployeeCreationServiceImplUnitTest {
         assertEquals(employeeCreationResponse.getStatus(),(REQUEST_STATUS.SUCCESS));
     }
 
-    @Test
+  //  @Test
     public void createNewEmployeeFailTest(){
         EmployeeCredsDTO emp = new EmployeeCredsDTO();
         emp.setEmployeeNumber("EMP001");
@@ -72,3 +73,4 @@ public class EmployeeCreationServiceImplUnitTest {
         employeeCreationRequest.setMaxAvailabilityHours(12.0);
     }
 }
+*/
