@@ -3,6 +3,7 @@ package com.scheduler.app.service;
 import com.scheduler.app.model.entity.*;
 import com.scheduler.app.model.repo.DailyShiftRepository;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
+import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.repo.EmployeeHistoryRepository;
 import com.scheduler.app.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class SchedulerServiceImpl implements SchedulerService {
 
     @Autowired
     EmployeeHistoryRepository employeeHistoryRepository;
+
+    @Autowired
+    EmpDetailRepository empDetailRepository;
 
     public List<ScheduleDetails> getEmployees(Date startDate) {
         Date date = DateUtil.addDays(startDate, -1);
@@ -52,9 +56,8 @@ public class SchedulerServiceImpl implements SchedulerService {
                     List<EmpAvailabilityPOJO> availableEmployees = empAvailabilityRepository.findEmployeeByDateAndRoleAndDeparment(finalDate, k, roleId);
                     List<AssignedEmployeeDetail> assignedEmpList = new ArrayList<>();
                     for(EmpAvailabilityPOJO empAvailability: availableEmployees) {
-                        AssignedEmployeeDetail assignedEmployeeDetail = new AssignedEmployeeDetail(empAvailability.getEmployeeNumber(),
-                                empAvailability.getStartTime().toString(), empAvailability.getEndTime().toString(), "", "");
-                        assignedEmpList.add(assignedEmployeeDetail);
+                        AssignedEmployeeDetail calculatedEmployeeDetail = assignShiftToEmployee(empAvailability);
+                        assignedEmpList.add(calculatedEmployeeDetail);
                     }
 
                     // role details for a department
@@ -72,6 +75,11 @@ public class SchedulerServiceImpl implements SchedulerService {
             scheduleList.add(scheduleDetails);
         }
         return scheduleList;
+    }
+
+    public AssignedEmployeeDetail assignShiftToEmployee(EmpAvailabilityPOJO empAvailability) {
+        return new AssignedEmployeeDetail(empAvailability.getEmployeeNumber(),
+                empAvailability.getStartTime().toString(), empAvailability.getEndTime().toString(), "", "");
     }
 
     public Map<String, Set<Integer>> getDepartMentRolesMap(List<DailyShiftPOJO> dayShifts) {
@@ -101,8 +109,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         }
         return availableEmployees;
     }
-
-
 
 
     public List<DailyShiftPOJO> getShifts(Date date) {
