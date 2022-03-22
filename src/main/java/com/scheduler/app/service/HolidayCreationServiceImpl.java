@@ -2,7 +2,7 @@ package com.scheduler.app.service;
 
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.entity.HolidayPOJO;
-import com.scheduler.app.model.repo.HolidayRepo;
+import com.scheduler.app.model.repo.HolidayRepository;
 import com.scheduler.app.model.request.HolidayCreationRequest;
 import com.scheduler.app.model.response.HolidayCreationResponse;
 import org.apache.logging.log4j.util.Strings;
@@ -15,7 +15,7 @@ public class HolidayCreationServiceImpl implements HolidayCreationService{
 
 
     @Autowired
-    HolidayRepo holidayRepo;
+    HolidayRepository holidayRepository;
 
     @Override
     public HolidayCreationResponse addNewHoliday(HolidayCreationRequest holidayCreationRequest) {
@@ -30,7 +30,7 @@ public class HolidayCreationServiceImpl implements HolidayCreationService{
             holiday.setStartDate(holidayCreationRequest.getStartDate());
             holiday.setEndDate(holidayCreationRequest.getEndDate());
 
-            HolidayPOJO response = holidayRepo.saveAndFlush(holiday);
+            HolidayPOJO response = holidayRepository.saveAndFlush(holiday);
 
             if(response != null) {
                 holidayCreationResponse.setCreated(true);

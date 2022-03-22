@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "supervisor")
 public class SupervisorPOJO {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supervisor_id", nullable = false)
@@ -15,7 +16,7 @@ public class SupervisorPOJO {
     @Setter
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @Getter
     @Setter
     @JoinColumn(name = "employee_id")

@@ -26,7 +26,7 @@ public class DepartmentPOJO {
     @Setter
     private Integer numberOfShifts;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supervisor_id")
     @Getter
     @Setter

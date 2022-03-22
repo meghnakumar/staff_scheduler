@@ -20,7 +20,7 @@ public class EmployeeCreationRequest {
     private String loginPassword = "XYZ";
     private String firstName;
     private String lastName;
-    private Integer phoneNumber;
+    private Long phoneNumber;
     private Integer roleId;
     private byte[] photo;
     private String sinNumber;
