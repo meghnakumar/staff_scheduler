@@ -5,7 +5,6 @@ import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
-import com.scheduler.app.model.request.StaffAvailabilitiesRequest;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
 import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
