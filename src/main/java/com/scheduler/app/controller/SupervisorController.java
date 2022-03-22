@@ -1,6 +1,7 @@
 package com.scheduler.app.controller;
 
 import com.scheduler.app.model.entity.DailyShiftPOJO;
+import com.scheduler.app.model.entity.ScheduleDetails;
 import com.scheduler.app.model.request.ScheduleRequest;
 import com.scheduler.app.model.response.ScheduleResponse;
 import com.scheduler.app.service.SchedulerService;
@@ -25,7 +26,7 @@ public class SupervisorController {
     @GetMapping("/get-schedule")
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    Map<String, Map> getEmployees(@RequestParam Date startDate, @RequestParam Date endDate) {
+    List<ScheduleDetails> getEmployees(@RequestParam Date startDate, @RequestParam Date endDate) {
         return  schedulerService.getEmployees(startDate);
     }
 

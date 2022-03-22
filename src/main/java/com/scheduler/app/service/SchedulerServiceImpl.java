@@ -1,14 +1,10 @@
 package com.scheduler.app.service;
 
-import com.scheduler.app.model.entity.DailyShiftPOJO;
-import com.scheduler.app.model.entity.DepartmentPOJO;
+import com.scheduler.app.model.entity.*;
 import com.scheduler.app.constants.REQUEST_STATUS;
-import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
-import com.scheduler.app.model.entity.EmpHistoryPOJO;
 import com.scheduler.app.model.repo.DailyShiftRepository;
-import com.scheduler.app.model.entity.ScheduleCompositeId;
-import com.scheduler.app.model.entity.SchedulePOJO;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
+import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.repo.EmployeeHistoryRepository;
 import com.scheduler.app.util.DateUtil;
 import com.scheduler.app.model.repo.ScheduleRepository;
@@ -25,11 +21,8 @@ import java.util.*;
 @Service
 public class SchedulerServiceImpl implements SchedulerService {
 
-    public String department = "Dept01";
-    public int roleId = 2;
     public Map<String, Map> algoMap = new HashMap<>();
-
-
+    List<ScheduleDetails> scheduleList = new ArrayList<>();
 
     @Autowired
     EmpAvailabilityRepository empAvailabilityRepository;
@@ -41,9 +34,12 @@ public class SchedulerServiceImpl implements SchedulerService {
     EmployeeHistoryRepository employeeHistoryRepository;
 
     @Autowired
+    EmpDetailRepository empDetailRepository;
+
+    @Autowired
     ScheduleRepository scheduleRepository;
 
-    public Map<String, Map> getEmployees(Date startDate) {
+    public List<ScheduleDetails> getEmployees(Date startDate) {
         Date date = DateUtil.addDays(startDate, -1);
 
         // for each day
@@ -53,25 +49,45 @@ public class SchedulerServiceImpl implements SchedulerService {
             Map<String, Set<Integer>> departmentRoleMap = getDepartMentRolesMap(dayShifts);
 
             Date finalDate = date;
-            Map<String, Map> departmentRoleDetailsMap = new HashMap<>();
+            Map<String, List> departmentRoleDetailsMap = new HashMap<>();
+
+            // departments required for one day
+            List<DepartmentDetails> departmentList = new ArrayList<>();
             // for each department
             departmentRoleMap.forEach((k, v) -> {
-                Map<Integer, List> roleMap = new HashMap<>();
                 Set<Integer> roles = departmentRoleMap.get(k);
 
+                // Roles required by department
+                List<DepartmentRoles> rolesBydepartmentList = new ArrayList<>();
                 // for each role
                 for (Integer roleId : roles) {
                     List<EmpAvailabilityPOJO> availableEmployees = empAvailabilityRepository.findEmployeeByDateAndRoleAndDeparment(finalDate, k, roleId);
-                    roleMap.put(roleId, availableEmployees);
+                    List<AssignedEmployeeDetail> assignedEmpList = new ArrayList<>();
+                    for(EmpAvailabilityPOJO empAvailability: availableEmployees) {
+                        AssignedEmployeeDetail calculatedEmployeeDetail = assignShiftToEmployee(empAvailability);
+                        assignedEmpList.add(calculatedEmployeeDetail);
+                    }
+
+                    // role details for a department
+                    DepartmentRoles dr = new DepartmentRoles(roleId, assignedEmpList);
+                    rolesBydepartmentList.add(dr);
                 }
-                departmentRoleDetailsMap.put(k, roleMap);
+                DepartmentDetails depDetails = new DepartmentDetails(k, rolesBydepartmentList);
+                departmentList.add(depDetails);
+                departmentRoleDetailsMap.put(k, rolesBydepartmentList);
 
             });
             String dateString = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            ScheduleDetails scheduleDetails = new ScheduleDetails(dateString, departmentList);
             algoMap.put(dateString, departmentRoleDetailsMap);
+            scheduleList.add(scheduleDetails);
         }
+        return scheduleList;
+    }
 
-        return algoMap;
+    public AssignedEmployeeDetail assignShiftToEmployee(EmpAvailabilityPOJO empAvailability) {
+        return new AssignedEmployeeDetail(empAvailability.getEmployeeNumber(),
+                empAvailability.getStartTime().toString(), empAvailability.getEndTime().toString(), "", "");
     }
 
     public Map<String, Set<Integer>> getDepartMentRolesMap(List<DailyShiftPOJO> dayShifts) {
@@ -101,8 +117,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         }
         return availableEmployees;
     }
-
-
 
 
     public List<DailyShiftPOJO> getShifts(Date date) {
