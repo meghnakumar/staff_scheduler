@@ -5,7 +5,7 @@ $(document).ready(function(){
     let roles = ["Role 1", "Role 2"];
     addEmpSection(employeeSectionCount, roles);
 
-
+    $( "#department" ).val(sessionStorage.getItem('departmentId'));
 
     $('#supervisor-date-picker').datepicker( {
         showOtherMonths: true,
