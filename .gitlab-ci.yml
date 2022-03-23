@@ -1,9 +1,10 @@
 image: ubuntu:latest
 stages:
+  - code_quality
   - build
   - test
   - deploy
-  - code_quality
+
 
 code_quality:
   stage: code_quality
