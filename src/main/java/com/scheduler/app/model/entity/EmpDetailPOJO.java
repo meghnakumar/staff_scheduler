@@ -1,6 +1,5 @@
 package com.scheduler.app.model.entity;
 
-import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import lombok.Getter;
 import lombok.Setter;
 

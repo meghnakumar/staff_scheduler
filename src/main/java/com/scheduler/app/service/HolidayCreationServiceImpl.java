@@ -35,10 +35,9 @@ public class HolidayCreationServiceImpl implements HolidayCreationService{
             if(response != null) {
                 holidayCreationResponse.setCreated(true);
                 holidayCreationResponse.setStatus(REQUEST_STATUS.SUCCESS);
-                return holidayCreationResponse;
             }
-        }
 
+        }
         return holidayCreationResponse;
     }
 
