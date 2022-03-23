@@ -2,9 +2,11 @@ package com.scheduler.app.controller;
 
 import com.scheduler.app.model.request.EmployeeCreationRequest;
 import com.scheduler.app.model.request.HolidayCreationRequest;
+import com.scheduler.app.model.request.ShiftCreationRequest;
 import com.scheduler.app.model.response.EmployeeCreationResponse;
 import com.scheduler.app.model.response.HolidayCreationResponse;
 import com.scheduler.app.model.response.InfoResponse;
+import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.service.EmployeeCreationService;
 import com.scheduler.app.service.HolidayCreationService;
 import com.scheduler.app.service.UtilityService;
@@ -54,5 +56,14 @@ public class AdminController {
     InfoResponse getStatistic(@RequestParam Boolean onload){
 
      return utilityService.getStatistics(onload);
+    }
+
+    @PostMapping("/shift")
+    @Consumes(value = MediaType.APPLICATION_JSON)
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public @ResponseBody
+    ShiftCreationResponse logShiftDuration(@RequestBody ShiftCreationRequest shift){
+
+        return utilityService.logNewShiftDuration(shift);
     }
 }
