@@ -12,4 +12,7 @@ public class LoginResponse {
     private REQUEST_STATUS status;
     private boolean isValid;
     private USER_TYPE userType;
+    private Integer id;
+    private String employeeNumber;
+    private String departmentId;
 }
