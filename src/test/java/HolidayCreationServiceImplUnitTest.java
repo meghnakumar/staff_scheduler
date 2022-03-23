@@ -1,6 +1,6 @@
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.entity.HolidayPOJO;
-import com.scheduler.app.model.repo.HolidayRepo;
+import com.scheduler.app.model.repo.HolidayRepository;
 import com.scheduler.app.model.request.HolidayCreationRequest;
 import com.scheduler.app.model.response.HolidayCreationResponse;
 import com.scheduler.app.service.HolidayCreationServiceImpl;
@@ -25,7 +25,7 @@ public class HolidayCreationServiceImplUnitTest {
     private HolidayCreationServiceImpl holidayCreationService = new HolidayCreationServiceImpl();
 
     @Mock
-    private HolidayRepo holidayRepo;
+    private HolidayRepository holidayRepo;
 
     @Mock
     private HolidayPOJO holidayPOJO;
