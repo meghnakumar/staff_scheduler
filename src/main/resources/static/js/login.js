@@ -61,6 +61,7 @@ $(document).ready(function(){
                 success: function(data, response){
                     if(response == "success") {
                         sessionStorage.setItem('userId', loginId);
+                        sessionStorage.setItem('departmentId', data.departmentId);
                     }
 
                     // Get userId from session storage which will be used in request body of APIs
@@ -73,7 +74,7 @@ $(document).ready(function(){
                         $(location).attr('href',"/views/staff.html");
                     } else if (data.status === 'INCORRECT_PASSWORD'){
                         //Respond with Error
-                        alert("Incorrect Password for ID: " + loginId);
+                        $("#informFailure").modal('show');
                     } else {
                         $("#invalid").modal('show');
                     }

@@ -50,6 +50,10 @@ public class LoginServiceImpl implements LoginService{
                                 loginResponse.setUserType(USER_TYPE.INVALID);
                 }
 
+                loginResponse.setId(employeeCredsDTO.getId());
+                loginResponse.setEmployeeNumber(employeeCredsDTO.getEmployeeNumber());
+                loginResponse.setDepartmentId(employeeCredsDTO.getDepartmentId());
+
             } else if (employeeCredsDTO != null && employeeCredsDTO.getEmployeeNumber().equals(loginRequest.getUserID())){
 
                 loginResponse.setStatus(REQUEST_STATUS.INCORRECT_PASSWORD);
