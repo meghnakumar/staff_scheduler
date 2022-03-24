@@ -18,6 +18,7 @@ code_quality:
 
   script:
     - wget -O DesigniteJava.jar https://www.dropbox.com/s/mwizkj8uhplz4x3/DesigniteJava.jar?dl=1
+    - echo "$Designite_output"
     - java -jar DesigniteJava.jar -i . -o Designite_output/
     - 'eval "$UPLOAD_QUALITY_REPORT"'
   only:
