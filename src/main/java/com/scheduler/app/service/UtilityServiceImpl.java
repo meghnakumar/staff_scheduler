@@ -157,7 +157,6 @@ public class UtilityServiceImpl implements  UtilityService {
                 finalShiftTimes.add(shiftTimes.get(2)+"-"+shiftTimes.get(3));
                 finalShiftTimes.add(shiftTimes.get(3)+"-"+shiftTimes.get(0));
                 shiftTimingsResponse.setShiftTimes(finalShiftTimes);
-                shiftTimingsResponse.setShiftTimes(shiftTimes);
 
             }
 
@@ -178,90 +177,43 @@ public class UtilityServiceImpl implements  UtilityService {
     }
 
     private void convertTimeFormat(AdminShiftPOJO adminShiftPOJO) {
-                if(null!=adminShiftPOJO.getShift1StartTime()){
-                    String finalShift1 = "";
-                    String shiftstartTime1 = adminShiftPOJO.getShift1StartTime().toString();
-                    String[] timeDivision = shiftstartTime1.split(":");
-                    if((Integer.valueOf(timeDivision[0]))>=12){
-                        int convertedShiftTime = Integer.valueOf(timeDivision[0])==12?Integer.valueOf(timeDivision[0]):(Integer.valueOf(timeDivision[0])) - 12;
-                        finalShift1 = finalShift1+ convertedShiftTime +":"+"00"+"PM";
-                        shiftTimes.add(finalShift1);
-                    }
-                    else if((Integer.valueOf(timeDivision[0]))<12){
-                        finalShift1 = finalShift1+timeDivision[0]+":"+"00"+"AM";
-                        shiftTimes.add(finalShift1);
-                    }
-                }
+        if(null!=adminShiftPOJO.getShift1StartTime()){
+            String finalShift1 = convertedTime(adminShiftPOJO.getShift1StartTime().toString());
+            shiftTimes.add(finalShift1);
+        }
         if(null!=adminShiftPOJO.getShift2StartTime()) {
-                String finalShift2 = "";
-                String shiftstartTime2 = adminShiftPOJO.getShift2StartTime().toString();
-                String[] timeDivision = shiftstartTime2.split(":");
-                if((Integer.valueOf(timeDivision[0]))>=12){
-                    int convertedShiftTime = Integer.valueOf(timeDivision[0])==12?Integer.valueOf(timeDivision[0]):(Integer.valueOf(timeDivision[0])) - 12;
-                    finalShift2 = finalShift2+ convertedShiftTime +":"+"00"+"PM";
-                    shiftTimes.add(finalShift2);
-                }
-                else if((Integer.valueOf(timeDivision[0]))<12){
-                    finalShift2 = finalShift2+timeDivision[0]+":"+"00"+"AM";
-                    shiftTimes.add(finalShift2);
-                }
-            }
+            String finalShift2 = convertedTime(adminShiftPOJO.getShift2StartTime().toString());
+            shiftTimes.add(finalShift2);
+        }
         if(null!=adminShiftPOJO.getShift3StartTime()){
-                String finalShift3 = "";
-                String shiftstartTime3 = adminShiftPOJO.getShift3StartTime().toString();
-                String[] timeDivision = shiftstartTime3.split(":");
-                if((Integer.valueOf(timeDivision[0]))>=12){
-                    int convertedShiftTime = Integer.valueOf(timeDivision[0])==12?Integer.valueOf(timeDivision[0]):(Integer.valueOf(timeDivision[0])) - 12;
-                    finalShift3 = finalShift3+ convertedShiftTime +":"+"00"+"PM";
-                    shiftTimes.add(finalShift3);
-                }
-                else if((Integer.valueOf(timeDivision[0]))<12){
-                    finalShift3 = finalShift3+timeDivision[0]+":"+"00"+"AM";
-                    shiftTimes.add(finalShift3);
-                }
-            }
+            String finalShift3 = convertedTime(adminShiftPOJO.getShift3StartTime().toString());
+            shiftTimes.add(finalShift3);
+        }
         if(null!=adminShiftPOJO.getShift4StartTime()){
-                String finalShift4 = "";
-                String shiftstartTime4 = adminShiftPOJO.getShift4StartTime().toString();
-                String[] timeDivision = shiftstartTime4.split(":");
-                if((Integer.valueOf(timeDivision[0]))>=12){
-                    int convertedShiftTime = Integer.valueOf(timeDivision[0])==12?Integer.valueOf(timeDivision[0]):(Integer.valueOf(timeDivision[0])) - 12;
-                    finalShift4 = finalShift4+ convertedShiftTime +":"+"00"+"PM";
-                    shiftTimes.add(finalShift4);
-                }
-                else if((Integer.valueOf(timeDivision[0]))<12){
-                    finalShift4 = finalShift4+timeDivision[0]+":"+"00"+"AM";
-                    shiftTimes.add(finalShift4);
-                }
-            }
+            String finalShift4 = convertedTime(adminShiftPOJO.getShift4StartTime().toString());
+            shiftTimes.add(finalShift4);
+        }
         if(null!=adminShiftPOJO.getShift5StartTime()) {
-                String finalShift5 = "";
-                String shiftstartTime5 = adminShiftPOJO.getShift5StartTime().toString();
-                String[] timeDivision = shiftstartTime5.split(":");
-                if((Integer.valueOf(timeDivision[0]))>=12){
-                    int convertedShiftTime = Integer.valueOf(timeDivision[0])==12?Integer.valueOf(timeDivision[0]):(Integer.valueOf(timeDivision[0])) - 12;
-                    finalShift5 = finalShift5+ convertedShiftTime +":"+"00"+"PM";
-                    shiftTimes.add(finalShift5);
-                }
-                else if((Integer.valueOf(timeDivision[0]))<12){
-                    finalShift5 = finalShift5+timeDivision[0]+":"+"00"+"AM";
-                    shiftTimes.add(finalShift5);
-                }
-            }
+            String finalShift5 = convertedTime(adminShiftPOJO.getShift5StartTime().toString());
+            shiftTimes.add(finalShift5);
+        }
         if(null!=adminShiftPOJO.getShift6StartTime()){
-                String finalShift6 = "";
-                String shiftstartTime6 = adminShiftPOJO.getShift6StartTime().toString();
-                String[] timeDivision = shiftstartTime6.split(":");
-                if((Integer.valueOf(timeDivision[0]))>=12){
-                    int convertedShiftTime = Integer.valueOf(timeDivision[0])==12?Integer.valueOf(timeDivision[0]):(Integer.valueOf(timeDivision[0])) - 12;
-                    finalShift6 = finalShift6+ convertedShiftTime +":"+"00"+"PM";
-                    shiftTimes.add(finalShift6);
-                }
-                else if((Integer.valueOf(timeDivision[0]))<12){
-                    finalShift6 = finalShift6+timeDivision[0]+":"+"00"+"AM";
-                    shiftTimes.add(finalShift6);
-                }
+            String finalShift6 = convertedTime(adminShiftPOJO.getShift5StartTime().toString());
+            shiftTimes.add(finalShift6);
+        }
+    }
+
+        private String convertedTime(String shiftTime){
+            String finalShift="";
+            String[] timeDivision = shiftTime.split(":");
+            if((Integer.parseInt(timeDivision[0]))>=12){
+                int convertedShiftTime = Integer.parseInt(timeDivision[0])==12?Integer.parseInt(timeDivision[0]):(Integer.parseInt(timeDivision[0])) - 12;
+                finalShift = finalShift+ convertedShiftTime +":"+"00"+"PM";
             }
+            else if((Integer.parseInt(timeDivision[0]))<12){
+                finalShift = finalShift+timeDivision[0]+":"+"00"+"AM";
+            }
+            return finalShift;
         }
 }
 
