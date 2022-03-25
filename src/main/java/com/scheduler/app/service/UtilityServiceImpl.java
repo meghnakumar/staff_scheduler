@@ -168,7 +168,6 @@ public class UtilityServiceImpl implements  UtilityService {
                 finalShiftTimes.add(shiftTimes.get(4)+"-"+shiftTimes.get(5));
                 finalShiftTimes.add(shiftTimes.get(5)+"-"+shiftTimes.get(0));
                 shiftTimingsResponse.setShiftTimes(finalShiftTimes);
-                shiftTimingsResponse.setShiftTimes(shiftTimes);
             }
         } else {
             shiftTimingsResponse.setStatus(REQUEST_STATUS.FAILED);
@@ -208,10 +207,17 @@ public class UtilityServiceImpl implements  UtilityService {
             String[] timeDivision = shiftTime.split(":");
             if((Integer.parseInt(timeDivision[0]))>=12){
                 int convertedShiftTime = Integer.parseInt(timeDivision[0])==12?Integer.parseInt(timeDivision[0]):(Integer.parseInt(timeDivision[0])) - 12;
-                finalShift = finalShift+ convertedShiftTime +":"+"00"+"PM";
+                if(convertedShiftTime<10)
+                    finalShift = finalShift+"0"+convertedShiftTime +":"+"00"+"PM";
+                else
+                    finalShift = finalShift+convertedShiftTime +":"+"00"+"PM";
             }
             else if((Integer.parseInt(timeDivision[0]))<12){
-                finalShift = finalShift+timeDivision[0]+":"+"00"+"AM";
+                int convertedShiftTime = Integer.parseInt(timeDivision[0])==00?12:Integer.parseInt(timeDivision[0]);
+                if(convertedShiftTime<10)
+                    finalShift = finalShift+"0"+convertedShiftTime+":"+"00"+"AM";
+                else
+                    finalShift = finalShift+convertedShiftTime+":"+"00"+"AM";
             }
             return finalShift;
         }
