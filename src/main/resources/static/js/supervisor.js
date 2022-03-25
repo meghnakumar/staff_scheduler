@@ -2,8 +2,9 @@ $(document).ready(function(){
     $( "#department-type" ).hide();
     $( "#employee-detail" ).hide();
     let employeeSectionCount = 1;
-    let roles = ["Role 1", "Role 2"];
-    addEmpSection(employeeSectionCount, roles);
+    let rolesObj = [{name: "Admin", "value": 0}, {name: "Supervisor", "value": 1},
+        {name: "Staff", "value": 2}, {name: "Intern", value: 3}];
+    addEmpSection(employeeSectionCount, rolesObj);
 
     $( "#department" ).val(sessionStorage.getItem('departmentId'));
 
@@ -31,9 +32,9 @@ $(document).ready(function(){
 
     $( "#add-emp-details").click(function() {
         var roleSelected = $( "#employee-type-" + employeeSectionCount).val();
-        roles.splice(roleSelected,1);
+        rolesObj = rolesObj.filter(function(role) { return role.value != roleSelected; });
         employeeSectionCount++;
-        addEmpSection(employeeSectionCount, roles);
+        addEmpSection(employeeSectionCount, rolesObj);
     });
 
     $( "#scheduler-submit").click(function(e) {
@@ -42,8 +43,10 @@ $(document).ready(function(){
         var empDetails = [];
         formData.selectedDate = $("#supervisor-date-picker").val();
         formData.department = $("#department").val();
-        formData.startTime = $("#start-time-1").val();
-        formData.endTime = $("#end-time-1").val();
+        var time = $("#slot").val();
+
+        // formData.startTime = $("#start-time-1").val();
+        // formData.endTime = $("#end-time-1").val();
         for(var i = 1; i <= employeeSectionCount; i++) {
             var roleVal = $("#employee-type-" + i).val();
             var countVal = $("#hoursCount-" + i).val();
@@ -54,14 +57,14 @@ $(document).ready(function(){
     });
 });
 
-function addEmpSection(index, roles) {
+function addEmpSection(index, rolesObj) {
     var html = '';
     html += '<div class="row">';
     html += '    <div class="form-group col-md-6">';
     html += '        <label for="employee-type-'  + index + '">Employee role:</label>';
     html += '        <select class="form-control form-select" id="employee-type-' + index + '">';
-    for(var i = 0; i < roles.length; i++) {
-        html += '            <option>'+ roles[i] + '</option>';
+    for(var i = 0; i < rolesObj.length; i++) {
+        html += '            <option value=" '+ rolesObj[i].value +' ">'+ rolesObj[i].name + '</option>';
     }
     html += '        </select>';
     html += '    </div>';
@@ -71,7 +74,7 @@ function addEmpSection(index, roles) {
     html += '    </div>';
     html += '</div>';
     $('#add-emp-sec').append(html);
-    if(roles.length == 1) {
+    if(rolesObj.length == 1) {
         $("#dynamic-emp").hide();
     }else {
         $("#dynamic-emp").show();
