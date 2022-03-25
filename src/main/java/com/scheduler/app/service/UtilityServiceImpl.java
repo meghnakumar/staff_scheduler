@@ -197,7 +197,7 @@ public class UtilityServiceImpl implements  UtilityService {
             shiftTimes.add(finalShift5);
         }
         if(null!=adminShiftPOJO.getShift6StartTime()){
-            String finalShift6 = convertedTime(adminShiftPOJO.getShift5StartTime().toString());
+            String finalShift6 = convertedTime(adminShiftPOJO.getShift6StartTime().toString());
             shiftTimes.add(finalShift6);
         }
     }
