@@ -1,5 +1,6 @@
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.dto.EmployeeCredsDTO;
+import com.scheduler.app.model.entity.EmpDetailPOJO;
 import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.request.LoginRequest;
 import com.scheduler.app.model.response.LoginResponse;
@@ -29,7 +30,7 @@ public class LoginServiceImplUnitTest {
 
     @Test
     public void inputCredentialsForRole_0_Test(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmpDetailPOJO emp = new EmpDetailPOJO();
         emp.setEmployeeNumber("EMP001");
         emp.setLoginPassword("Password");
         emp.setRoleId(0);
@@ -44,7 +45,7 @@ public class LoginServiceImplUnitTest {
 
     @Test
     public void inputCredentialsForRole_1_Test(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmpDetailPOJO emp = new EmpDetailPOJO();
         emp.setEmployeeNumber("EMP001");
         emp.setLoginPassword("Password");
         emp.setRoleId(1);
@@ -57,7 +58,7 @@ public class LoginServiceImplUnitTest {
     }
     @Test
     public void inputCredentialsForRole_2_Test(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmpDetailPOJO emp = new EmpDetailPOJO();
         emp.setEmployeeNumber("EMP001");
         emp.setLoginPassword("Password");
         emp.setRoleId(2);
@@ -72,7 +73,7 @@ public class LoginServiceImplUnitTest {
 
     @Test
     public void inputCredentialsForRole_3_Test(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmpDetailPOJO emp = new EmpDetailPOJO();
         emp.setEmployeeNumber("EMP001");
         emp.setLoginPassword("Password");
         emp.setRoleId(3);
@@ -86,7 +87,7 @@ public class LoginServiceImplUnitTest {
     }
     @Test
     public void inputCredentialsForIncorrectPasswordTest(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmpDetailPOJO emp = new EmpDetailPOJO();
         emp.setEmployeeNumber("EMP001");
         emp.setLoginPassword("abcd");
         emp.setRoleId(0);

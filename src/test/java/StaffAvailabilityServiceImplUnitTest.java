@@ -2,6 +2,7 @@
 
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.dto.EmployeeCredsDTO;
+import com.scheduler.app.model.entity.EmpDetailPOJO;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
@@ -40,7 +41,7 @@ public  class StaffAvailabilityServiceImplUnitTest {
 
     @Test
     public void inputStaffAvailabilityTest(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmpDetailPOJO emp = new EmpDetailPOJO();
         emp.setEmployeeNumber("EMP001");
         staffAvailabilityRequest = new StaffAvailabilityRequest();
         staffAvailabilityRequest.setEmployeeNumber("EMP001");
@@ -56,7 +57,7 @@ public  class StaffAvailabilityServiceImplUnitTest {
     @Test
     public void inputStaffAvailabilityWhenEmployeeNotinDBTest(){
         staffAvailabilityRequest = new StaffAvailabilityRequest();
-        staffAvailabilityRequest.setEmployeeNumber("EMP001");
+        staffAvailabilityRequest.setEmployeeNumber("EMP0017");
         staffAvailabilityRequest.setAvailableDay("Friday");
         List<StaffAvailabilityRequest> list = new ArrayList<>();
         list.add(staffAvailabilityRequest);

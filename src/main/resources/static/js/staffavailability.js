@@ -11,6 +11,7 @@ $(document).ready(function () {
     dayList.forEach(item => {
         document.getElementById("userDate-" + item).value = dateDetails[item]
     });
+    fetchShifts();
     const form = document.querySelector("#user-registration");
     if (form) {
         form.addEventListener("submit", function (e) {
@@ -130,6 +131,25 @@ function submitForm(e, form, userId, dateDetails) {
     */
 }
 
+function fetchShifts() {
+    $.ajax({
+        contentType: 'application/json',
+        dataType: 'json',
+        type: 'get',
+        url: '/utility/fetch/shifts',
+        success: function(data, response){
+            let shifts = data.shiftTimes;
+            var option = '';
+            for (var i=0; i<shifts.length; i++){
+                option += '<option value="'+ shifts[i] + '">' + shifts[i] + '</option>';
+            }
+            $('#monday-slot').append(option);
+        },error: function(response) {
+            console.log("Error status", response.status, "Error text", response.statusText);
+        }
+    });
+}
+
 
 function createRequestBody(form, userId, dateDetails) {
     const resultJSON = [];
@@ -176,3 +196,5 @@ function radioFunction(element, day) {
     }
 
 }
+
+

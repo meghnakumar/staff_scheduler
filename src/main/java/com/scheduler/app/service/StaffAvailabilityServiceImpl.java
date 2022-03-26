@@ -3,6 +3,7 @@ package com.scheduler.app.service;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
+import com.scheduler.app.model.entity.EmpDetailPOJO;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StaffAvailabilityServiceImpl implements StaffAvailabilityService{
+public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
 
     @Autowired
     EmpDetailRepository empDetailRepository;
@@ -22,6 +23,9 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService{
     EmpAvailabilityRepository empAvailabilityRepository;
 
     EmployeeCredsDTO employeeCredsDTO;
+
+    EmpDetailPOJO empDetailPOJO;
+
     boolean check = false;
 
     @Override
@@ -29,9 +33,9 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService{
 
         StaffAvailabilityResponse staffAvailabilityResponse = new StaffAvailabilityResponse();
         check = verifyStaff(staffAvailabilitiesRequest.get(0).getEmployeeNumber());
-        if(check){
+        if (check) {
             EmpAvailabilityPOJO empAvailabilityPOJO = null;
-            for(StaffAvailabilityRequest request: staffAvailabilitiesRequest){
+            for (StaffAvailabilityRequest request : staffAvailabilitiesRequest) {
                 empAvailabilityPOJO = new EmpAvailabilityPOJO();
                 empAvailabilityPOJO.setId(null);
                 empAvailabilityPOJO.setEmployeeNumber(request.getEmployeeNumber());
@@ -44,8 +48,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService{
             }
             staffAvailabilityResponse.setStatus(REQUEST_STATUS.SUCCESS);
             staffAvailabilityResponse.setEntered(true);
-        }
-        else{
+        } else {
             staffAvailabilityResponse.setStatus(REQUEST_STATUS.INVALID_REQUEST);
             staffAvailabilityResponse.setEntered(false);
         }
@@ -55,10 +58,10 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService{
     @Override
     public boolean verifyStaff(String employeeNumber) {
 
-        employeeCredsDTO = empDetailRepository.getTopByEmployeeNumber(employeeNumber);
+        empDetailPOJO = empDetailRepository.getTopByEmployeeNumber(employeeNumber);
 
-        if(null!=employeeCredsDTO && null!=employeeCredsDTO.getEmployeeNumber()){
-                return true;
+        if(null!=empDetailPOJO && null!=empDetailPOJO.getEmployeeNumber()){
+            return true;
         }
         return false;
     }
