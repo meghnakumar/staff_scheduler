@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 @Service
-public final class MailService {
+public class MailService {
 
     private static MailService mailServiceInstance;
 
