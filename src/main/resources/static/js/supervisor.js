@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $( "#department-type" ).hide();
     $( "#employee-detail" ).hide();
+    fetchShifts();
     let employeeSectionCount = 1;
     let rolesObj = [{name: "Admin", "value": 0}, {name: "Supervisor", "value": 1},
         {name: "Staff", "value": 2}, {name: "Intern", value: 3}];
@@ -55,6 +56,25 @@ $(document).ready(function(){
         formData.empDetails = empDetails;
         console.log(formData)
     });
+
+    function fetchShifts() {
+        $.ajax({
+            contentType: 'application/json',
+            dataType: 'json',
+            type: 'get',
+            url: '/utility/fetch/shifts',
+            success: function(data, response){
+                let shifts = data.shiftTimes;
+                var option = '';
+                for (var i=0; i<shifts.length; i++){
+                    option += '<option value="'+ shifts[i] + '">' + shifts[i] + '</option>';
+                }
+                $('#slot').append(option);
+            },error: function(response) {
+                console.log("Error status", response.status, "Error text", response.statusText);
+            }
+        });
+    }
 });
 
 function addEmpSection(index, rolesObj) {
