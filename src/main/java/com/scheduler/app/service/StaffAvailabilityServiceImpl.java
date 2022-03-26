@@ -39,7 +39,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 empAvailabilityPOJO = new EmpAvailabilityPOJO();
                 empAvailabilityPOJO.setId(null);
                 empAvailabilityPOJO.setEmployeeNumber(request.getEmployeeNumber());
-                empAvailabilityPOJO.setEmployeeId(employeeCredsDTO.getId());
+                empAvailabilityPOJO.setEmployeeId(empDetailPOJO.getId());
                 empAvailabilityPOJO.setAvailableDay(request.getAvailableDay());
                 empAvailabilityPOJO.setAvailableDate(request.getAvailableDate());
                 empAvailabilityPOJO.setStartTime(request.getStartTime());
