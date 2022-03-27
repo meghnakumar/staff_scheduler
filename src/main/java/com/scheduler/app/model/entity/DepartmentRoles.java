@@ -1,10 +1,12 @@
 package com.scheduler.app.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
+@AllArgsConstructor
 public class DepartmentRoles {
 
     @Getter
@@ -14,10 +16,5 @@ public class DepartmentRoles {
     @Getter
     @Setter
     private List<AssignedEmployeeDetail> employeeList;
-
-    public DepartmentRoles(Integer role, List<AssignedEmployeeDetail> employeeList) {
-        this.role = role;
-        this.employeeList = employeeList;
-    }
 
 }

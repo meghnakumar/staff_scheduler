@@ -2,12 +2,14 @@ package com.scheduler.app.service;
 
 import com.scheduler.app.model.entity.*;
 import com.scheduler.app.constants.REQUEST_STATUS;
-import com.scheduler.app.model.repo.DailyShiftRepository;
-import com.scheduler.app.model.repo.EmpAvailabilityRepository;
-import com.scheduler.app.model.repo.EmpDetailRepository;
-import com.scheduler.app.model.repo.EmployeeHistoryRepository;
+import com.scheduler.app.model.repo.*;
+import com.scheduler.app.model.request.RequiredRoleHours;
+import com.scheduler.app.model.request.ShiftDetailsRequest;
+import com.scheduler.app.model.request.StaffAvailabilityRequest;
+import com.scheduler.app.model.response.ShiftCreationResponse;
+import com.scheduler.app.model.response.ShiftDetailsResponse;
+import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.util.DateUtil;
-import com.scheduler.app.model.repo.ScheduleRepository;
 import com.scheduler.app.model.request.ScheduleRequest;
 import com.scheduler.app.model.response.ScheduleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.*;
 
 
@@ -38,6 +41,49 @@ public class SchedulerServiceImpl implements SchedulerService {
 
     @Autowired
     ScheduleRepository scheduleRepository;
+
+    @Autowired
+    ShiftDetailsRepository shiftDetailsRepository;
+
+    @Override
+    public ShiftDetailsResponse saveShiftDetails(ShiftDetailsRequest shiftDetailsRequest) {
+        List<RequiredRoleHours> roleHours = shiftDetailsRequest.getShiftRoleHours();
+        List<ShiftDetailsPOJO> shiftList = new ArrayList<>();
+        String departmentId = shiftDetailsRequest.getDepartmentId();
+        int slotType = shiftDetailsRequest.getSlotType();
+        LocalTime startTime = getTime(shiftDetailsRequest.getStartTime());
+        LocalTime endTime = getTime(shiftDetailsRequest.getEndTime());
+        Date shiftDate = Date.valueOf(shiftDetailsRequest.getShiftDate());
+
+        // fetch the records based on shiftDate, departmentId and startTime, it will give multiple records if roles are multiple.
+        // Delete the records
+        List <ShiftDetailsPOJO> currentDetails = shiftDetailsRepository.findByShiftDateAndDepartmentIdAndStartTime(shiftDate, departmentId, startTime);
+        for(ShiftDetailsPOJO shiftDetail: currentDetails) {
+            shiftDetailsRepository.deleteById(shiftDetail.getId());
+        }
+
+        // insert record for each role in dailyshift table
+        for (RequiredRoleHours item: roleHours) {
+            ShiftDetailsPOJO shiftDetails = new ShiftDetailsPOJO();
+            shiftDetails.setDepartmentId(departmentId);
+            shiftDetails.setStartTime(startTime);
+            shiftDetails.setEndTime(endTime);
+            shiftDetails.setShiftDate(shiftDate);
+            shiftDetails.setShiftType(slotType);
+            shiftDetails.setRoleId(item.getRoleId());
+            shiftDetails.setEmployeeHours(item.getEmployeeHours());
+            shiftDetails.setEmployeeHours(item.getEmployeeHours());
+            shiftList.add(shiftDetails);
+            shiftDetailsRepository.saveAndFlush(shiftDetails);
+        }
+        return new ShiftDetailsResponse(REQUEST_STATUS.SUCCESS, true);
+    }
+
+    private LocalTime getTime(String time) {
+        String[] splitTime = time.split(":");
+        LocalTime localTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
+        return localTime;
+    }
 
     public List<ScheduleDetails> getEmployees(Date startDate) {
         Date date = DateUtil.addDays(startDate, -1);
