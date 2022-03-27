@@ -21,7 +21,7 @@ public class EmpAvailablityNewPOJO {
     @JoinColumn(name = "department_id")
     @Getter
     @Setter
-    private DepartmentPOJO department;
+    private DepartmentPOJO departmentId;
 
     @Column(name = "shiftdate")
     @Getter

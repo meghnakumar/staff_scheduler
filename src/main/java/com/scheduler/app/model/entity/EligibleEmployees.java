@@ -2,6 +2,10 @@ package com.scheduler.app.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.sql.Time;
 
 public class EligibleEmployees {
@@ -15,13 +19,13 @@ public class EligibleEmployees {
 
     @Getter
     @Setter
-    public String id;
+    public int id;
 
     @Getter
     @Setter
     public int totalHoursLastWeek;
 
-    public EligibleEmployees(Time availableStartTime,Time availableEndTime,int totalHoursLastWeek, String id){
+    public EligibleEmployees(Time availableStartTime, Time availableEndTime, int totalHoursLastWeek, int id){
 
     this.availableStartTime=availableStartTime;
     this.availableEndTime=availableEndTime;

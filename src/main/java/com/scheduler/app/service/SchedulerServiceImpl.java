@@ -203,5 +203,19 @@ public class SchedulerServiceImpl implements SchedulerService {
         }
     }
 
+    @Override
+    public List<DailyShiftPOJO> getDailyShifts() {
+        List<DailyShiftPOJO> dailyShiftList = dailyShiftRepository.findAll();
+        return dailyShiftList;
+    }
+
+    @Override
+    public List<EligibleEmployees> getEligibleEmployees() {
+        List<EligibleEmployees> eligibleEmployeesList = new ArrayList<EligibleEmployees>();
+        //  eligibleEmployeesList.add()
+        return eligibleEmployeesList;
+    }
+
+
 
 }

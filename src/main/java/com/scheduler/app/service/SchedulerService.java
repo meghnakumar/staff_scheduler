@@ -20,4 +20,7 @@ public interface SchedulerService {
     public void addEmpHistory(int employeeId);
     public ShiftDetailsResponse saveShiftDetails(ShiftDetailsRequest shiftDetailsRequest);
     public ScheduleResponse getScheduleByDateTime(ScheduleRequest request);
+    public List<DailyShiftPOJO> getDailyShifts();
+    public List<EligibleEmployees> getEligibleEmployees();
+
 }
