@@ -14,13 +14,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface SchedulerService {
-    public List<ScheduleDetails> getEmployees(Date date);
-    public List<DailyShiftPOJO> getShifts(Date date);
-    public List<EmpHistoryPOJO> getEmpHistory(int employeeId);
-    public void addEmpHistory(int employeeId);
-    public ShiftDetailsResponse saveShiftDetails(ShiftDetailsRequest shiftDetailsRequest);
-    public ScheduleResponse getScheduleByDateTime(ScheduleRequest request);
-    public List<DailyShiftPOJO> getDailyShifts();
-    public List<EligibleEmployees> getEligibleEmployees();
+     List<ScheduleDetails> getEmployees(Date date);
+     List<DailyShiftPOJO> getShifts(Date date);
+     List<EmpHistoryPOJO> getEmpHistory(int employeeId);
+     //void addEmpHistory(int employeeId);
+     ShiftDetailsResponse saveShiftDetails(ShiftDetailsRequest shiftDetailsRequest);
+     ScheduleResponse getScheduleByDateTime(ScheduleRequest request);
+     void algoImplementation();
+     List<DailyShiftPOJO> getDailyShifts();
+    //public List<EligibleEmployees> getEligibleEmployees();
 
 }

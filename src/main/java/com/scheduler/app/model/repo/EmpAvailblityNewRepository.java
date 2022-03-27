@@ -13,8 +13,8 @@ import java.util.List;
 public interface EmpAvailblityNewRepository extends JpaRepository<EmpAvailablityNewPOJO, Integer> {
     List<EmpAvailablityNewPOJO> findAll();
 
-    @Query("SELECT new com.scheduler.app.model.entity.EligibleEmployees(e.startTime,e.endTime,h.totalHoursWeekly,e.employeeId) FROM emphistory h inner join EmpAvailablityNewPOJO e where emphistory.employeeId=EmpAvailablityNewPOJO .employeeId and EmpAvailablityNewPOJO .roleId = :role and EmpAvailablityNewPOJO.shiftdate = :shiftdate and EmpAvailablityNewPOJO.departmentId =:department_id order by h.totalHoursWeekly")
-    List<EligibleEmployees> fetchEligibleEmployeesInnerJoin(@Param("role_id") Date date, @Param("department") String department, @Param("role") int roleId);
-
+ /*   @Query("SELECT new com.scheduler.app.model.entity.EligibleEmployees(e.startTime,e.endTime,h.totalHoursWeekly,e.employeeId) FROM emphistory h inner join EmpAvailablityNewPOJO e where emphistory.employeeId=EmpAvailablityNewPOJO .employeeId and EmpAvailablityNewPOJO .roleId = :role and EmpAvailablityNewPOJO.shiftdate = :shiftdate and EmpAvailablityNewPOJO.departmentId =:department_id order by h.totalHoursWeekly")
+    List<EligibleEmployees> fetchEligibleEmployeesInnerJoin(@Param("role_id") Date date, @Param("department") String department);
+*/
 }
 

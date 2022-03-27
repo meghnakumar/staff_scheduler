@@ -1,5 +1,6 @@
 package com.scheduler.app.service;
 
+import com.scheduler.app.databasejdbc.DatabaseOperations;
 import com.scheduler.app.model.entity.*;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.repo.*;
@@ -175,9 +176,9 @@ public class SchedulerServiceImpl implements SchedulerService {
         return empHistoryList;
     }
 
-    public void addEmpHistory(int employeeId) {
+/*    public void addEmpHistory(int employeeId) {
 
-    }
+    }*/
 
     @Override
     public ScheduleResponse getScheduleByDateTime(ScheduleRequest scheduleRequest) {
@@ -209,13 +210,33 @@ public class SchedulerServiceImpl implements SchedulerService {
         return dailyShiftList;
     }
 
-    @Override
+  /*  @Override
     public List<EligibleEmployees> getEligibleEmployees() {
         List<EligibleEmployees> eligibleEmployeesList = new ArrayList<EligibleEmployees>();
         //  eligibleEmployeesList.add()
         return eligibleEmployeesList;
+    }*/
+
+    public void algoImplementation(){
+        double totalHours;
+        List<DailyShiftPOJO> shiftList=getDailyShifts();
+        for (DailyShiftPOJO dailyShiftPOJO : shiftList){
+            List< EligibleEmployees> eligibleEmployeesList = DatabaseOperations.getEligibleEmployees(dailyShiftPOJO.getRoleId().toString(), dailyShiftPOJO.getShiftDate().toString(), dailyShiftPOJO.getDepartment().getId());
+            totalHours=dailyShiftPOJO.getEmployeeHours();
+            for (EligibleEmployees eligibleEmployee: eligibleEmployeesList){
+                if(eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())) {
+                    totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
+                    if(totalHours <= 0) {
+                        break;
+                    }
+                    // store in output table
+                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
+
+                    System.out.println(""+dailyShiftPOJO.getDepartment().getId()+""+eligibleEmployee.employeeId+ dailyShiftPOJO.getStartTime()+ dailyShiftPOJO.getEndTime()+ dailyShiftPOJO.getShiftDate()+ dailyShiftPOJO.getRoleId()+""+ (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
+                }
+            }
+        }
+
     }
-
-
 
 }
