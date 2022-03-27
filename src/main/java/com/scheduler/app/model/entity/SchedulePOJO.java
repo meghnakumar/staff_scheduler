@@ -5,13 +5,19 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalTime;
 
+/**
+ * The type - Schedule POJO.
+ * Maps the fields to the 'outputschema' table in the DB.
+ */
 @Entity
 @Table(name = "outputschema", indexes = {@Index(name = "department_id", columnList = "department_id")})
 public class SchedulePOJO {
 
+    //Table has a Composite Key handled by ScheduleCompositeId type.
     @EmbeddedId
     private ScheduleCompositeId id;
 
+    //Has a Foreign Key - "department_id" in the 'department' table. [DepartmentPOJO]
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     @Getter

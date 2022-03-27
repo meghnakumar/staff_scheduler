@@ -5,6 +5,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * The type - Department Entity POJO.
+ * Maps the fields to the 'department' table in the DB.
+ */
 @Entity
 @Table(name = "department")
 public class DepartmentPOJO {
@@ -24,6 +28,7 @@ public class DepartmentPOJO {
     @Setter
     private Integer numberOfShifts;
 
+    //Has a Foreign Key - "supervisor_id" in the 'supervisor' table. [SupervisorPOJO]
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supervisor_id")
     @Getter
