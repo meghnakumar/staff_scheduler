@@ -6,6 +6,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Date;
 
+/**
+ * The type - Holiday Entity POJO.
+ * Maps the fields to the 'holiday' table in the DB.
+ */
 @Entity
 @Table(name = "holiday")
 public class HolidayPOJO {

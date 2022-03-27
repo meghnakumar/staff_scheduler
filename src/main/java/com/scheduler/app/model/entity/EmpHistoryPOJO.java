@@ -7,7 +7,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity(name = "emphistory")
+
+/**
+ * The type - Employee History Entity POJO.
+ * Maps the fields to the 'emphistory' table in the DB.
+ */
+@Entity
 @Table(name = "emphistory")
 public class EmpHistoryPOJO {
     @Id
