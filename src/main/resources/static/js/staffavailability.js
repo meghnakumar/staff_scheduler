@@ -8,8 +8,12 @@ $(document).ready(function () {
     // var dayList = ["monday", "tuesday"];
     var dateDetails = getDateDetails(dayList);
     // document.getElementById("userDate-monday").value = formatDate(nextWorkingMondayDate);
+    // $("testdiv").text("data")
+    // $("testlabel").text("data test")
     dayList.forEach(item => {
-        document.getElementById("userDate-" + item).value = dateDetails[item]
+        var dateArr = dateDetails[item]
+        $("#userDate-" + item).text(dateArr[0]);
+        // document.getElementById("userDate-" + item).value = dateDetails[item]
     });
     fetchShifts();
     const form = document.querySelector("#user-registration");

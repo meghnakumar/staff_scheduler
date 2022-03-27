@@ -41,23 +41,22 @@
         <form id="user-registration" action="/" method="post" class="col-md-7 custom-form">
             <fieldset>
                 <legend>User Availability Details</legend>
-                <!--                <div class="form-group row">-->
                 <div class="container" class="col-md-7">
                     <!--        <a href="../views/admin.html"> < Go back</a>-->
                     <hr align="center">
                     <div class="form-group">
                         <!--            <input type="hidden" name="employeeNumber" id="employeeNumber" placeholder="employee ID"/>-->
 <!--                        <label class="col-sm-2 col-form-label" for="userDate-monday">Day</label>-->
-                        <input type="text" id="userDate-monday" readonly/>
-                        <label class="col-sm-2 col-form-label"><b>Monday</b></label>
+<!--                        <input type="text" id="userDate-monday" readonly/>-->
+                        <label class="col-sm-3 col-form-label" id="userDate-monday"></label>
                         <input class="form-check-input" type="radio" id="yes-monday" name="monday" value="yes"
                                onclick="radioFunction(this, 'monday')"
-                               checked="checked">
+                               checked="checked">Available</input>
                         <!--            <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled="">-->
-                        <label class="col-sm-2 col-form-label" for="yes-monday">Available</label>
+<!--                        <label class="col-sm-3 col-form-label" for="yes-monday">Available</label>-->
                         <input type="radio" id="no-monday" name="monday" value="no"
-                               onclick="radioFunction(this, 'monday')">
-                        <label class="col-sm-2 col-form-label" for="no-monday">Not Available</label><br>
+                               onclick="radioFunction(this, 'monday')"> Not Available</input>
+<!--                        <label class="col-sm-2 col-form-label" for="no-monday">Not Available</label><br>-->
                     </div>
                     <div id="monday-group">
                         <label for="monday-slot">Select shift start time</label>
