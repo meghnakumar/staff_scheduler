@@ -1,7 +1,7 @@
 package com.scheduler.app.controller;
 
-import com.scheduler.app.model.request.ScheduleRequest;
-import com.scheduler.app.model.response.ScheduleResponse;
+import com.scheduler.app.model.request.ScheduleOutputRequest;
+import com.scheduler.app.model.response.ScheduleOutputResponse;
 import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.service.SchedulerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,8 +36,8 @@ public class ScheduleController {
     @Consumes(value = MediaType.APPLICATION_JSON)
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    ScheduleResponse getScheduleByShift(@RequestBody ScheduleRequest scheduleRequest){
+    ScheduleOutputResponse getScheduleByShift(@RequestBody ScheduleOutputRequest scheduleOutputRequest){
 
-        return schedulerService.getScheduleByDateTime(scheduleRequest);
+        return schedulerService.getScheduleByDateTime(scheduleOutputRequest);
     }
 }

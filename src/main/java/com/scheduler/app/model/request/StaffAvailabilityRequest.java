@@ -5,6 +5,9 @@ import lombok.Setter;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * The type - Request Object for Staff availability.
+ */
 @Getter
 @Setter
 public class StaffAvailabilityRequest {

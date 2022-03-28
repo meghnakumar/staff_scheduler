@@ -7,8 +7,8 @@ import com.scheduler.app.model.request.RequiredRoleHours;
 import com.scheduler.app.model.request.ShiftDetailsRequest;
 import com.scheduler.app.model.response.ShiftDetailsResponse;
 import com.scheduler.app.util.DateUtil;
-import com.scheduler.app.model.request.ScheduleRequest;
-import com.scheduler.app.model.response.ScheduleResponse;
+import com.scheduler.app.model.request.ScheduleOutputRequest;
+import com.scheduler.app.model.response.ScheduleOutputResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -178,16 +178,16 @@ public class SchedulerServiceImpl implements SchedulerService {
     }
 
     @Override
-    public ScheduleResponse getScheduleByDateTime(ScheduleRequest scheduleRequest) {
+    public ScheduleOutputResponse getScheduleByDateTime(ScheduleOutputRequest scheduleOutputRequest) {
 
-        if(scheduleRequest.getShiftDate() == null || scheduleRequest.getShiftTime() == null || scheduleRequest.getDepartmentId().isEmpty()){
-            return new ScheduleResponse(REQUEST_STATUS.INVALID_REQUEST, false, Collections.emptyMap());
+        if(scheduleOutputRequest.getShiftDate() == null || scheduleOutputRequest.getShiftTime() == null || scheduleOutputRequest.getDepartmentId().isEmpty()){
+            return new ScheduleOutputResponse(REQUEST_STATUS.INVALID_REQUEST, false, Collections.emptyMap());
 
         } else {
 
-            LocalDate shiftDate = scheduleRequest.getShiftDate();
-            LocalTime shiftTime = scheduleRequest.getShiftTime();
-            String departmentType = scheduleRequest.getDepartmentId();
+            LocalDate shiftDate = scheduleOutputRequest.getShiftDate();
+            LocalTime shiftTime = scheduleOutputRequest.getShiftTime();
+            String departmentType = scheduleOutputRequest.getDepartmentId();
 
             Map<String, List<ScheduleOutputPOJO>> scheduleMap = new HashMap<>();
             List<ScheduleOutputPOJO> scheduleOutputPOJOList = new ArrayList<>();
@@ -202,10 +202,10 @@ public class SchedulerServiceImpl implements SchedulerService {
 
                 scheduleMap.put(departmentType, scheduleOutputPOJOList);
 
-                return new ScheduleResponse(REQUEST_STATUS.SUCCESS, true, scheduleMap);
+                return new ScheduleOutputResponse(REQUEST_STATUS.SUCCESS, true, scheduleMap);
             } else {
 
-                return new ScheduleResponse(REQUEST_STATUS.SUCCESS, false,  Collections.emptyMap());
+                return new ScheduleOutputResponse(REQUEST_STATUS.SUCCESS, false,  Collections.emptyMap());
             }
 
         }

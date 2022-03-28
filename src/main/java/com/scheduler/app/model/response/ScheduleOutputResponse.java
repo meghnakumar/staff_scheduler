@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ScheduleResponse {
+public class ScheduleOutputResponse {
 
     private REQUEST_STATUS status;
     private boolean isScheduleAvailable;
