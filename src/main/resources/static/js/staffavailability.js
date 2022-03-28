@@ -136,7 +136,7 @@ function submitForm(e, form, userId, dateDetails) {
             // } else if (data.userType === "SUPERVISOR" && data.status === 'SUCCESS') {
             //     $(location).attr('href',"/views/supervisorShifts.html");
             // } else if (data.userType === 'STAFF' && data.status === 'SUCCESS'){
-            //     $(location).attr('href',"/views/staff.html");
+            //     $(location).attr('href',"/views/staffHome.html");
             // } else if (data.status === 'INCORRECT_PASSWORD'){
             //     //Respond with Error
             //     alert("Incorrect Password for ID: " + loginId);
