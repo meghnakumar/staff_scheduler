@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
@@ -58,6 +59,13 @@ public class SupervisorController {
     List<DailyShiftPOJO> getShifts(@RequestParam Date shiftDate){
         return schedulerService.getShifts(shiftDate);
     }
+
+    @GetMapping("/generateschedule")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void algorithmTrigger(){
+        schedulerService.algoImplementation();
+    }
+
 
     @GetMapping("/emphistory")
     @Produces(value = MediaType.APPLICATION_JSON)
