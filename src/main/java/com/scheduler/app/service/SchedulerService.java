@@ -13,7 +13,10 @@ public interface SchedulerService {
     public List<ScheduleDetails> getEmployees(Date date);
     public List<DailyShiftPOJO> getShifts(Date date);
     public List<EmpHistoryPOJO> getEmpHistory(int employeeId);
-    public void addEmpHistory(int employeeId);
     public ShiftDetailsResponse saveShiftDetails(ShiftDetailsRequest shiftDetailsRequest);
     public ScheduleOutputResponse getScheduleByDateTimeDepartment(ScheduleOutputRequest request);
+
+    List<DailyShiftPOJO> getDailyShifts();
+
+    void algoImplementation();
 }
