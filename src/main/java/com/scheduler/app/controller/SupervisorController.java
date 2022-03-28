@@ -2,13 +2,8 @@ package com.scheduler.app.controller;
 
 import com.scheduler.app.model.entity.DailyShiftPOJO;
 import com.scheduler.app.model.entity.ScheduleDetails;
-import com.scheduler.app.model.request.ScheduleRequest;
 import com.scheduler.app.model.request.ShiftDetailsRequest;
-import com.scheduler.app.model.request.StaffAvailabilitiesRequest;
-import com.scheduler.app.model.request.StaffAvailabilityRequest;
-import com.scheduler.app.model.response.ScheduleResponse;
 import com.scheduler.app.model.response.ShiftDetailsResponse;
-import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.service.SchedulerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
@@ -64,22 +60,19 @@ public class SupervisorController {
         return schedulerService.getShifts(shiftDate);
     }
 
+    @GetMapping("/generateschedule")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void algorithmTrigger(){
+        schedulerService.algoImplementation();
+    }
+
+
     @GetMapping("/emphistory")
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
     String getEmpHistory(@RequestParam int employeeId){
         schedulerService.getEmpHistory(employeeId);
         return "success";
-    }
-
-
-    @PostMapping("/fetch/schedule")
-    @Consumes(value = MediaType.APPLICATION_JSON)
-    @Produces(value = MediaType.APPLICATION_JSON)
-    public @ResponseBody
-    ScheduleResponse getScheduleByShift(@RequestBody ScheduleRequest scheduleRequest){
-
-        return schedulerService.getScheduleByDateTime(scheduleRequest);
     }
 
 }

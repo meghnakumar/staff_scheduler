@@ -1,4 +1,3 @@
-/*
 
 
 import com.scheduler.app.constants.REQUEST_STATUS;
@@ -8,6 +7,7 @@ import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.request.EmployeeCreationRequest;
 import com.scheduler.app.model.response.EmployeeCreationResponse;
 import com.scheduler.app.service.EmployeeCreationServiceImpl;
+import com.scheduler.app.util.MailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,19 +35,23 @@ public class EmployeeCreationServiceImplUnitTest {
     @Mock
     private EmpDetailPOJO empDetailPOJO;
 
+    @Mock
+    private MailService mailService;
+
     private EmployeeCreationRequest employeeCreationRequest;
     private EmployeeCreationResponse employeeCreationResponse;
 
-    //@Test
+    @Test
     public void createNewEmployeeTest(){
         setupEmployeeInputRequest();
         when(empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber())).thenReturn(null);
         when(empDetailRepository.saveAndFlush(any())).thenReturn(empDetailPOJO);
+        when(mailService.sendMailToEmployee(any(),any(),any())).thenReturn(true);
         employeeCreationResponse = employeeCreationService.createNewEmployee(employeeCreationRequest);
         assertEquals(employeeCreationResponse.getStatus(),(REQUEST_STATUS.SUCCESS));
     }
 
-  //  @Test
+    @Test
     public void createNewEmployeeFailTest(){
         EmployeeCredsDTO emp = new EmployeeCredsDTO();
         emp.setEmployeeNumber("EMP001");
@@ -68,9 +72,8 @@ public class EmployeeCreationServiceImplUnitTest {
         employeeCreationRequest.setDepartmentId("DepartmentId");
         employeeCreationRequest.setFirstName("Some");
         employeeCreationRequest.setLastName("Person");
-        employeeCreationRequest.setPhoneNumber(987678547);
+        employeeCreationRequest.setPhoneNumber(7L);
         employeeCreationRequest.setJobType(1);
         employeeCreationRequest.setMaxAvailabilityHours(12.0);
     }
 }
-*/

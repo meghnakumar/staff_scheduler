@@ -3,10 +3,9 @@ import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.controller.SupervisorController;
 import com.scheduler.app.model.entity.DailyShiftPOJO;
 import com.scheduler.app.model.entity.ScheduleDetails;
-import com.scheduler.app.model.request.ScheduleRequest;
+import com.scheduler.app.model.request.ScheduleOutputRequest;
 import com.scheduler.app.model.request.ShiftDetailsRequest;
-import com.scheduler.app.model.response.EmployeeCreationResponse;
-import com.scheduler.app.model.response.ScheduleResponse;
+import com.scheduler.app.model.response.ScheduleOutputResponse;
 import com.scheduler.app.model.response.ShiftDetailsResponse;
 import com.scheduler.app.service.SchedulerService;
 import org.junit.Before;
@@ -93,14 +92,6 @@ public class SupervisorControllerUnitTest {
                 .andDo(print()).andExpect(status().isOk());
     }
 
-    @Test
-    public void testGetScheduleByShift() throws Exception {
-        ScheduleResponse scheduleResponse = new ScheduleResponse(REQUEST_STATUS.SUCCESS,true,null);
-        ScheduleRequest scheduleRequest = new ScheduleRequest();
-        when(schedulerService.getScheduleByDateTime(scheduleRequest)).thenReturn(scheduleResponse);
-        mockMvc.perform(post("/supervisor/fetch/schedule").contentType("application/json")
-                .content(new ObjectMapper().writeValueAsString(scheduleRequest))).andDo(print()).andExpect(status().isOk());
-    }
 
     private void createShiftDetailsRequest() {
         shiftDetailsRequest.setDepartmentId("1");
