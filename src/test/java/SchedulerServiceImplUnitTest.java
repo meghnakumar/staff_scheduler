@@ -76,51 +76,51 @@ public class SchedulerServiceImplUnitTest {
         assertEquals(REQUEST_STATUS.SUCCESS, shiftDetailsResponse.getStatus());
     }
 
-    @Test
-    public void testGetEmployees(){
-        List<String> departmentList = new ArrayList<>();
-        departmentList.add("1");
-        ScheduleDetails sheduleDetails = new ScheduleDetails("20-08-2019",departmentList);
-        List<ScheduleDetails> output = new ArrayList<>();
-        output.add(sheduleDetails);
-        List<EmpAvailabilityPOJO> list = new ArrayList<>();
-        empAvailabilityPOJO.setAvailableDay("Wednesday");
-        empAvailabilityPOJO.setEmployeeNumber("1234");
-        empAvailabilityPOJO.setEmployeeId(1);
-        empAvailabilityPOJO.setStartTime(16);
-        empAvailabilityPOJO.setEndTime(20);
-        list.add(empAvailabilityPOJO);
-        when(empAvailabilityRepository.findEmployeeByDateAndRoleAndDeparment(new Date(2020-03-02),"dummy",1)).thenReturn(list);
-        List<DailyShiftPOJO> dailyShiftList = new ArrayList<>();
-        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
-        dailyShiftPOJO.setId(1);
-        dailyShiftPOJO.setShiftType("shiftType");
-        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
-        departmentPOJO.setDepartmentName("department");
-        departmentPOJO.setId("1");
-        dailyShiftPOJO.setDepartment(departmentPOJO);
-        dailyShiftPOJO.setRoleId(1);
-        dailyShiftList.add(dailyShiftPOJO);
-        when(dailyShiftRepository.findByShiftDate(new Date(2020-03-02))).thenReturn(dailyShiftList);
-        List<ScheduleDetails> scheduleDetails = new ArrayList<>();
-        scheduleDetails = schedulerService.getEmployees(new Date(2020-02-03));
-        assertNotNull(scheduleDetails);
-    }
+//    @Test
+//    public void testGetEmployees(){
+//        List<String> departmentList = new ArrayList<>();
+//        departmentList.add("1");
+//        ScheduleDetails sheduleDetails = new ScheduleDetails("20-08-2019",departmentList);
+//        List<ScheduleDetails> output = new ArrayList<>();
+//        output.add(sheduleDetails);
+//        List<EmpAvailabilityPOJO> list = new ArrayList<>();
+//        empAvailabilityPOJO.setAvailableDay("Wednesday");
+//        empAvailabilityPOJO.setEmployeeNumber("1234");
+//        empAvailabilityPOJO.setEmployeeId(1);
+//        empAvailabilityPOJO.setStartTime(16);
+//        empAvailabilityPOJO.setEndTime(20);
+//        list.add(empAvailabilityPOJO);
+//        when(empAvailabilityRepository.findEmployeeByDateAndRoleAndDeparment(new Date(2020-03-02),"dummy",1)).thenReturn(list);
+//        List<DailyShiftPOJO> dailyShiftList = new ArrayList<>();
+//        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
+//        dailyShiftPOJO.setId(1);
+//        dailyShiftPOJO.setShiftType("shiftType");
+//        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
+//        departmentPOJO.setDepartmentName("department");
+//        departmentPOJO.setId("1");
+//        dailyShiftPOJO.setDepartment(departmentPOJO);
+//        dailyShiftPOJO.setRoleId(1);
+//        dailyShiftList.add(dailyShiftPOJO);
+//        when(dailyShiftRepository.findByShiftDate(new Date(2020-03-02))).thenReturn(dailyShiftList);
+//        List<ScheduleDetails> scheduleDetails = new ArrayList<>();
+//        scheduleDetails = schedulerService.getEmployees(new Date(2020-02-03));
+//        assertNotNull(scheduleDetails);
+//    }
 
-    @Test
-    public void testGetShiftRoleEmployees(){
-        List<EmpAvailabilityPOJO> list = new ArrayList<>();
-        empAvailabilityPOJO.setAvailableDay("Wednesday");
-        empAvailabilityPOJO.setEmployeeNumber("1234");
-        empAvailabilityPOJO.setEmployeeId(1);
-        empAvailabilityPOJO.setStartTime(16);
-        empAvailabilityPOJO.setEndTime(20);
-        list.add(empAvailabilityPOJO);
-        when(empAvailabilityRepository.findEmployeeByDateAndRoleAndDeparment(new Date(2020-02-03),"1",1))
-                .thenReturn(list);
-        schedulerService.getShiftRoleEmployees(new Date(2020-02-03),"1",1);
-
-    }
+//    @Test
+//    public void testGetShiftRoleEmployees(){
+//        List<EmpAvailabilityPOJO> list = new ArrayList<>();
+//        empAvailabilityPOJO.setAvailableDay("Wednesday");
+//        empAvailabilityPOJO.setEmployeeNumber("1234");
+//        empAvailabilityPOJO.setEmployeeId(1);
+//        empAvailabilityPOJO.setStartTime(16);
+//        empAvailabilityPOJO.setEndTime(20);
+//        list.add(empAvailabilityPOJO);
+//        when(empAvailabilityRepository.findEmployeeByDateAndRoleAndDeparment(new Date(2020-02-03),"1",1))
+//                .thenReturn(list);
+//        schedulerService.getShiftRoleEmployees(new Date(2020-02-03),"1",1);
+//
+//    }
 
     @Test
     public void testGetEmpHistory(){
