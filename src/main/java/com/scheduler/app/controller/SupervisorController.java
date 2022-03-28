@@ -66,7 +66,7 @@ public class SupervisorController {
         return schedulerService.getShifts(shiftDate);
     }
 
-    @GetMapping("/generateschedule")
+    @GetMapping("/generate/schedule")
     @ResponseStatus(value = HttpStatus.OK)
     public void algorithmTrigger(){
         schedulerService.algoImplementation();

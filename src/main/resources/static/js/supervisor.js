@@ -63,6 +63,23 @@ $(document).ready(function(){
         addShifts(formData);
     });
 
+    $("#generateSchedule").onclick(function (e){
+        e.preventDefault();
+
+        $.ajax({
+            type: 'GET',
+            url: '/supervisor/generate/schedule',
+            success: function(data, response){
+                console.log("SUCESS")
+            },
+            error: function (response){
+                console.log("FAILED");
+            }
+        });
+
+
+    });
+
     const convertTime12to24 = (time12h) => {
         const [time, modifier] = time12h.split(' ');
         let [hours, minutes] = time.split(':');
