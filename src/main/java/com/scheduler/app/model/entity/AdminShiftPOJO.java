@@ -10,6 +10,10 @@ import javax.persistence.Table;
 import java.sql.Date;
 import java.time.LocalTime;
 
+/**
+ * The type - Admin Shift Entity POJO.
+ * Maps the fields to the 'admin' table in the DB.
+ */
 @Entity
 @Table(name = "admin")
 public class AdminShiftPOJO {

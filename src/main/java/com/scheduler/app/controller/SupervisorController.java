@@ -2,9 +2,7 @@ package com.scheduler.app.controller;
 
 import com.scheduler.app.model.entity.DailyShiftPOJO;
 import com.scheduler.app.model.entity.ScheduleDetails;
-import com.scheduler.app.model.request.ScheduleRequest;
 import com.scheduler.app.model.request.ShiftDetailsRequest;
-import com.scheduler.app.model.response.ScheduleResponse;
 import com.scheduler.app.model.response.ShiftDetailsResponse;
 import com.scheduler.app.service.SchedulerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,16 +65,6 @@ public class SupervisorController {
     String getEmpHistory(@RequestParam int employeeId){
         schedulerService.getEmpHistory(employeeId);
         return "success";
-    }
-
-
-    @PostMapping("/fetch/schedule")
-    @Consumes(value = MediaType.APPLICATION_JSON)
-    @Produces(value = MediaType.APPLICATION_JSON)
-    public @ResponseBody
-    ScheduleResponse getScheduleByShift(@RequestBody ScheduleRequest scheduleRequest){
-        schedulerService.algoImplementation();
-        return schedulerService.getScheduleByDateTime(scheduleRequest);
     }
 
 }

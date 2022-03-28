@@ -3,6 +3,10 @@ package com.scheduler.app.model.dto;
 import lombok.*;
 import java.io.Serializable;
 
+/**
+ * The type - Employee Creds DTO.
+ * Saves a Sub-section of the details from the EmpDetailPOJO Entity.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

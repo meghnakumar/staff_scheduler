@@ -8,6 +8,11 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
 
+
+/**
+ * The type - Shift Details Entity POJO.
+ * Maps the fields to the 'dailyshift' table in the DB.
+ */
 @Entity
 @Table(name = "dailyshift")
 public class ShiftDetailsPOJO {

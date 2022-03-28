@@ -1,8 +1,11 @@
 package com.scheduler.app.model.response;
 
 import com.scheduler.app.constants.REQUEST_STATUS;
-import com.scheduler.app.model.entity.SchedulePOJO;
+
+import java.util.List;
 import java.util.Map;
+
+import com.scheduler.app.model.entity.ScheduleOutputPOJO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +14,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ScheduleResponse {
+public class ScheduleOutputResponse {
 
     private REQUEST_STATUS status;
     private boolean isScheduleAvailable;
-    private Map<String, SchedulePOJO> schedule;
+    private Map<String, List<ScheduleOutputPOJO>> schedule;
 
 }
