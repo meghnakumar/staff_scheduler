@@ -45,6 +45,9 @@ public  class StaffAvailabilityServiceImplUnitTest {
         emp.setEmployeeNumber("EMP001");
         staffAvailabilityRequest = new StaffAvailabilityRequest();
         staffAvailabilityRequest.setEmployeeNumber("EMP001");
+        staffAvailabilityRequest.setAvailableDate("2020-05-05");
+        staffAvailabilityRequest.setStartTime("08:00");
+        staffAvailabilityRequest.setEndTime("12:00");
         staffAvailabilityRequest.setAvailableDay("Friday");
         List<StaffAvailabilityRequest> list = new ArrayList<>();
         list.add(staffAvailabilityRequest);
