@@ -219,18 +219,20 @@ public class SchedulerServiceImpl implements SchedulerService {
             for (EligibleEmployees eligibleEmployee: eligibleEmployeesList){
                 if(eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())) {
 
-                    totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
                     if(totalHours <= 0) {
                         break;
                     }
+                    totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
+
                     DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
 
                 }
                 else if((eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&!(eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())))){
-                    totalHours -= eligibleEmployee.availableEndTime.getTime();
                     if(totalHours <= 0) {
                         break;
                     }
+                    totalHours -= eligibleEmployee.availableEndTime.getTime();
+
                     DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
 
                 }
