@@ -63,8 +63,20 @@
 
                 </div>
 
-                <input type="submit" id="scheduler-submit" class="btn btn-primary" />
+                <input type="submit" id="scheduler-submit" class="btn btn-success col-md-5" style="margin-left: 200px"/>
             </form>
+        </div>
+    </div>
+
+    <div class = "container">
+        <div class="row mt-md-auto">
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <div class="d-grid gap-2" style="margin-left: 200px">
+                    <br><br>
+                    <button class="btn btn-lg btn-primary" id="generateSchedule" type="button"> Generate Schedule </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -113,6 +125,7 @@
                 //do nothing -> On Weekend
             }else {
                 document.getElementById("scheduler-submit").disabled = true;
+                document.getElementById("supervisor-date-picker").disabled = true;
                 $("#informInvalidDate").modal('show');
             }
         });
