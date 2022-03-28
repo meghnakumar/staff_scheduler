@@ -101,7 +101,7 @@ function submitForm(e, form, userId, dateDetails) {
             // if (data.userType === "ADMIN" && data.status === 'SUCCESS') {
             //     $(location).attr('href',"/views/admin.html");
             // } else if (data.userType === "SUPERVISOR" && data.status === 'SUCCESS') {
-            //     $(location).attr('href',"/views/supervisor.html");
+            //     $(location).attr('href',"/views/supervisorShifts.html");
             // } else if (data.userType === 'STAFF' && data.status === 'SUCCESS'){
             //     $(location).attr('href',"/views/staff.html");
             // } else if (data.status === 'INCORRECT_PASSWORD'){

@@ -5,7 +5,7 @@ import com.scheduler.app.model.request.HolidayCreationRequest;
 import com.scheduler.app.model.request.ShiftCreationRequest;
 import com.scheduler.app.model.response.EmployeeCreationResponse;
 import com.scheduler.app.model.response.HolidayCreationResponse;
-import com.scheduler.app.model.response.InfoResponse;
+import com.scheduler.app.model.response.AdminInfoResponse;
 import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.service.EmployeeCreationService;
 import com.scheduler.app.service.HolidayCreationService;
@@ -78,7 +78,7 @@ public class AdminController {
             @ApiResponse(responseCode = "200", description = "Information like employee count, upcoming holidays etc are " +
                     "successfully retrieved from DB",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = InfoResponse.class))}),
+                            schema = @Schema(implementation = AdminInfoResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "not found",
@@ -86,7 +86,7 @@ public class AdminController {
     @GetMapping("/fetch/info")
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    InfoResponse getStatistic(@RequestParam Boolean onload){
+    AdminInfoResponse getStatistic(@RequestParam Boolean onload){
 
      return utilityService.getStatistics(onload);
     }

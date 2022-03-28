@@ -7,7 +7,7 @@ import com.scheduler.app.model.repo.DepartmentRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.repo.HolidayRepository;
 import com.scheduler.app.model.request.ShiftCreationRequest;
-import com.scheduler.app.model.response.InfoResponse;
+import com.scheduler.app.model.response.AdminInfoResponse;
 import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.model.response.ShiftTimingsResponse;
 import com.scheduler.app.service.UtilityServiceImpl;
@@ -49,7 +49,7 @@ public class UtilityServiceImplUnitTest {
     private AdminRepository adminRepository;
 
     ShiftCreationResponse shiftCreationResponse = new ShiftCreationResponse(REQUEST_STATUS.FAILED,false);
-    InfoResponse infoResponse = new InfoResponse();
+    AdminInfoResponse adminInfoResponse = new AdminInfoResponse();
     ShiftTimingsResponse shiftTimingsResponse = new ShiftTimingsResponse(REQUEST_STATUS.SUCCESS,4,null);
 
     @Test
@@ -69,14 +69,14 @@ public class UtilityServiceImplUnitTest {
         List<HolidayPOJO> holidayList = new ArrayList<>();
         holidayList.add(holidayPOJO);
         when(holidayRepository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(any(),any())).thenReturn(holidayList);
-        infoResponse = utilityService.getStatistics(true);
-        Assert.assertNotNull(infoResponse);
+        adminInfoResponse = utilityService.getStatistics(true);
+        Assert.assertNotNull(adminInfoResponse);
     }
 
     @Test
     public void testFailGetStatistics(){
-        infoResponse = utilityService.getStatistics(false);
-        assertEquals(REQUEST_STATUS.BAD_REQUEST, infoResponse.getStatus());
+        adminInfoResponse = utilityService.getStatistics(false);
+        assertEquals(REQUEST_STATUS.BAD_REQUEST, adminInfoResponse.getStatus());
     }
 
     @Test
