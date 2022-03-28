@@ -12,6 +12,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
+
+/**
+ * The type - Schedule Composite id.
+ * Serves as the Composite ID for the SchedulePOJO
+ */
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor

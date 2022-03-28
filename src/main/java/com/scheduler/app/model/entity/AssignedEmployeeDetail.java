@@ -1,8 +1,10 @@
 package com.scheduler.app.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 public class AssignedEmployeeDetail {
 
     @Getter
@@ -25,11 +27,4 @@ public class AssignedEmployeeDetail {
     @Setter
     private String assignedEndTime;
 
-    public AssignedEmployeeDetail(String employeeNumber, String availableStartTime, String availableEndTime, String assignedStartTime, String assignedEndTime) {
-        this.employeeNumber = employeeNumber;
-        this.availableStartTime = availableStartTime;
-        this.availableEndTime = availableEndTime;
-        this.assignedStartTime = assignedStartTime;
-        this.assignedEndTime = assignedEndTime;
-    }
 }

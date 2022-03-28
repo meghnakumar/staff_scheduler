@@ -1,10 +1,12 @@
 package com.scheduler.app.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
+@AllArgsConstructor
 public class ScheduleDetails {
 
     @Getter
@@ -15,9 +17,5 @@ public class ScheduleDetails {
     @Setter
     private List DepartmentList;
 
-    public ScheduleDetails(String date, List departmentList) {
-        this.date = date;
-        this.DepartmentList = departmentList;
-    }
 
 }

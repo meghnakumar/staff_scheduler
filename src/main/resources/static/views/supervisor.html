@@ -29,37 +29,28 @@
             </div>
         </div>
     </nav>
-    <div class = "container" id="supervisor-form" action="/" method="post">
+    <div class = "container">
         <button type="button" class="btn btn-primary breadcrumb-item" style="margin-top: 20px; margin-left: -30px"><a href="/"> Back </a></button>
         <div class="row mt-5">
-            <h2>Scheduler</h2>
-            <form class="col-md-7 custom-form">
+            <div class="col-md-2"></div>
+            <form class="col-md-7 custom-form" id="supervisor-form" action="/" method="post">
+                <h2>Scheduler</h2>
                 <div class="form-group">
                     <label for="supervisor-date-picker">Select Date:</label>
                     <input type="text" class="form-control" id="supervisor-date-picker" autocomplete="off">
                 </div>
                 <div class="form-group" id="department-type">
                     <label for="department">Department:</label>
-                    <select class="form-control form-select" id="department">
-                        <option>Department - 1</option>
-                        <option>Department - 2</option>
-                        <option>Department - 3</option>
-                        <option>Department - 4</option>
-                    </select>
+                    <input type="text" class="form-control" id="department" autocomplete="off" disabled>
                 </div>
                 <div id="employee-detail">
                     <fieldset class="shift-section">
                         <legend>Add Shift Details</legend>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="start-time-1">Start time</label>
-                                <input class="form-control" type="time" id="start-time-1" value="09:00:00">
+                                <label for="slot">Select slot</label>
+                                <select class="form-control form-select" id="slot"></select>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="end-time-1">End time</label>
-                                <input class="form-control" type="time" id="end-time-1" value="18:00:00">
-                            </div>
-
                         </div>
 
                         <div id="add-emp-sec"></div>
@@ -78,9 +69,55 @@
         </div>
     </div>
 
+    <!-- show modal for invalid date   -->
+    <div class="modal fade" id="informInvalidDate">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content card">
+                <div class="text-black bg-warning">
+                    <div class="card-header text-center"> !!! INFO</div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title"> Shift Requirement can be set only at the end of the Week.</h4>
+                        <br>
+                        <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bs-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- show modal for invalid date   -->
+    <div class="modal fade" id="shiftDetailsSaved">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content card">
+                <div class="text-white bg-secondary">
+                    <div class="card-header text-center">INFO!!!</div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title"> Shift saved successfully.</h4>
+                        <br>
+                        <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bs-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../js/supervisor.js"></script>
+    <script>
+        //Script to Make sure that shifts can only be modified on Weekends.
+        $( document ).ready(function() {
+            var today = new Date()
+            if(today.getDay() === 6 || today.getDay() === 0) {
+                //do nothing -> On Weekend
+            }else {
+                document.getElementById("scheduler-submit").disabled = true;
+                $("#informInvalidDate").modal('show');
+            }
+        });
+
+    </script>
 </body>
 </html>

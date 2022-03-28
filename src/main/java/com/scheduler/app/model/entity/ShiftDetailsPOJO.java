@@ -6,15 +6,16 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 
 /**
- * The type - Daily Shift Entity POJO.
+ * The type - Shift Details Entity POJO.
  * Maps the fields to the 'dailyshift' table in the DB.
  */
 @Entity
 @Table(name = "dailyshift")
-public class DailyShiftPOJO {
+public class ShiftDetailsPOJO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shift_id", nullable = false)
@@ -22,27 +23,25 @@ public class DailyShiftPOJO {
     @Setter
     private Integer id;
 
-    //Has a Foreign Key - "department_id" in the 'department' table. [DepartmentPOJO]
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "department_id")
+    @Column(name = "department_id")
     @Getter
     @Setter
-    private DepartmentPOJO department;
+    private String departmentId;
 
     @Column(name = "shift_type", length = 50)
     @Getter
     @Setter
-    private String shiftType;
+    private Integer shiftType;
 
     @Column(name = "start_time")
     @Getter
     @Setter
-    private Time startTime;
+    private LocalTime startTime;
 
     @Column(name = "end_time")
     @Getter
     @Setter
-    private Time endTime;
+    private LocalTime endTime;
 
     @Column(name = "shift_date")
     @Getter
