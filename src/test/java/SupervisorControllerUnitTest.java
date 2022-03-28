@@ -60,18 +60,18 @@ public class SupervisorControllerUnitTest {
                 .content(new ObjectMapper().writeValueAsString(shiftDetailsRequest))).andDo(print()).andExpect(status().isOk());
     }
 
-    @Test
-    public void testGetEmployees() throws Exception {
-        List<String> departmentList = new ArrayList<>();
-        departmentList.add("1");
-        ScheduleDetails sheduleDetails = new ScheduleDetails("20-08-2019",departmentList);
-        List<ScheduleDetails> output = new ArrayList<>();
-        output.add(sheduleDetails);
-        when(schedulerService.getEmployees(any())).thenReturn(output);
-        mockMvc.perform(get("/supervisor/get-schedule").param("startDate","2006-05-16")
-                .param("endDate","2020-5-6"))
-                .andDo(print()).andExpect(status().isOk());
-    }
+//    @Test
+//    public void testGetEmployees() throws Exception {
+//        List<String> departmentList = new ArrayList<>();
+//        departmentList.add("1");
+//        ScheduleDetails sheduleDetails = new ScheduleDetails("20-08-2019",departmentList);
+//        List<ScheduleDetails> output = new ArrayList<>();
+//        output.add(sheduleDetails);
+//        when(schedulerService.getEmployees(any())).thenReturn(output);
+//        mockMvc.perform(get("/supervisor/get-schedule").param("startDate","2006-05-16")
+//                .param("endDate","2020-5-6"))
+//                .andDo(print()).andExpect(status().isOk());
+//    }
 
     @Test
     public void testGetDailyShifts() throws Exception {

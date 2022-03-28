@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 /**
  * The type - Request Object for Staff availability.
@@ -13,8 +14,8 @@ import java.sql.Timestamp;
 public class StaffAvailabilityRequest {
 
     private String employeeNumber;
-    private Integer startTime;
-    private Integer endTime;
-    private Date availableDate;
+    private String startTime;
+    private String endTime;
+    private String availableDate;
     private String availableDay;
 }

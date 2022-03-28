@@ -52,12 +52,12 @@ public class SupervisorController {
         return schedulerService.saveShiftDetails(shiftDetailsRequest);
     }
 
-    @GetMapping("/get-schedule")
-    @Produces(value = MediaType.APPLICATION_JSON)
-    public @ResponseBody
-    List<ScheduleDetails> getEmployees(@RequestParam Date startDate, @RequestParam Date endDate) {
-        return  schedulerService.getEmployees(startDate);
-    }
+//    @GetMapping("/get-schedule")
+//    @Produces(value = MediaType.APPLICATION_JSON)
+//    public @ResponseBody
+//    List<ScheduleDetails> getEmployees(@RequestParam Date startDate, @RequestParam Date endDate) {
+//        return  schedulerService.getEmployees(startDate);
+//    }
 
     @GetMapping("/dailyshifts")
     @Produces(value = MediaType.APPLICATION_JSON)
