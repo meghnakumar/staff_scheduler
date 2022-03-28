@@ -46,12 +46,9 @@ public class DatabaseOperations {
 			ps.setInt(6, Integer.parseInt(roleId));
 			ps.setInt(7, Integer.parseInt(emp_hours));
 			
-			System.out.println(query);
-			int x = ps.executeUpdate();
 			connection.commit();
 			ps.close();
-		//	connection.close();
-			System.out.println("return " + x);
+
 		}
 		catch(SQLException e) {
 			System.out.println("INSERTION FAILED");

@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.*;
@@ -216,23 +218,44 @@ public class SchedulerServiceImpl implements SchedulerService {
         //  eligibleEmployeesList.add()
         return eligibleEmployeesList;
     }*/
-
+    @Override
     public void algoImplementation(){
         double totalHours;
         List<DailyShiftPOJO> shiftList=getDailyShifts();
         for (DailyShiftPOJO dailyShiftPOJO : shiftList){
             List< EligibleEmployees> eligibleEmployeesList = DatabaseOperations.getEligibleEmployees(dailyShiftPOJO.getRoleId().toString(), dailyShiftPOJO.getShiftDate().toString(), dailyShiftPOJO.getDepartment().getId());
             totalHours=dailyShiftPOJO.getEmployeeHours();
+
             for (EligibleEmployees eligibleEmployee: eligibleEmployeesList){
                 if(eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())) {
+ /*                   Time startTime = eligibleEmployee.availableStartTime ;
+                    Time endTime=eligibleEmployee.availableEndTime;
+
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+                    Date startTimeD = null;
+                    Date endTimeD = null;
+                    try {
+                        startTimeD = (Date) format.parse(String.valueOf(startTime));
+
+                        endTimeD = (Date) format.parse(String.valueOf(endTime));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    long difference = endTimeD.getTime() - startTimeD.getTime();*/
                     totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
                     if(totalHours <= 0) {
                         break;
                     }
-                    // store in output table
                     DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
 
-                    System.out.println(""+dailyShiftPOJO.getDepartment().getId()+""+eligibleEmployee.employeeId+ dailyShiftPOJO.getStartTime()+ dailyShiftPOJO.getEndTime()+ dailyShiftPOJO.getShiftDate()+ dailyShiftPOJO.getRoleId()+""+ (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
+                }
+                else if((eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&!(eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())))){
+                    totalHours -= eligibleEmployee.availableEndTime.getTime();
+                    if(totalHours <= 0) {
+                        break;
+                    }
+                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
+
                 }
             }
         }
