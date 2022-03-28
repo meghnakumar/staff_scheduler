@@ -15,4 +15,6 @@ public class ScheduleRequest {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalTime shiftTime;
+
+    private String departmentId;
 }

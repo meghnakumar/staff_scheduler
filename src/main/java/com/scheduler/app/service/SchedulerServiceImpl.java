@@ -5,10 +5,7 @@ import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.repo.*;
 import com.scheduler.app.model.request.RequiredRoleHours;
 import com.scheduler.app.model.request.ShiftDetailsRequest;
-import com.scheduler.app.model.request.StaffAvailabilityRequest;
-import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.model.response.ShiftDetailsResponse;
-import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.util.DateUtil;
 import com.scheduler.app.model.request.ScheduleRequest;
 import com.scheduler.app.model.response.ScheduleResponse;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -182,19 +180,29 @@ public class SchedulerServiceImpl implements SchedulerService {
     @Override
     public ScheduleResponse getScheduleByDateTime(ScheduleRequest scheduleRequest) {
 
-        if(scheduleRequest.getShiftDate() == null && scheduleRequest.getShiftTime() == null){
+        if(scheduleRequest.getShiftDate() == null || scheduleRequest.getShiftTime() == null || scheduleRequest.getDepartmentId().isEmpty()){
             return new ScheduleResponse(REQUEST_STATUS.INVALID_REQUEST, false, Collections.emptyMap());
 
         } else {
 
-            ScheduleCompositeId compositeId = new ScheduleCompositeId(scheduleRequest.getShiftDate(), scheduleRequest.getShiftTime());
-            Map<String, SchedulePOJO> schedule = new HashMap<>();
-            Optional<SchedulePOJO> scheduleOutput = scheduleRepository.findById(compositeId);
+            LocalDate shiftDate = scheduleRequest.getShiftDate();
+            LocalTime shiftTime = scheduleRequest.getShiftTime();
+            String departmentType = scheduleRequest.getDepartmentId();
 
-            if (scheduleOutput.isPresent()) {
+            Map<String, List<ScheduleOutputPOJO>> scheduleMap = new HashMap<>();
+            List<ScheduleOutputPOJO> scheduleOutputPOJOList = new ArrayList<>();
+            List<ScheduleOutputPOJO> scheduleOutput = scheduleRepository.findByShiftDateAndStartTimeAndDepartmentId(shiftDate, shiftTime, departmentType);
 
-                schedule.put(scheduleOutput.get().getDepartment().getId(), scheduleOutput.get());
-                return new ScheduleResponse(REQUEST_STATUS.SUCCESS, true, schedule);
+            if (scheduleOutput.size() > 0) {
+
+                for (ScheduleOutputPOJO  schedule: scheduleOutput ) {
+
+                    scheduleOutputPOJOList.add(schedule);
+                }
+
+                scheduleMap.put(departmentType, scheduleOutputPOJOList);
+
+                return new ScheduleResponse(REQUEST_STATUS.SUCCESS, true, scheduleMap);
             } else {
 
                 return new ScheduleResponse(REQUEST_STATUS.SUCCESS, false,  Collections.emptyMap());

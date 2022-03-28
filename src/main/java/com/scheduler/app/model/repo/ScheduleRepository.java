@@ -1,16 +1,16 @@
 package com.scheduler.app.model.repo;
 
-import com.scheduler.app.model.entity.SchedulePOJO;
-import com.scheduler.app.model.entity.ScheduleCompositeId;
+import com.scheduler.app.model.entity.ScheduleOutputPOJO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<SchedulePOJO, ScheduleCompositeId> {
+public interface ScheduleRepository extends JpaRepository<ScheduleOutputPOJO, Integer> {
 
-    List<SchedulePOJO> findAll();
-
-    Optional<SchedulePOJO> findById(ScheduleCompositeId compositeId);
+    List<ScheduleOutputPOJO> findByShiftDateAndStartTimeAndDepartmentId(LocalDate shiftDate, LocalTime shiftTime, String departmentType);
 }

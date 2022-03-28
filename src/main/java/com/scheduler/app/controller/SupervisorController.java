@@ -72,14 +72,4 @@ public class SupervisorController {
         return "success";
     }
 
-
-    @PostMapping("/fetch/schedule")
-    @Consumes(value = MediaType.APPLICATION_JSON)
-    @Produces(value = MediaType.APPLICATION_JSON)
-    public @ResponseBody
-    ScheduleResponse getScheduleByShift(@RequestBody ScheduleRequest scheduleRequest){
-
-        return schedulerService.getScheduleByDateTime(scheduleRequest);
-    }
-
 }
