@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface SchedulerService {
-    public List<ScheduleDetails> getEmployees(Date date);
+//    public List<ScheduleDetails> getEmployees(Date date);
     public List<DailyShiftPOJO> getShifts(Date date);
     public List<EmpHistoryPOJO> getEmpHistory(int employeeId);
     public void addEmpHistory(int employeeId);

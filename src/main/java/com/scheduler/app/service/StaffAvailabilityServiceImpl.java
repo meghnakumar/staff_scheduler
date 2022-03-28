@@ -31,33 +31,6 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
 
     boolean check = false;
 
-//    @Override
-//    public StaffAvailabilityResponse inputStaffAvailability(List<StaffAvailabilityRequest> staffAvailabilitiesRequest) {
-//
-//        StaffAvailabilityResponse staffAvailabilityResponse = new StaffAvailabilityResponse();
-//        check = verifyStaff(staffAvailabilitiesRequest.get(0).getEmployeeNumber());
-//        if (check) {
-//            EmpAvailabilityPOJO empAvailabilityPOJO = null;
-//            for (StaffAvailabilityRequest request : staffAvailabilitiesRequest) {
-//                empAvailabilityPOJO = new EmpAvailabilityPOJO();
-//                empAvailabilityPOJO.setId(null);
-//                empAvailabilityPOJO.setEmployeeNumber(request.getEmployeeNumber());
-//                empAvailabilityPOJO.setEmployeeId(empDetailPOJO.getId());
-//                empAvailabilityPOJO.setAvailableDay(request.getAvailableDay());
-//                empAvailabilityPOJO.setAvailableDate(request.getAvailableDate());
-//                empAvailabilityPOJO.setStartTime(request.getStartTime());
-//                empAvailabilityPOJO.setEndTime(request.getEndTime());
-//                empAvailabilityRepository.saveAndFlush(empAvailabilityPOJO);
-//            }
-//            staffAvailabilityResponse.setStatus(REQUEST_STATUS.SUCCESS);
-//            staffAvailabilityResponse.setEntered(true);
-//        } else {
-//            staffAvailabilityResponse.setStatus(REQUEST_STATUS.INVALID_REQUEST);
-//            staffAvailabilityResponse.setEntered(false);
-//        }
-//        return staffAvailabilityResponse;
-//    }
-
     @Override
     public StaffAvailabilityResponse inputStaffAvailability(List<StaffAvailabilityRequest> staffAvailabilitiesRequest) {
 
@@ -66,12 +39,14 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
         if (check) {
             EmployeeAvailabilityPOJO employeeAvailabilityPOJO = null;
             for (StaffAvailabilityRequest request : staffAvailabilitiesRequest) {
+                Date availableDate = Date.valueOf(request.getAvailableDate());
+                boolean exists = checkIfAvailabilityAlreadyGiven(empDetailPOJO.getId(), availableDate);
                 employeeAvailabilityPOJO = new EmployeeAvailabilityPOJO();
                 employeeAvailabilityPOJO.setId(null);
                 employeeAvailabilityPOJO.setEmployeeId(empDetailPOJO.getId());
                 employeeAvailabilityPOJO.setDepartmentId(empDetailPOJO.getDepartmentId());
                 employeeAvailabilityPOJO.setRoleId(empDetailPOJO.getRoleId());
-                employeeAvailabilityPOJO.setShiftDate(Date.valueOf(request.getAvailableDate()));
+                employeeAvailabilityPOJO.setShiftDate(availableDate);
                 employeeAvailabilityPOJO.setShiftDay(request.getAvailableDay());
                 employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
                 employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
@@ -101,6 +76,14 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
         String[] splitTime = time.split(":");
         LocalTime localTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
         return localTime;
+    }
+
+    public boolean checkIfAvailabilityAlreadyGiven(Integer employeeNumber, Date availableDate){
+        EmployeeAvailabilityPOJO result = empAvailabilityRepository.findEmployeeAvailabilityPOJOByShiftDateAndEmployeeId(availableDate, employeeNumber);
+        if(result!= null){
+            return result.getEmployeeId() != null;
+        }
+        return false;
     }
 }
 
