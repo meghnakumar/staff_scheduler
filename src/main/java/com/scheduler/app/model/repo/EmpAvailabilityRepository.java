@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.sql.Date;
 import java.util.List;
 
-public interface EmpAvailabilityRepository extends JpaRepository<EmployeeAvailabilityPOJO,Integer> {
+public interface EmpAvailabilityRepository extends JpaRepository<EmployeeAvailabilityPOJO ,Integer> {
 
 //    List<EmpAvailabilityPOJO> findByShiftDate(Date date);
 
