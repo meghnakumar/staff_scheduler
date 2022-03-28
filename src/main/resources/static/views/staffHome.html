@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/createHoliday.js"></script>
+    <script src="../js/createEmployee.js"></script>
+
+    <style>body{background-color: #ffffff
+    }</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">ICON</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../views/staffavailability.html"><h5>Enter Availability</h5>
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <form class="d-flex">
+
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!--Code to Load Information during Page load.-->
+<script>
+/*    $(document).ready((function() {
+
+            $.ajax({
+                contentType: 'application/json',
+                data:{'onload':true},
+                type: 'GET',
+                url: '/admin/fetch/info',
+                success: function(data, response){
+
+                    $("#empCount").text(data.empCount);
+                    $("#deptCount").text(data.deptCount);
+
+                    var deptVal = data.deptInfo;
+                    for (let index = 1; index < 6; index++) {
+                        $("#deptInfo").append("<br>"+ "D0" + index + " =>").append(deptVal['D0' + index]);}
+
+                    for(var k in data.upcomingHolidays){
+                        $("#upcomingHolidays").append("<br>").append(k + " => " + data.upcomingHolidays[k]);
+                    }
+                },
+                error: function (response){
+                    console.log("FAILED");
+                }
+            });
+        })
+
+    );*/
+</script>
+
+<div class="modal fade" id="invalid">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="card text-black bg-warning " >
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h4 class="card-title">Warning card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    <img src="../assets/images/construction-page.png" />-->
+</body>
+</html>

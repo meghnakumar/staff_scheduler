@@ -71,7 +71,7 @@ $(document).ready(function(){
                     } else if (data.userType === "SUPERVISOR" && data.status === 'SUCCESS') {
                         $(location).attr('href',"/views/supervisorHome.html");
                     } else if (data.userType === 'STAFF' && data.status === 'SUCCESS'){
-                        $(location).attr('href',"/views/staff.html");
+                        $(location).attr('href',"/views/staffHome.html");
                     } else if (data.status === 'INCORRECT_PASSWORD'){
                         //Respond with Error
                         $("#informFailure").modal('show');
