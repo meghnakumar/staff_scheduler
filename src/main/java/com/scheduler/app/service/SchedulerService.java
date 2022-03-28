@@ -15,5 +15,5 @@ public interface SchedulerService {
     public List<EmpHistoryPOJO> getEmpHistory(int employeeId);
     public void addEmpHistory(int employeeId);
     public ShiftDetailsResponse saveShiftDetails(ShiftDetailsRequest shiftDetailsRequest);
-    public ScheduleOutputResponse getScheduleByDateTime(ScheduleOutputRequest request);
+    public ScheduleOutputResponse getScheduleByDateTimeDepartment(ScheduleOutputRequest request);
 }

@@ -178,7 +178,7 @@ public class SchedulerServiceImpl implements SchedulerService {
     }
 
     @Override
-    public ScheduleOutputResponse getScheduleByDateTime(ScheduleOutputRequest scheduleOutputRequest) {
+    public ScheduleOutputResponse getScheduleByDateTimeDepartment(ScheduleOutputRequest scheduleOutputRequest) {
 
         if(scheduleOutputRequest.getShiftDate() == null || scheduleOutputRequest.getShiftTime() == null || scheduleOutputRequest.getDepartmentId().isEmpty()){
             return new ScheduleOutputResponse(REQUEST_STATUS.INVALID_REQUEST, false, Collections.emptyMap());
@@ -190,16 +190,11 @@ public class SchedulerServiceImpl implements SchedulerService {
             String departmentType = scheduleOutputRequest.getDepartmentId();
 
             Map<String, List<ScheduleOutputPOJO>> scheduleMap = new HashMap<>();
-            List<ScheduleOutputPOJO> scheduleOutputPOJOList = new ArrayList<>();
             List<ScheduleOutputPOJO> scheduleOutput = scheduleRepository.findByShiftDateAndStartTimeAndDepartmentId(shiftDate, shiftTime, departmentType);
 
-            if (scheduleOutput.size() > 0) {
+            if (!scheduleOutput.isEmpty()) {
 
-                for (ScheduleOutputPOJO  schedule: scheduleOutput ) {
-
-                    scheduleOutputPOJOList.add(schedule);
-                }
-
+                List<ScheduleOutputPOJO> scheduleOutputPOJOList = new ArrayList<>(scheduleOutput);
                 scheduleMap.put(departmentType, scheduleOutputPOJOList);
 
                 return new ScheduleOutputResponse(REQUEST_STATUS.SUCCESS, true, scheduleMap);

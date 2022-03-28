@@ -1,7 +1,6 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.controller.ScheduleController;
-import com.scheduler.app.controller.SupervisorController;
 import com.scheduler.app.model.request.ScheduleOutputRequest;
 import com.scheduler.app.model.response.ScheduleOutputResponse;
 import com.scheduler.app.service.SchedulerService;
@@ -23,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootConfiguration
-public class ScheduleControllerTest {
+public class ScheduleControllerUnitTest {
 
     private MockMvc mockMvc;
 
@@ -44,7 +43,7 @@ public class ScheduleControllerTest {
     public void testGetScheduleByShift() throws Exception {
         ScheduleOutputResponse scheduleOutputResponse = new ScheduleOutputResponse(REQUEST_STATUS.SUCCESS,true,null);
         ScheduleOutputRequest scheduleOutputRequest = new ScheduleOutputRequest();
-        when(schedulerService.getScheduleByDateTime(scheduleOutputRequest)).thenReturn(scheduleOutputResponse);
+        when(schedulerService.getScheduleByDateTimeDepartment(scheduleOutputRequest)).thenReturn(scheduleOutputResponse);
         mockMvc.perform(post("/schedule/fetch").contentType("application/json")
                 .content(new ObjectMapper().writeValueAsString(scheduleOutputRequest))).andDo(print()).andExpect(status().isOk());
     }

@@ -38,6 +38,6 @@ public class ScheduleController {
     public @ResponseBody
     ScheduleOutputResponse getScheduleByShift(@RequestBody ScheduleOutputRequest scheduleOutputRequest){
 
-        return schedulerService.getScheduleByDateTime(scheduleOutputRequest);
+        return schedulerService.getScheduleByDateTimeDepartment(scheduleOutputRequest);
     }
 }
