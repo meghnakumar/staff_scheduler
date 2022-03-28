@@ -48,7 +48,24 @@ public class DatabaseOperations {
 			sqlException.printStackTrace();
 		}
 	}
+	public static void updateEmpHistory(int totalHoursWeekly, String employeeId) {
+		Connection connection=DatabaseConnection.getConnection();
+		try {
+			String query = "update emphistory set total_hours_weekly = ? where employee_id = ?";
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, totalHoursWeekly);
+			ps.setInt(2, Integer.parseInt(employeeId));
+			ps.executeUpdate();
+			connection.commit();
+			ps.close();
 
+		}
+		catch(SQLException e) {
+			System.out.println("INSERTION FAILED");
+			e.printStackTrace();
+		}
+
+	}
 	public static void insert(String deptId, String empno, Time startTime, Time endTime, Date shift_date, String roleId, String emp_hours) {
 		Connection connection = DatabaseConnection.getConnection();
 		try {

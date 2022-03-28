@@ -225,7 +225,7 @@ public class SchedulerServiceImpl implements SchedulerService {
                     totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
 
                     DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
-
+                    DatabaseOperations.updateEmpHistory(eligibleEmployee.totalHoursLastWeek,eligibleEmployee.employeeId);
                 }
                 else if((eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&!(eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())))){
                     if(totalHours <= 0) {
