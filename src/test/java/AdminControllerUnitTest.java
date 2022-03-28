@@ -7,7 +7,7 @@ import com.scheduler.app.model.request.HolidayCreationRequest;
 import com.scheduler.app.model.request.ShiftCreationRequest;
 import com.scheduler.app.model.response.EmployeeCreationResponse;
 import com.scheduler.app.model.response.HolidayCreationResponse;
-import com.scheduler.app.model.response.InfoResponse;
+import com.scheduler.app.model.response.AdminInfoResponse;
 import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.service.EmployeeCreationService;
 import com.scheduler.app.service.HolidayCreationService;
@@ -82,8 +82,8 @@ public class AdminControllerUnitTest {
 
     @Test
     public void testGetsStatistics() throws Exception {
-        InfoResponse infoResponse = new InfoResponse();
-        when(utilityService.getStatistics(true)).thenReturn(infoResponse);
+        AdminInfoResponse adminInfoResponse = new AdminInfoResponse();
+        when(utilityService.getStatistics(true)).thenReturn(adminInfoResponse);
         mockMvc.perform(get("/admin/fetch/info").param("onload", String.valueOf(true)))
                 .andDo(print()).andExpect(status().isOk());
     }

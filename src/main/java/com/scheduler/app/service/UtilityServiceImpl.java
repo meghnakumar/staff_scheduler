@@ -9,9 +9,10 @@ import com.scheduler.app.model.repo.DepartmentRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.repo.HolidayRepository;
 import com.scheduler.app.model.request.ShiftCreationRequest;
-import com.scheduler.app.model.response.InfoResponse;
+import com.scheduler.app.model.response.AdminInfoResponse;
 import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.model.response.ShiftTimingsResponse;
+import com.scheduler.app.model.response.SupervisorInfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,33 +42,56 @@ public class UtilityServiceImpl implements  UtilityService {
 
 
     @Override
-    public InfoResponse getStatistics(Boolean onload) {
+    public AdminInfoResponse getStatistics(Boolean onload) {
 
         if (Boolean.TRUE.equals(onload)) {
 
             Long numEmployees = empDetailRepository.count();
             Long numDepartments = departmentRepository.count();
             List<DepartmentPOJO> deptDetails = departmentRepository.findAll();
-            LocalDate date = LocalDate.now();
-            Date dateSQL = Date.valueOf(date);
-            Date dateEnd = Date.valueOf(date.plusDays(7));
-            List<HolidayPOJO> upcomingHolidays = holidayRepository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(dateSQL, dateEnd);
 
             Map<String, String> deptInfo = new HashMap<>();
             for (DepartmentPOJO dept : deptDetails) {
                 deptInfo.put(dept.getId(), dept.getDepartmentName());
             }
 
-            Map<String, String> holidayInfo = new HashMap<>();
-            for (HolidayPOJO holiday : upcomingHolidays) {
-                holidayInfo.put(holiday.getStartDate().toString(), holiday.getHolidayTitle());
-            }
+            Map<String, String> holidayInfo = getUpcomingHolidays();
 
-            return new InfoResponse(numEmployees, numDepartments, deptInfo, holidayInfo, REQUEST_STATUS.SUCCESS);
+            return new AdminInfoResponse(numEmployees, numDepartments, deptInfo, holidayInfo, REQUEST_STATUS.SUCCESS);
         } else {
 
-            return new InfoResponse(0l, 0l, Collections.emptyMap(), Collections.emptyMap(), REQUEST_STATUS.BAD_REQUEST);
+            return new AdminInfoResponse(0l, 0l, Collections.emptyMap(), Collections.emptyMap(), REQUEST_STATUS.BAD_REQUEST);
         }
+    }
+
+    @Override
+    public SupervisorInfoResponse getSupervisorStats(Boolean onload, String department) {
+
+        if (Boolean.TRUE.equals(onload)) {
+
+            Long numEmployees = empDetailRepository.countDistinctByDepartmentId(department);
+            Map<String, String> holidayInfo = getUpcomingHolidays();
+
+            return new SupervisorInfoResponse(REQUEST_STATUS.SUCCESS, holidayInfo, numEmployees);
+
+        } else {
+
+            return new SupervisorInfoResponse(REQUEST_STATUS.BAD_REQUEST, Collections.emptyMap(), 0l);
+        }
+    }
+
+    private Map<String, String> getUpcomingHolidays() {
+        LocalDate date = LocalDate.now();
+        Date dateSQL = Date.valueOf(date);
+        Date dateEnd = Date.valueOf(date.plusDays(7));
+        List<HolidayPOJO> upcomingHolidays = holidayRepository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(dateSQL, dateEnd);
+
+        Map<String, String> holidayInfo = new HashMap<>();
+        for (HolidayPOJO holiday : upcomingHolidays) {
+            holidayInfo.put(holiday.getStartDate().toString(), holiday.getHolidayTitle());
+        }
+
+        return holidayInfo;
     }
 
     @Override
