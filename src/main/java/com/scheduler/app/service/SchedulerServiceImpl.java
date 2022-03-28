@@ -173,10 +173,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         return empHistoryList;
     }
 
-/*    public void addEmpHistory(int employeeId) {
-
-    }*/
-
     @Override
     public ScheduleOutputResponse getScheduleByDateTimeDepartment(ScheduleOutputRequest scheduleOutputRequest) {
 
@@ -222,20 +218,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 
             for (EligibleEmployees eligibleEmployee: eligibleEmployeesList){
                 if(eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())) {
- /*                   Time startTime = eligibleEmployee.availableStartTime ;
-                    Time endTime=eligibleEmployee.availableEndTime;
 
-                    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-                    Date startTimeD = null;
-                    Date endTimeD = null;
-                    try {
-                        startTimeD = (Date) format.parse(String.valueOf(startTime));
-
-                        endTimeD = (Date) format.parse(String.valueOf(endTime));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    long difference = endTimeD.getTime() - startTimeD.getTime();*/
                     totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
                     if(totalHours <= 0) {
                         break;
