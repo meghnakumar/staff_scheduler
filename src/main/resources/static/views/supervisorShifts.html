@@ -20,17 +20,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link active" href="../views/registeruser.html"><h5>Register Employee</h5>-->
-<!--                            <span class="visually-hidden">(current)</span>-->
-<!--                        </a>-->
-<!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../views/supervisorHome.html"><h5>Supervisor Home</h5>
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class = "container">
-        <button type="button" class="btn btn-primary breadcrumb-item" style="margin-top: 20px; margin-left: -30px"><a href="/"> Back </a></button>
         <div class="row mt-5">
             <div class="col-md-2"></div>
             <form class="col-md-7 custom-form" id="supervisor-form" action="/" method="post">
@@ -64,8 +63,20 @@
 
                 </div>
 
-                <input type="submit" id="scheduler-submit" class="btn btn-primary" />
+                <input type="submit" id="scheduler-submit" class="btn btn-success col-md-5" style="margin-left: 200px"/>
             </form>
+        </div>
+    </div>
+
+    <div class = "container">
+        <div class="row mt-md-auto">
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <div class="d-grid gap-2" style="margin-left: 200px">
+                    <br><br>
+                    <button class="btn btn-lg btn-primary" id="generateSchedule" type="button"> Generate Schedule </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -114,6 +125,7 @@
                 //do nothing -> On Weekend
             }else {
                 document.getElementById("scheduler-submit").disabled = true;
+                document.getElementById("supervisor-date-picker").disabled = true;
                 $("#informInvalidDate").modal('show');
             }
         });

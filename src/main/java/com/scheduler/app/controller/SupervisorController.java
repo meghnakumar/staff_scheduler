@@ -3,8 +3,11 @@ package com.scheduler.app.controller;
 import com.scheduler.app.model.entity.DailyShiftPOJO;
 import com.scheduler.app.model.entity.ScheduleDetails;
 import com.scheduler.app.model.request.ShiftDetailsRequest;
+import com.scheduler.app.model.response.AdminInfoResponse;
 import com.scheduler.app.model.response.ShiftDetailsResponse;
+import com.scheduler.app.model.response.SupervisorInfoResponse;
 import com.scheduler.app.service.SchedulerService;
+import com.scheduler.app.service.UtilityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,6 +30,9 @@ public class SupervisorController {
 
     @Autowired
     SchedulerService schedulerService;
+
+    @Autowired
+    UtilityService utilityService;
 
     @Operation(summary = "Store the shift details of staff for the next week in DB")
     @ApiResponses(value = {
@@ -60,7 +66,7 @@ public class SupervisorController {
         return schedulerService.getShifts(shiftDate);
     }
 
-    @GetMapping("/generateschedule")
+    @GetMapping("/generate/schedule")
     @ResponseStatus(value = HttpStatus.OK)
     public void algorithmTrigger(){
         schedulerService.algoImplementation();
@@ -73,6 +79,24 @@ public class SupervisorController {
     String getEmpHistory(@RequestParam int employeeId){
         schedulerService.getEmpHistory(employeeId);
         return "success";
+    }
+
+    @Operation(summary = "Retrieve the general information and display it on Supervisor homepage")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Information like employee count, upcoming holidays etc are " +
+                    "successfully retrieved from DB",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AdminInfoResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "not found",
+                    content = @Content)})
+    @GetMapping("/fetch/info")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public @ResponseBody
+    SupervisorInfoResponse getStatistic(@RequestParam Boolean onload, @RequestParam String department){
+
+        return utilityService.getSupervisorStats(onload, department);
     }
 
 }
