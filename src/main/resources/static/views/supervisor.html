@@ -76,7 +76,7 @@
                 <div class="text-black bg-warning">
                     <div class="card-header text-center"> !!! INFO</div>
                     <div class="card-body text-center">
-                        <h4 class="card-title"> Shift Requirement can be set only at the end of the Week.</h4>
+                        <h4 class="card-title"> Shift Requirement can be set only on Sundays.</h4>
                         <br>
                         <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bs-dismiss="modal"> Close </button>
                     </div>
@@ -107,10 +107,10 @@
     <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../js/supervisor.js"></script>
     <script>
-        //Script to Make sure that shifts can only be modified on Weekends.
+        //Script to Make sure that shifts can only be modified on Sundays.
         $( document ).ready(function() {
             var today = new Date()
-            if(today.getDay() === 6 || today.getDay() === 0) {
+            if(today.getDay() === 0) {
                 //do nothing -> On Weekend
             }else {
                 document.getElementById("scheduler-submit").disabled = true;

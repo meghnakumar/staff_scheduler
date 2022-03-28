@@ -35,21 +35,6 @@
     </div>
 </nav>
 
-<script>
-    //Script to Make sure that shifts can only be modified on Weekends.
-    $( document ).ready(function() {
-        var today = new Date()
-        if(today.getDay() === 6 || today.getDay() === 0) {
-            //do nothing -> On Weekend
-        }else {
-            document.getElementById("shiftbtn").disabled = true;
-            $("#informInvalidDate").modal('show');
-        }
-    });
-
-</script>
-
-
 <div class = "container">
     <div class="col-sm-4" style="margin: inherit"> <h1 >Manage Shifts</h1> </div>
     <div class="row">
@@ -106,7 +91,7 @@
             <div class="text-black bg-warning">
                 <div class="card-header text-center"> !!! INFO</div>
                 <div class="card-body text-center">
-                    <h4 class="card-title"> Shift Durations can only be Modified at the end of the Week.</h4>
+                    <h4 class="card-title"> Shift Durations can only be Modified on Saturdays. </h4>
                     <br>
                     <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bs-dismiss="modal"> Close </button>
                 </div>
@@ -115,4 +100,19 @@
     </div>
 </div>
 
+<script>
+    //Script to Make sure that shifts can only be modified on Saturdays.
+    $( document ).ready(function() {
+        var today = new Date()
+        if(today.getDay() === 6) {
+            //do nothing -> On Weekend
+        }else {
+            document.getElementById("shiftbtn").disabled = true;
+            $("#informInvalidDate").modal('show');
+        }
+    });
+
+</script>
+
 </body>
+</html>
