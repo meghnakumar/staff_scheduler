@@ -15,6 +15,7 @@ public class DatabaseOperations {
 			, String deptId) {
 		List<EligibleEmployees> list = new ArrayList<>();
 		try {
+
 			String query = "SELECT starttime, endtime, empavailablitynew.employee_id, total_hours_weekly FROM CSCI5308_20_DEVINT.empavailablitynew, CSCI5308_20_DEVINT.emphistory  where emphistory.employee_id = empavailablitynew.employee_id and role_id = " + roleId + " and shiftdate = '"+ shiftDate +"' and department_id = '" + deptId + "' order by emphistory.total_hours_weekly;";
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
@@ -31,7 +32,23 @@ public class DatabaseOperations {
 		}
 		return list;
 	}
-	
+
+	public static void truncateEmpHistory(){
+		Connection connection=DatabaseConnection.getConnection();
+		try {
+
+			String query="truncate table emphistory";
+			Statement statement=connection.createStatement();
+			statement.executeQuery(query);
+
+			connection.commit();
+
+		}
+		catch (SQLException sqlException){
+			sqlException.printStackTrace();
+		}
+	}
+
 	public static void insert(String deptId, String empno, Time startTime, Time endTime, Date shift_date, String roleId, String emp_hours) {
 		Connection connection = DatabaseConnection.getConnection();
 		try {
