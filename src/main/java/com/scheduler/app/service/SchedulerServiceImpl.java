@@ -6,19 +6,13 @@ import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.repo.*;
 import com.scheduler.app.model.request.RequiredRoleHours;
 import com.scheduler.app.model.request.ShiftDetailsRequest;
-import com.scheduler.app.model.request.StaffAvailabilityRequest;
-import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.model.response.ShiftDetailsResponse;
-import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.util.DateUtil;
 import com.scheduler.app.model.request.ScheduleRequest;
 import com.scheduler.app.model.response.ScheduleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.Date;
-import java.sql.Time;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.*;
@@ -212,12 +206,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         return dailyShiftList;
     }
 
-  /*  @Override
-    public List<EligibleEmployees> getEligibleEmployees() {
-        List<EligibleEmployees> eligibleEmployeesList = new ArrayList<EligibleEmployees>();
-        //  eligibleEmployeesList.add()
-        return eligibleEmployeesList;
-    }*/
     @Override
     public void algoImplementation(){
         double totalHours;

@@ -78,7 +78,7 @@ public class SupervisorController {
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
     ScheduleResponse getScheduleByShift(@RequestBody ScheduleRequest scheduleRequest){
-
+        schedulerService.algoImplementation();
         return schedulerService.getScheduleByDateTime(scheduleRequest);
     }
 
