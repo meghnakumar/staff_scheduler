@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.sql.Date;
 
+/**
+ * The type - Request Object for Holiday Creation
+ */
 @Getter
 @Setter
 @NoArgsConstructor

@@ -2,17 +2,15 @@ import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.entity.*;
 import com.scheduler.app.model.repo.*;
 import com.scheduler.app.model.request.RequiredRoleHours;
-import com.scheduler.app.model.request.ScheduleRequest;
+import com.scheduler.app.model.request.ScheduleOutputRequest;
 import com.scheduler.app.model.request.ShiftDetailsRequest;
-import com.scheduler.app.model.response.ScheduleResponse;
+import com.scheduler.app.model.response.ScheduleOutputResponse;
 import com.scheduler.app.model.response.ShiftDetailsResponse;
-import com.scheduler.app.service.SchedulerService;
 import com.scheduler.app.service.SchedulerServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -136,40 +134,40 @@ public class SchedulerServiceImplUnitTest {
     }
 
     @Test
-    public void testGetScheduleByDateTime(){
-        ScheduleResponse scheduleResponse = new ScheduleResponse(REQUEST_STATUS.FAILED,false,null);
-        ScheduleRequest scheduleRequest = new ScheduleRequest();
-        scheduleRequest.setShiftDate(LocalDate.ofEpochDay(2020-11-02));
-        scheduleRequest.setShiftTime(LocalTime.MAX);
-        SchedulePOJO schedulePOJO = new SchedulePOJO();
-        schedulePOJO.setPrimaryEmpNo(123);
-        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
-        departmentPOJO.setId("1");
-        schedulePOJO.setDepartment(departmentPOJO);
-        when(scheduleRepository.findById(any())).thenReturn(Optional.of(schedulePOJO));
-        scheduleResponse = schedulerService.getScheduleByDateTime(scheduleRequest);
-        assertEquals(REQUEST_STATUS.SUCCESS, scheduleResponse.getStatus());
+    public void testGetScheduleByDateTimeDepartment(){
+        ScheduleOutputResponse ScheduleOutputResponse = new ScheduleOutputResponse(REQUEST_STATUS.FAILED,false,null);
+        ScheduleOutputRequest ScheduleOutputRequest = new ScheduleOutputRequest();
+        ScheduleOutputRequest.setShiftDate(LocalDate.ofEpochDay(2020-11-02));
+        ScheduleOutputRequest.setShiftTime(LocalTime.MAX);
+        ScheduleOutputRequest.setDepartmentId("123");
+        ScheduleOutputPOJO ScheduleOutputPOJO = new ScheduleOutputPOJO();
+        ScheduleOutputPOJO.setDepartmentId("123");
+        when(scheduleRepository.findById(any())).thenReturn(Optional.of(ScheduleOutputPOJO));
+        ScheduleOutputResponse = schedulerService.getScheduleByDateTimeDepartment(ScheduleOutputRequest);
+        assertEquals(REQUEST_STATUS.SUCCESS, ScheduleOutputResponse.getStatus());
     }
 
     @Test
-    public void testGetScheduleByDateTimeWhenScheduleOutputNull(){
-        ScheduleResponse scheduleResponse = new ScheduleResponse(REQUEST_STATUS.FAILED,false,null);
-        ScheduleRequest scheduleRequest = new ScheduleRequest();
-        scheduleRequest.setShiftDate(LocalDate.ofEpochDay(2020-11-02));
-        scheduleRequest.setShiftTime(LocalTime.MAX);
+    public void testGetScheduleByDateTimeDepartmentWhenScheduleOutputNull(){
+        ScheduleOutputResponse ScheduleOutputResponse = new ScheduleOutputResponse(REQUEST_STATUS.FAILED,false,null);
+        ScheduleOutputRequest ScheduleOutputRequest = new ScheduleOutputRequest();
+        ScheduleOutputRequest.setShiftDate(LocalDate.ofEpochDay(2020-11-02));
+        ScheduleOutputRequest.setShiftTime(LocalTime.MAX);
+        ScheduleOutputRequest.setDepartmentId("123");
         when(scheduleRepository.findById(any())).thenReturn(Optional.empty());
-        scheduleResponse = schedulerService.getScheduleByDateTime(scheduleRequest);
-        assertEquals(REQUEST_STATUS.SUCCESS, scheduleResponse.getStatus());
+        ScheduleOutputResponse = schedulerService.getScheduleByDateTimeDepartment(ScheduleOutputRequest);
+        assertEquals(REQUEST_STATUS.SUCCESS, ScheduleOutputResponse.getStatus());
     }
 
     @Test
-    public void testGetScheduleByDateTimeWhenEmptyRequest(){
-        ScheduleResponse scheduleResponse = new ScheduleResponse(REQUEST_STATUS.SUCCESS,true,null);
-        ScheduleRequest scheduleRequest = new ScheduleRequest();
-        scheduleRequest.setShiftDate(null);
-        scheduleRequest.setShiftTime(null);
-        scheduleResponse = schedulerService.getScheduleByDateTime(scheduleRequest);
-        assertEquals(REQUEST_STATUS.INVALID_REQUEST, scheduleResponse.getStatus());
+    public void testGetScheduleByDateTimeDepartmentWhenEmptyRequest(){
+        ScheduleOutputResponse ScheduleOutputResponse = new ScheduleOutputResponse(REQUEST_STATUS.SUCCESS,false,null);
+        ScheduleOutputRequest ScheduleOutputRequest = new ScheduleOutputRequest();
+        ScheduleOutputRequest.setShiftDate(null);
+        ScheduleOutputRequest.setShiftTime(null);
+        ScheduleOutputRequest.setDepartmentId(null);
+        ScheduleOutputResponse = schedulerService.getScheduleByDateTimeDepartment(ScheduleOutputRequest);
+        assertEquals(REQUEST_STATUS.INVALID_REQUEST, ScheduleOutputResponse.getStatus());
     }
 
 }

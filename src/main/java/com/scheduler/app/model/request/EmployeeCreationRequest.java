@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+/**
+ * The type - Request Object for Employee Creation.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

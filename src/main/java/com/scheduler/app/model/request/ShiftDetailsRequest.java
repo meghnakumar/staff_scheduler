@@ -6,6 +6,9 @@ import lombok.Setter;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * The type - Request Object to save shift details to the DB.
+ */
 @Getter
 @Setter
 public class ShiftDetailsRequest {
