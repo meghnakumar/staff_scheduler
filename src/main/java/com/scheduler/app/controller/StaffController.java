@@ -55,7 +55,7 @@ public class StaffController {
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "not found",
                     content = @Content)})
-    @PostMapping("/get/details")
+    @GetMapping(value = "get/info")
     @Consumes(value = MediaType.APPLICATION_JSON)
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
