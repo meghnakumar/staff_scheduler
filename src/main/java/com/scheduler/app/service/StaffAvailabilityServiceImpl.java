@@ -56,6 +56,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 employeeAvailabilityPOJO.setShiftDay(request.getAvailableDay());
                 employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
                 employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                empHistoryPOJO = new EmpHistoryPOJO();
                 empHistoryPOJO.setEmployeeId(empDetailPOJO.getId());
                 empHistoryPOJO.setTotalHoursWeekly(0);
                 empAvailabilityRepository.saveAndFlush(employeeAvailabilityPOJO);
