@@ -5,6 +5,7 @@ import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.model.entity.EmpDetailPOJO;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
+import com.scheduler.app.model.repo.EmployeeHistoryRepository;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
 import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.service.StaffAvailabilityServiceImpl;
@@ -39,6 +40,9 @@ public  class StaffAvailabilityServiceImplUnitTest {
     @Mock
     private EmpAvailabilityRepository empAvailabilityRepository;
 
+    @Mock
+    private EmployeeHistoryRepository employeeHistoryRepository;
+
     @Test
     public void inputStaffAvailabilityTest(){
         EmpDetailPOJO emp = new EmpDetailPOJO();
@@ -53,6 +57,7 @@ public  class StaffAvailabilityServiceImplUnitTest {
         list.add(staffAvailabilityRequest);
         when(empDetailRepository.getTopByEmployeeNumber(staffAvailabilityRequest.getEmployeeNumber())).thenReturn(emp);
         when(empAvailabilityRepository.saveAndFlush(any())).thenReturn(null);
+        when(employeeHistoryRepository.saveAndFlush(any())).thenReturn(null);
         staffAvailabilityResponse = staffAvailabilityService.inputStaffAvailability(list);
         assertEquals(staffAvailabilityResponse.getStatus(),(REQUEST_STATUS.SUCCESS));
     }

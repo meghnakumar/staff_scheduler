@@ -4,9 +4,11 @@ import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.model.entity.EmpAvailabilityPOJO;
 import com.scheduler.app.model.entity.EmpDetailPOJO;
+import com.scheduler.app.model.entity.EmpHistoryPOJO;
 import com.scheduler.app.model.entity.EmployeeAvailabilityPOJO;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
+import com.scheduler.app.model.repo.EmployeeHistoryRepository;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
 import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
     @Autowired
     EmpAvailabilityRepository empAvailabilityRepository;
 
+    @Autowired
+    EmployeeHistoryRepository employeeHistoryRepository;
+
     EmployeeCredsDTO employeeCredsDTO;
 
     EmpDetailPOJO empDetailPOJO;
@@ -38,6 +43,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
         check = verifyStaff(staffAvailabilitiesRequest.get(0).getEmployeeNumber());
         if (check) {
             EmployeeAvailabilityPOJO employeeAvailabilityPOJO = null;
+            EmpHistoryPOJO empHistoryPOJO=null;
             for (StaffAvailabilityRequest request : staffAvailabilitiesRequest) {
                 Date availableDate = Date.valueOf(request.getAvailableDate());
                 boolean exists = checkIfAvailabilityAlreadyGiven(empDetailPOJO.getId(), availableDate);
@@ -50,7 +56,12 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 employeeAvailabilityPOJO.setShiftDay(request.getAvailableDay());
                 employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
                 employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                empHistoryPOJO = new EmpHistoryPOJO();
+                empHistoryPOJO.setEmployeeId(empDetailPOJO.getId());
+                empHistoryPOJO.setTotalHoursWeekly(0);
                 empAvailabilityRepository.saveAndFlush(employeeAvailabilityPOJO);
+                employeeHistoryRepository.saveAndFlush(empHistoryPOJO);
+
             }
             staffAvailabilityResponse.setStatus(REQUEST_STATUS.SUCCESS);
             staffAvailabilityResponse.setEntered(true);
