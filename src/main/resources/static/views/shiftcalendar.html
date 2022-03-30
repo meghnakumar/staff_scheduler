@@ -1,0 +1,86 @@
+<head>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
+</head>
+<body>
+    <div class="p-5">
+        <h2 class="mb-4">Full Calendar</h2>
+        <div class="card">
+            <div class="card-body p-0">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- calendar modal -->
+    <div id="modal-view-event" class="modal modal-top fade calendar-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="modal-title"><span class="event-icon"></span><span class="event-title"></span></h4>
+                    <div class="event-body"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js'></script>
+    <script type="text/javascript" src="../js/shiftcalendar.js"></script>
+    <script type="text/javascript">
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     var calendarEl = document.getElementById('calendar');
+            //     var calendar = new FullCalendar.Calendar(calendarEl, {
+            //         initialView: 'timeGridWeek',
+            //         themeSystem: 'bootstrap4',
+            //         // emphasizes business hours
+            //         businessHours: false,
+            //         editable: true,
+            //         headerToolbar: {
+            //             left: 'prev, next',
+            //             center: 'title',
+            //             right: 'dayGridMonth, timeGridWeek, timeGridDay'
+            //         },
+            //         events: [
+            //             {
+            //                 title: 'Dentist',
+            //                 start: '2022-03-29',
+            //                 className: 'fc-bg-blue',
+            //                 icon : "medkit",
+            //                 allDay: false
+            //             }
+            //         ],
+            //         eventRender: function(event, element) {
+            //             if(event.icon){
+            //                 element.find(".fc-title").prepend("<i class='fa fa-"+event.icon+"'></i>");
+            //             }
+            //         },
+            //         dayClick: function() {
+            //
+            //         },
+            //         eventClick: function(event, jsEvent, view) {
+            //             $('.event-icon').html("<i class='fa fa-"+event.icon+"'></i>");
+            //             $('.event-title').html(event.title);
+            //             $('.event-body').html(event.description);
+            //             $('.eventUrl').attr('href',event.url);
+            //             $('#modal-view-event').modal();
+            //         },
+            //     });
+            //     calendar.render();
+            // });
+    </script>
+
+<!--    <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>-->
+<!--    <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>-->
+<!--    <script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>-->
+<!--    <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>-->
+</body>
