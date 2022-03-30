@@ -1,7 +1,9 @@
 package com.scheduler.app.controller;
 
+import com.scheduler.app.model.entity.AssignedEmployeeDetail;
 import com.scheduler.app.model.request.StaffAvailabilitiesRequest;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
+import com.scheduler.app.model.response.EmployeeDetailsResponse;
 import com.scheduler.app.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.service.StaffAvailabilityService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,6 +44,23 @@ public class StaffController {
 
             List<StaffAvailabilityRequest> staffAvailibilityRequest = staffAvailabilitiesRequest.getStaffAvailabilityRequest();
             return staffAvailabilityService.inputStaffAvailability(staffAvailibilityRequest);
+    }
+
+    @Operation(summary = "Fetch the Employee Details to be displayed on the Employee Profile")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "sucessfully fetched employee details",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EmployeeDetailsResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "not found",
+                    content = @Content)})
+    @GetMapping(value = "get/info")
+    @Consumes(value = MediaType.APPLICATION_JSON)
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public @ResponseBody
+    EmployeeDetailsResponse getEmployeeInformation(@RequestParam String  employeeNumber){
+        return staffAvailabilityService.fetchEmployeeInfo(employeeNumber);
     }
 
 }
