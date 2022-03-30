@@ -24,13 +24,16 @@ code_quality:
     - 'eval "$UPLOAD_QUALITY_REPORT"'
   only:
     refs:
-      - develop
+      - test-app
+
 
 
 maven-build:
   image: maven:3-jdk-11
   stage: build
-  script: "mvn install -B"
+  script:
+    - mvn compile
+    - "mvn install -B"
   only:
     refs:
       - develop
@@ -50,7 +53,9 @@ maven-build-prod:
 maven-build-test:
   image: maven:3-jdk-11
   stage: build
-  script: "mvn -Ptest install -B"
+  script:
+    - mvn test
+    - "mvn -Ptest install -B"
   only:
     refs:
       - test-app
@@ -73,10 +78,10 @@ deploy-prod:
   stage: deploy
   image: ruby:latest
   script:
-  - apt-get update -qy
-  - apt-get install -y ruby-dev
-  - gem install dpl
-  - dpl --provider=heroku --app=app-staff-scheduler --api-key=$HEROKU_API_KEY
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=app-staff-scheduler --api-key=$HEROKU_API_KEY
   only:
     refs:
       - main

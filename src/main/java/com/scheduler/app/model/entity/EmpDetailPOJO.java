@@ -6,9 +6,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * The type - Employee Detail Entity POJO.
+ * Map fields to columns in the 'empdetails' table.
+ */
 @Entity(name = "empdetails")
 @Table(name = "empdetails")
 public class EmpDetailPOJO {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id", nullable = false)
@@ -44,7 +49,7 @@ public class EmpDetailPOJO {
     @Column(name = "phone_number", nullable = false)
     @Getter
     @Setter
-    private Integer phoneNumber;
+    private Long phoneNumber;
 
     @Column(name = "role_id", nullable = false, length = 50)
     @Getter
@@ -76,7 +81,7 @@ public class EmpDetailPOJO {
     @Setter
     private Integer jobType;
 
-    @Column(name = "max_availability_hours")
+    @Column(name = "max_available_hours")
     @Getter
     @Setter
     private Double maxAvailabilityHours;

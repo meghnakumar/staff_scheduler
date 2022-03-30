@@ -4,10 +4,14 @@ import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.controller.AdminController;
 import com.scheduler.app.model.request.EmployeeCreationRequest;
 import com.scheduler.app.model.request.HolidayCreationRequest;
+import com.scheduler.app.model.request.ShiftCreationRequest;
 import com.scheduler.app.model.response.EmployeeCreationResponse;
 import com.scheduler.app.model.response.HolidayCreationResponse;
+import com.scheduler.app.model.response.AdminInfoResponse;
+import com.scheduler.app.model.response.ShiftCreationResponse;
 import com.scheduler.app.service.EmployeeCreationService;
 import com.scheduler.app.service.HolidayCreationService;
+import com.scheduler.app.service.UtilityService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +22,10 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,6 +45,9 @@ public class AdminControllerUnitTest {
 
     @Mock
     private EmployeeCreationService employeeCreationService;
+
+    @Mock
+    private UtilityService utilityService;
 
     private HolidayCreationResponse holidayReponse;
 
@@ -68,6 +78,23 @@ public class AdminControllerUnitTest {
         when(holidayCreationService.addNewHoliday(holidayCreationRequest)).thenReturn(holidayReponse);
         mockMvc.perform(post("/admin/create/holiday").contentType("application/json")
                 .content(new ObjectMapper().writeValueAsString(holidayCreationRequest))).andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetsStatistics() throws Exception {
+        AdminInfoResponse adminInfoResponse = new AdminInfoResponse();
+        when(utilityService.getStatistics(true)).thenReturn(adminInfoResponse);
+        mockMvc.perform(get("/admin/fetch/info").param("onload", String.valueOf(true)))
+                .andDo(print()).andExpect(status().isOk());
+    }
+    @Test
+    public void testLogShiftDuration() throws Exception {
+        ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
+        shiftCreationRequest.setShiftDuration(8);
+        ShiftCreationResponse shiftCreationResponse = new ShiftCreationResponse(REQUEST_STATUS.SUCCESS,true);
+        when(utilityService.logNewShiftDuration(shiftCreationRequest)).thenReturn(shiftCreationResponse);
+        mockMvc.perform(post("/admin/shift").contentType("application/json")
+                .content(new ObjectMapper().writeValueAsString(shiftCreationRequest))).andDo(print()).andExpect(status().isOk());
     }
 
 }

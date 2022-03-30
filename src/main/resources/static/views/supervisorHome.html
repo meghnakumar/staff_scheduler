@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Supervisor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/createHoliday.js"></script>
+    <script src="../js/createEmployee.js"></script>
+
+    <style>body{background-color: #ffffff
+    }</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">ICON</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../views/supervisorShifts.html"><h5>Enter Shift Availability</h5>
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="../views/shiftcalender.html"><h5>View Schedule</h5>
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <form class="d-flex">
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class = "container">
+        <button type="button" class="btn btn-primary breadcrumb-item" style="margin-top: 20px; margin-left: -30px"><a href="/"> Back </a></button>
+        <div class="row">
+            <div class="col-md-7" style="margin: inherit">
+                <img class="img-fluid" src="../assets/images/admin.png" alt="" width = "80%" height = "80%">
+            </div>
+
+            <div class="card text-white bg-primary mb-3" style="max-width: 30rem; height:30rem">
+                <div class="card-body">
+                    <h3 class="card-title" style="margin-inline: 60px"> Welcome Supervisor </h3><br>
+                    <h4 class="card-text" > Department Name : <span id="deptName"></span></h4>
+                    <h4 class="card-text" > Number of Employees in Dept : <span id="deptEmpCount"></span></h4>
+                    <h4 class="card-text"> Upcoming Holidays :</h4>
+                    <h5 class="card-text" ><span id="upcomingHolidays"></span></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--Code to Load Information during Page load.-->
+<script>
+    $(document).ready((function() {
+
+            $.ajax({
+                contentType: 'application/json',
+                data:{'onload':true, 'department': sessionStorage.getItem('departmentId')},
+                type: 'GET',
+                url: '/supervisor/fetch/info',
+                success: function(data, response){
+
+                    $("#deptName").text(sessionStorage.getItem("departmentId"));
+                    $("#deptEmpCount").text(data.deptEmpCount);
+
+                    for(var k in data.upcomingHolidays){
+                        $("#upcomingHolidays").append("<br>").append(k + " => " + data.upcomingHolidays[k]);
+                    }
+                },
+                error: function (response){
+                    console.log("FAILED");
+                }
+            });
+        })
+
+    );
+</script>
+
+</nav>
+</body>
+</html>

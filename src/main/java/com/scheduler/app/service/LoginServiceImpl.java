@@ -3,6 +3,7 @@ package com.scheduler.app.service;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.constants.USER_TYPE;
 import com.scheduler.app.model.dto.EmployeeCredsDTO;
+import com.scheduler.app.model.entity.EmpDetailPOJO;
 import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.request.LoginRequest;
 import com.scheduler.app.model.response.LoginResponse;
@@ -21,11 +22,17 @@ public class LoginServiceImpl implements LoginService{
         LoginResponse loginResponse = new LoginResponse();
         if(Strings.isNotEmpty(loginRequest.getUserID()) && Strings.isNotEmpty(loginRequest.getPassword())){
 
-            EmployeeCredsDTO employeeCredsDTO = empDetailRepository.getTopByEmployeeNumber(loginRequest.getUserID());
+
+            EmpDetailPOJO empDetailPOJO = empDetailRepository.getTopByEmployeeNumber(loginRequest.getUserID());
+            EmployeeCredsDTO employeeCredsDTO =null;
+            if(empDetailPOJO != null) {
+                employeeCredsDTO = new EmployeeCredsDTO(empDetailPOJO.getId(), empDetailPOJO.getEmployeeNumber(),
+                        empDetailPOJO.getEmailId(), empDetailPOJO.getLoginPassword(), empDetailPOJO.getRoleId(), empDetailPOJO.getDepartmentId());
+            }
 
             //Flag for checking validity of Credentials
             boolean isValidPassword = checkPasswordMatch(employeeCredsDTO, loginRequest);
-            if(isValidPassword && employeeCredsDTO != null) {
+            if(isValidPassword && empDetailPOJO != null) {
 
                 switch (employeeCredsDTO.getRoleId()){
 
@@ -50,7 +57,11 @@ public class LoginServiceImpl implements LoginService{
                                 loginResponse.setUserType(USER_TYPE.INVALID);
                 }
 
-            } else if (employeeCredsDTO != null && employeeCredsDTO.getEmployeeNumber().equals(loginRequest.getUserID())){
+                loginResponse.setId(employeeCredsDTO.getId());
+                loginResponse.setEmployeeNumber(employeeCredsDTO.getEmployeeNumber());
+                loginResponse.setDepartmentId(employeeCredsDTO.getDepartmentId());
+
+            } else if (empDetailPOJO != null && employeeCredsDTO.getEmployeeNumber().equals(loginRequest.getUserID())){
 
                 loginResponse.setStatus(REQUEST_STATUS.INCORRECT_PASSWORD);
                 loginResponse.setValid(false);

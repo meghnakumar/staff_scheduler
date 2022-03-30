@@ -13,9 +13,11 @@ public interface EmpDetailRepository extends JpaRepository<EmpDetailPOJO, Intege
 
     EmployeeCredsDTO getLoginCredsById(Integer id);
 
-    EmployeeCredsDTO getTopByEmployeeNumber(String employeeNumber);
+    EmpDetailPOJO getTopByEmployeeNumber(String employeeNumber);
 
     List<EmpDetailPOJO> findAll();
 
     EmployeeCredsDTO getDistinctFirstByEmployeeNumber(String employeeNumber);
+
+    Long countDistinctByDepartmentId(String department);
 }

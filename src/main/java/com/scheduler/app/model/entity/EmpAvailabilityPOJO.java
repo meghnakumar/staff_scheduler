@@ -1,12 +1,15 @@
 package com.scheduler.app.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Timestamp;
 
+/**
+ * The type - Employee Availability Entity POJO.
+ * Maps the fields to the 'empavailability' table in the DB.
+ */
 @Entity
 @Table(name = "empavailability")
 public class EmpAvailabilityPOJO {
@@ -15,6 +18,7 @@ public class EmpAvailabilityPOJO {
     @Column(name = "id", nullable = false)
     @Getter
     @Setter
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "employee_id")

@@ -35,6 +35,10 @@
                     <a class="nav-link active" href="../views/declareholiday.html"><h5>Register Holiday</h5></a>
                     <span class="visually-hidden">(current)</span>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="../views/manageshift.html"><h5>Manage Shift</h5></a>
+                    <span class="visually-hidden">(current)</span>
+                </li>
             </ul>
             <form class="d-flex">
 
@@ -43,6 +47,38 @@
     </div>
 </nav>
 
+<!--Code to Load Information during Page load.-->
+<script>
+    $(document).ready((function() {
+
+        $.ajax({
+            contentType: 'application/json',
+            data:{'onload':true},
+            type: 'GET',
+            url: '/admin/fetch/info',
+            success: function(data, response){
+
+                $("#empCount").text(data.empCount);
+                $("#deptCount").text(data.deptCount);
+
+                var deptVal = data.deptInfo;
+                for (let index = 1; index < 6; index++) {
+                    $("#deptInfo").append("<br>"+ "D0" + index + " =>").append(deptVal['D0' + index]);}
+
+                for(var k in data.upcomingHolidays){
+                    $("#upcomingHolidays").append("<br>").append(k + " => " + data.upcomingHolidays[k]);
+                }
+            },
+            error: function (response){
+                console.log("FAILED");
+            }
+        });
+    })
+
+);
+</script>
+
+
     <div class = "container">
     <button type="button" class="btn btn-primary breadcrumb-item" style="margin-top: 20px; margin-left: -30px"><a href="/"> Back </a></button>
         <div class="row">
@@ -50,10 +86,15 @@
                 <img class="img-fluid" src="../assets/images/admin.png" alt="" width = "80%" height = "80%">
             </div>
 
-            <div class="card text-white bg-primary mb-3" style="max-width: 30rem; height:30rem">
+            <div class="card text-white bg-primary mb-3" style="max-width: 30rem; height:35rem">
                 <div class="card-body">
                     <h3 class="card-title" style="margin-inline: 70px">Welcome Admin</h3><br>
-                    <h4 class="card-text"> Some info goes here...</h4>
+                    <h4 class="card-text" > Number of Employees : <span id="empCount"></span></h4>
+                    <h4 class="card-text" > Number of Departments : <span id="deptCount"></span></h4>
+                    <h4 class="card-text"> Department Info :</h4>
+                    <h5 class="card-text" ><span id="deptInfo"></span></h5>
+                    <h4 class="card-text"> Upcoming Holidays :</h4>
+                    <h5 class="card-text" ><span id="upcomingHolidays"></span></h5>
                 </div>
             </div>
             </div>

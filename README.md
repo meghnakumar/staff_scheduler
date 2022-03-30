@@ -15,21 +15,25 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 mvn spring-boot:run
 ```
 
-### CI/CD with Auto DevOps
-
+## CI/CD with Auto DevOps
 This project is configured with pipelines to ensure code quality using unit tests, build checks and auto-deployment using the Heroku cloud server.
 
-## Appication Development URL's
-base URL - https://app-staff-scheduler-dev.herokuapp.com/
-swagger UI - https://app-staff-scheduler-dev.herokuapp.com/scheduler/swagger-ui/index.html
-swagger api-docs - https://app-staff-scheduler-dev.herokuapp.com/scheduler/api-docs/
+## Development Environment 
+base URL - https://app-staff-scheduler-dev.herokuapp.com  
+swagger UI - https://app-staff-scheduler-dev.herokuapp.com/swagger-ui/index.html  
+swagger api-docs - https://app-staff-scheduler-dev.herokuapp.com/api-docs
 
-## Applciation Production URL's
-base URL - https://app-staff-scheduler.herokuapp.com/
-swagger UI - https://app-staff-scheduler.herokuapp.com/scheduler/swagger-ui/index.html
-swagger api-docs - https://app-staff-scheduler.herokuapp.com/scheduler/api-docs/
+## Testing Environment
+base URL - https://app-staff-scheduler-test.herokuapp.com  
+swagger UI - https://app-staff-scheduler-test.herokuapp.com/swagger-ui/index.html  
+swagger api-docs - https://app-staff-scheduler-test.herokuapp.com/api-docs
 
-## Environment selectors
-spring.profiles.active=develop
-spring.profiles.active=test
-spring.profiles.active=prod
+## Production Environment
+base URL - https://app-staff-scheduler.herokuapp.com  
+swagger UI - https://app-staff-scheduler.herokuapp.com/swagger-ui/index.html  
+swagger api-docs - https://app-staff-scheduler.herokuapp.com/api-docs/
+
+### Environment selectors
+spring.profiles.active=develop  
+spring.profiles.active=test  
+spring.profiles.active=prod  
