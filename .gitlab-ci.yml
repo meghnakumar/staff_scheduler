@@ -25,40 +25,23 @@ code_quality:
   only:
     refs:
       - test-app
-
-
+      - feature-admin-pipeline
 
 maven-build:
   image: maven:3-jdk-11
   stage: build
   script:
-    - mvn compile
-    - "mvn install -B"
-  only:
-    refs:
-      - develop
-      - merge_requests
-      - feature-admin
-      - feature-frontend
-      - feature-backend
-
-maven-build-prod:
-  image: maven:3-jdk-11
-  stage: build
-  script: "mvn -Pprod install -B"
+    - mvn compile -B
   only:
     refs:
       - main
-
-maven-build-test:
-  image: maven:3-jdk-11
-  stage: build
-  script:
-    - mvn test
-    - "mvn -Ptest install -B"
-  only:
-    refs:
       - test-app
+      - develop
+      - merge_requests
+      - feature-admin-pipeline
+      - feature-frontend
+      - feature-backend
+
 
 maven-test:
   image: maven:3-jdk-11
@@ -70,7 +53,7 @@ maven-test:
       - develop
       - test-app
       - merge_requests
-      - feature-admin
+      - feature-admin-pipeline
       - feature-frontend
       - feature-backend
 
