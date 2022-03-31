@@ -8,7 +8,6 @@ import java.io.Serializable;
  * Saves a Sub-section of the details from the EmpDetailPOJO Entity.
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeCredsDTO implements Serializable{
 
