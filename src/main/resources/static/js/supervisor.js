@@ -3,7 +3,7 @@ $(document).ready(function(){
     $( "#employee-detail" ).hide();
     fetchShifts();
     let employeeSectionCount = 1;
-    let slotType = 8;
+    let slotType = 0;
     let rolesObj = [{name: "Admin", "value": 0}, {name: "Supervisor", "value": 1},
         {name: "Staff", "value": 2}, {name: "Intern", value: 3}];
     addEmpSection(employeeSectionCount, rolesObj);
