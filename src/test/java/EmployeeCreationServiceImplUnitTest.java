@@ -56,9 +56,7 @@ public class EmployeeCreationServiceImplUnitTest {
 
     @Test
     public void createNewEmployeeFailTest(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"DEMO001","demo@gmail.com","password"
-                                                        ,1,"01");
-        emp.setEmployeeNumber("EMP001");
+        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"EMP001","demo@gmail.com","password",1,"01");
         setupEmployeeInputRequest();
         when(empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber())).thenReturn(emp);
         when(empDetailRepository.saveAndFlush(any())).thenReturn(empDetailPOJO);

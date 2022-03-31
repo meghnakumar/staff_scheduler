@@ -103,11 +103,7 @@ public class LoginServiceImplUnitTest {
 
     @Test
     public void inputCredentialsForNoDataFromDBTest(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"DEMO001","demo@gmail.com","password"
-                ,1,"01");
-        emp.setEmployeeNumber("EMP001");
-        emp.setLoginPassword("abcd");
-        emp.setRoleId(0);
+        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"EMP001","demo@gmail.com","abcd",0,"01");
         loginRequest = new LoginRequest();
         loginRequest.setUserID("EMP001");
         loginRequest.setPassword("Password");
@@ -118,9 +114,7 @@ public class LoginServiceImplUnitTest {
 
     @Test
     public void inputCredentialsWhenNoInputDataTest(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"DEMO001","demo@gmail.com","password"
-                ,1,"01");
-        emp.setEmployeeNumber("EMP001");
+        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"EMP001","demo@gmail.com","password",1,"01");
         loginRequest = new LoginRequest();
         loginRequest.setUserID(null);
         loginRequest.setPassword(null);
