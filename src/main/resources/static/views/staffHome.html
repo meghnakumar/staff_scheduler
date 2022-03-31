@@ -12,7 +12,7 @@
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/createHoliday.js"></script>
     <script src="../js/createEmployee.js"></script>
-
+    <script src="../js/staffHome.js"></script>
     <style>body{background-color: #ffffff
     }</style>
 </head>
@@ -39,36 +39,28 @@
     </div>
 </nav>
 
-<!--Code to Load Information during Page load.-->
-<script>
-/*    $(document).ready((function() {
+<div class = "container">
+    <button type="button" class="btn btn-primary breadcrumb-item" style="margin-top: 20px; margin-left: -30px"><a href="/"> Back </a></button>
+    <div class="row">
+        <div class="col-md-7" style="margin: inherit">
+            <img class="img-fluid" src="../assets/images/admin.png" alt="" width = "80%" height = "80%">
+        </div>
 
-            $.ajax({
-                contentType: 'application/json',
-                data:{'onload':true},
-                type: 'GET',
-                url: '/admin/fetch/info',
-                success: function(data, response){
+        <div class="card text-white bg-primary mb-3" style="max-width: 30rem; height:35rem">
+            <div class="card-body">
+                <h3 id=user-welcome class="card-title" style="margin-inline: 70px"></h3><br>
+                <h4 class="card-text" > Employee ID :<span id="employee-id"></span></h4>
+                <h4 class="card-text" > Department ID : <span id="dept-id"></span></h4>
+                <h4 class="card-text" > Registered Email ID : <span id="email-id"></span></h4>
+                <h4 class="card-text" > Registered contact number : <span id="mobile-number"></span></h4>
+                <h5 class="card-text" > Maximum Availability Hours :<span id="hours"></span></h5>
+<!--                <h4 class="card-text" > Contact Number :</h4>-->
+                <h5 class="card-text" ><span id="upcomingHolidays"></span></h5>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    $("#empCount").text(data.empCount);
-                    $("#deptCount").text(data.deptCount);
-
-                    var deptVal = data.deptInfo;
-                    for (let index = 1; index < 6; index++) {
-                        $("#deptInfo").append("<br>"+ "D0" + index + " =>").append(deptVal['D0' + index]);}
-
-                    for(var k in data.upcomingHolidays){
-                        $("#upcomingHolidays").append("<br>").append(k + " => " + data.upcomingHolidays[k]);
-                    }
-                },
-                error: function (response){
-                    console.log("FAILED");
-                }
-            });
-        })
-
-    );*/
-</script>
 
 <div class="modal fade" id="invalid">
     <div class="modal-dialog" role="document">
