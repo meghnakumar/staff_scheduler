@@ -1,3 +1,4 @@
+import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.model.entity.EmpDetailPOJO;
@@ -10,13 +11,14 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest(classes = StaffSchedulerApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootConfiguration
 public class LoginServiceImplUnitTest {
 
     @InjectMocks
@@ -101,7 +103,8 @@ public class LoginServiceImplUnitTest {
 
     @Test
     public void inputCredentialsForNoDataFromDBTest(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"DEMO001","demo@gmail.com","password"
+                ,1,"01");
         emp.setEmployeeNumber("EMP001");
         emp.setLoginPassword("abcd");
         emp.setRoleId(0);
@@ -115,7 +118,8 @@ public class LoginServiceImplUnitTest {
 
     @Test
     public void inputCredentialsWhenNoInputDataTest(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"DEMO001","demo@gmail.com","password"
+                ,1,"01");
         emp.setEmployeeNumber("EMP001");
         loginRequest = new LoginRequest();
         loginRequest.setUserID(null);

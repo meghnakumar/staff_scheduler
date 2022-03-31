@@ -1,6 +1,8 @@
 
 
+import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
+import com.scheduler.app.controller.AdminController;
 import com.scheduler.app.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.model.entity.EmpDetailPOJO;
 import com.scheduler.app.model.repo.EmpDetailRepository;
@@ -13,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
@@ -22,8 +25,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest(classes = StaffSchedulerApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootConfiguration
 public class EmployeeCreationServiceImplUnitTest {
 
     @InjectMocks
@@ -53,7 +56,8 @@ public class EmployeeCreationServiceImplUnitTest {
 
     @Test
     public void createNewEmployeeFailTest(){
-        EmployeeCredsDTO emp = new EmployeeCredsDTO();
+        EmployeeCredsDTO emp = new EmployeeCredsDTO(1,"DEMO001","demo@gmail.com","password"
+                                                        ,1,"01");
         emp.setEmployeeNumber("EMP001");
         setupEmployeeInputRequest();
         when(empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber())).thenReturn(emp);

@@ -1,3 +1,4 @@
+import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.model.entity.*;
 import com.scheduler.app.model.repo.*;
@@ -12,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Date;
@@ -26,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@SpringBootTest(classes = StaffSchedulerApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootConfiguration
 public class SchedulerServiceImplUnitTest {
 
     @InjectMocks
