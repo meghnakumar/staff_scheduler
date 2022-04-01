@@ -13,14 +13,15 @@ $( document ).ready(function() {
         success: function(data, response){
             var text = response;
             var employeeDetails = data["response"];
-            var name = employeeDetails["firstName"] + " " + employeeDetails["LastName"];
+            var name = "Welcome " + employeeDetails["firstName"] + " " + employeeDetails["lastName"];
             console.log(employeeDetails)
-            $("#user-welcome").text("Welcome " + name);
+            $("#employee-name").text(name);
             $("#employee-id").text(employeeDetails["employeeNumber"]);
             $("#dept-id").text(employeeDetails["departmentId"]);
             $("#email-id").text(employeeDetails["emailId"]);
             $("#hours").text(employeeDetails["maxAvailabilityHours"]);
             $("#mobile-number").text(employeeDetails["phoneNumber"]);
+            $("#joining-date").text(employeeDetails["dateOfJoining"]);
         },
         error: function (response){
             console.log("FAILED");
