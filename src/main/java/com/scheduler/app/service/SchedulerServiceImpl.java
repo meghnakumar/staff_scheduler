@@ -129,10 +129,10 @@ public class SchedulerServiceImpl implements SchedulerService {
 //        return scheduleList;
 //    }
 
-    public AssignedEmployeeDetail assignShiftToEmployee(EmpAvailabilityPOJO empAvailability) {
-        return new AssignedEmployeeDetail(empAvailability.getEmployeeNumber(),
-                empAvailability.getStartTime().toString(), empAvailability.getEndTime().toString(), "", "");
-    }
+//    public AssignedEmployeeDetail assignShiftToEmployee(EmpAvailabilityPOJO empAvailability) {
+//        return new AssignedEmployeeDetail(empAvailability.getEmployeeNumber(),
+//                empAvailability.getStartTime().toString(), empAvailability.getEndTime().toString(), "", "");
+//    }
 
     public Map<String, Set<Integer>> getDepartMentRolesMap(List<DailyShiftPOJO> dayShifts) {
         Map<String, Set<Integer>> departmentRoles = new HashMap();

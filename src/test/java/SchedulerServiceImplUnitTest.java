@@ -54,7 +54,7 @@ public class SchedulerServiceImplUnitTest {
     private ShiftDetailsRepository shiftDetailsRepository;
 
     private ShiftDetailsResponse shiftDetailsResponse = new ShiftDetailsResponse(REQUEST_STATUS.SUCCESS,true);
-    private EmpAvailabilityPOJO empAvailabilityPOJO = new EmpAvailabilityPOJO();
+
     @Test
     public void testSaveShiftDetails(){
         ShiftDetailsRequest shiftDetailsRequest = new ShiftDetailsRequest();

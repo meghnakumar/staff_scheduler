@@ -6,9 +6,12 @@ import com.scheduler.app.model.dto.EmployeeDetailDTO;
 import com.scheduler.app.model.entity.EmpDetailPOJO;
 import com.scheduler.app.model.entity.EmpHistoryPOJO;
 import com.scheduler.app.model.entity.EmployeeAvailabilityPOJO;
+import com.scheduler.app.model.entity.EmployeeAvailabilityPOJOId;
 import com.scheduler.app.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.model.repo.EmpDetailRepository;
 import com.scheduler.app.model.repo.EmployeeHistoryRepository;
+import com.scheduler.app.model.request.EmployeeAvailabilityExistsRequest;
+import com.scheduler.app.model.request.EmployeeAvailabilityExistsResponse;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
 import com.scheduler.app.model.response.EmployeeDetailsResponse;
 import com.scheduler.app.model.response.StaffAvailabilityResponse;
@@ -17,7 +20,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
@@ -44,19 +49,25 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
         check = verifyStaff(staffAvailabilitiesRequest.get(0).getEmployeeNumber());
         if (check) {
             EmployeeAvailabilityPOJO employeeAvailabilityPOJO = null;
-            EmpHistoryPOJO empHistoryPOJO=null;
+            EmployeeAvailabilityPOJOId employeeAvailabilityPOJOId = null;
+            EmpHistoryPOJO empHistoryPOJO = null;
             for (StaffAvailabilityRequest request : staffAvailabilitiesRequest) {
                 Date availableDate = Date.valueOf(request.getAvailableDate());
-                boolean exists = checkIfAvailabilityAlreadyGiven(empDetailPOJO.getId(), availableDate);
-                employeeAvailabilityPOJO = new EmployeeAvailabilityPOJO();
-                employeeAvailabilityPOJO.setId(null);
-                employeeAvailabilityPOJO.setEmployeeId(empDetailPOJO.getId());
-                employeeAvailabilityPOJO.setDepartmentId(empDetailPOJO.getDepartmentId());
-                employeeAvailabilityPOJO.setRoleId(empDetailPOJO.getRoleId());
-                employeeAvailabilityPOJO.setShiftDate(availableDate);
-                employeeAvailabilityPOJO.setShiftDay(request.getAvailableDay());
-                employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
-                employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                employeeAvailabilityPOJOId = new EmployeeAvailabilityPOJOId(request.getEmployeeNumber(), availableDate);
+                boolean exists = checkIfAvailabilityAlreadyGiven(employeeAvailabilityPOJOId);
+                if (exists) {
+                    employeeAvailabilityPOJO = empAvailabilityRepository.getById(employeeAvailabilityPOJOId);
+                    employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
+                    employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                } else {
+                    employeeAvailabilityPOJO = new EmployeeAvailabilityPOJO();
+                    employeeAvailabilityPOJO.setId(employeeAvailabilityPOJOId);
+                    employeeAvailabilityPOJO.setDepartmentId(empDetailPOJO.getDepartmentId());
+                    employeeAvailabilityPOJO.setRoleId(empDetailPOJO.getRoleId());
+                    employeeAvailabilityPOJO.setShiftDay(request.getAvailableDay());
+                    employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
+                    employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                }
                 empHistoryPOJO = new EmpHistoryPOJO();
                 empHistoryPOJO.setEmployeeId(empDetailPOJO.getId());
                 empHistoryPOJO.setTotalHoursWeekly(0);
@@ -112,16 +123,37 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
 
     private LocalTime getTime(String time) {
         String[] splitTime = time.split(":");
-        LocalTime localTime = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
-        return localTime;
+        return LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
     }
 
-    public boolean checkIfAvailabilityAlreadyGiven(Integer employeeNumber, Date availableDate) {
-        EmployeeAvailabilityPOJO result = empAvailabilityRepository.findEmployeeAvailabilityPOJOByShiftDateAndEmployeeId(availableDate, employeeNumber);
-        if (result != null) {
-            return result.getEmployeeId() != null;
+    public boolean checkIfAvailabilityAlreadyGiven(EmployeeAvailabilityPOJOId id) {
+        Optional<EmployeeAvailabilityPOJO> result = empAvailabilityRepository.findById(id);
+        return result.isPresent();
+    }
+
+
+    public EmployeeAvailabilityExistsResponse checkEmployeeAvailability(EmployeeAvailabilityExistsRequest request) {
+        EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
+        String employeeNumber = request.getEmployeeNumber();
+        EmployeeAvailabilityPOJOId employeeAvailabilityPOJOId = null;
+        List<String> dates = request.getDates();
+        ArrayList<Date> convertedDates = new ArrayList<>();
+        ArrayList<String> alreadyExisitngDates = new ArrayList<>();
+        boolean modified = false;
+        for (String date : dates) {
+            convertedDates.add(Date.valueOf(date));
         }
-        return false;
+        for(Date date: convertedDates){
+            employeeAvailabilityPOJOId = new EmployeeAvailabilityPOJOId(employeeNumber,date);
+            if(empAvailabilityRepository.existsById(employeeAvailabilityPOJOId)){
+                alreadyExisitngDates.add(date.toLocalDate().toString());
+                modified = true;
+            }
+        }
+        employeeAvailabilityExistsResponse.setModified(modified);
+        employeeAvailabilityExistsResponse.setStatus(REQUEST_STATUS.SUCCESS);
+        employeeAvailabilityExistsResponse.setDates(alreadyExisitngDates);
+        return employeeAvailabilityExistsResponse;
     }
 }
 
