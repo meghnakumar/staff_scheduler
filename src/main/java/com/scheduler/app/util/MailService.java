@@ -1,6 +1,6 @@
 package com.scheduler.app.util;
 
-import com.scheduler.app.model.entity.EmpDetailPOJO;
+import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;

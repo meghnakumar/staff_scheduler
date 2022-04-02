@@ -1,6 +1,5 @@
 package com.scheduler.app;
 
-import com.scheduler.app.service.SchedulerServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
