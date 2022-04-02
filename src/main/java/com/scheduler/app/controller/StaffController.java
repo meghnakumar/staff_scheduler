@@ -1,6 +1,8 @@
 package com.scheduler.app.controller;
 
 import com.scheduler.app.model.entity.AssignedEmployeeDetail;
+import com.scheduler.app.model.request.EmployeeAvailabilityExistsRequest;
+import com.scheduler.app.model.request.EmployeeAvailabilityExistsResponse;
 import com.scheduler.app.model.request.StaffAvailabilitiesRequest;
 import com.scheduler.app.model.request.StaffAvailabilityRequest;
 import com.scheduler.app.model.response.EmployeeDetailsResponse;
@@ -63,4 +65,20 @@ public class StaffController {
         return staffAvailabilityService.fetchEmployeeInfo(employeeNumber);
     }
 
+    @Operation(summary = "Fetch if employee availability already exists")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "sucessfully fetched employee availability details",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EmployeeAvailabilityExistsResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "not found",
+                    content = @Content)})
+    @PostMapping(value = "check/availability")
+    @Consumes(value = MediaType.APPLICATION_JSON)
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public @ResponseBody
+    EmployeeAvailabilityExistsResponse getEmployeeAvailability(@RequestBody EmployeeAvailabilityExistsRequest request){
+        return staffAvailabilityService.checkEmployeeAvailability(request);
+    }
 }

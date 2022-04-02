@@ -1,11 +1,12 @@
 package com.scheduler.app.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.sql.Date;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalTime;
 
 /**
@@ -13,32 +14,21 @@ import java.time.LocalTime;
  * Maps the fields to the 'empavailability' table in the DB.
  */
 @Entity
-@Table(name = "empavailablitynew")
+@Table(name = "empavailability")
 public class EmployeeAvailabilityPOJO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    @Getter
-    @Setter
-    @JsonIgnore
-    private Integer id;
 
-    @Column(name = "employee_id")
+    @EmbeddedId
     @Getter
     @Setter
-    private Integer employeeId;
+    private EmployeeAvailabilityPOJOId id;
 
     @Column(name = "role_id")
     @Getter
     @Setter
     private Integer roleId;
 
-    @Column(name = "shiftdate")
-    @Getter
-    @Setter
-    private Date shiftDate;
 
-    @Column(name = "shiftday")
+    @Column(name = "shift_day")
     @Getter
     @Setter
     private String shiftDay;
@@ -48,12 +38,12 @@ public class EmployeeAvailabilityPOJO {
     @Setter
     private String departmentId;
 
-    @Column(name = "starttime")
+    @Column(name = "start_time")
     @Getter
     @Setter
     private LocalTime startTime;
 
-    @Column(name = "endtime")
+    @Column(name = "end_time")
     @Getter
     @Setter
     private LocalTime endTime;
