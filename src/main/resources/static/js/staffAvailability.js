@@ -5,6 +5,7 @@ $(document).ready(function () {
     console.log("userID--", userId);
     var dayList = ["monday", "tuesday", "wednesday", "thursday", "friday"];
     var dateDetails = getDateDetails(dayList);
+    checkAvailability(dateDetails, userId, dayList);
     dayList.forEach(item => {
         var dateArr = dateDetails[item]
         $("#userDate-" + item).text(dateArr[0]);
@@ -74,10 +75,7 @@ function createRequestBody(form, userId, dateDetails) {
     const resultJSON = [];
     let entry = {};
     formData = new FormData(form);
-    // dayList = {0: "monday", 1: "tuesday", 2: "wednesday", 3: "thursday", 4: "friday"};
     dayListArr = ["monday", "tuesday", "wednesday", "thursday", "friday"];
-    // var count = 0;
-    // var countDay = 0;
     for (var day of dayListArr) {
         entry = {}
         if (formData.get(day) === 'yes') {
@@ -105,7 +103,11 @@ function createRequestBody(form, userId, dateDetails) {
 
 function submitForm(e, form, userId, dateDetails) {
     e.preventDefault()
-    // console.log("clicked-->", form);
+    let flag = performValidation();
+    if (flag) {
+        console.log("inside flag block")
+        return;
+    }
     submit = document.getElementById("form-submit");
     submit.disabled = true;
     setTimeout(submit.disabled = false, 2000);
@@ -125,43 +127,13 @@ function submitForm(e, form, userId, dateDetails) {
         success: function (data, response) {
             if (response == "success") {
                 console.log("Success:", response)
-                console.log("data:", data)
-                // sessionStorage.setItem('userId', loginId);
+                console.log("data:", data);
+                $("#informSuccess").modal("show");
             }
-
-            // Get userId from session storage which will be used in request body of APIs
-            // let userId = sessionStorage.getItem('userId');
-            // if (data.userType === "ADMIN" && data.status === 'SUCCESS') {
-            //     $(location).attr('href',"/views/admin.html");
-            // } else if (data.userType === "SUPERVISOR" && data.status === 'SUCCESS') {
-            //     $(location).attr('href',"/views/supervisorShifts.html");
-            // } else if (data.userType === 'STAFF' && data.status === 'SUCCESS'){
-            //     $(location).attr('href',"/views/staffHome.html");
-            // } else if (data.status === 'INCORRECT_PASSWORD'){
-            //     //Respond with Error
-            //     alert("Incorrect Password for ID: " + loginId);
-            // } else {
-            //     $("#invalid").modal('show');
-            // }
         }, error: function (response) {
             console.log("Error status", response.status, "Error text", response.statusText);
         }
     });
-
-
-    /*
-    {
-"staffAvailabilityRequest": [
-{
-  "employeeNumber": "string",
-  "startTime": "2022-03-16T03:41:02.788Z",
-  "endTime": "2022-03-16T03:41:02.788Z",
-  "availableDate": "2022-03-16T03:41:02.788Z",
-  "availableDay": "string"
-}
-]
-}
-    */
 }
 
 function radioFunction(element, day) {
@@ -193,8 +165,75 @@ function fetchShifts() {
             $('#friday-slot').append(option);
         }, error: function (response) {
             console.log("Error status", response.status, "Error text", response.statusText);
+            window.alert("Error status", response.status, "Error text", response.statusText);
         }
     });
 }
 
+function performValidation() {
+    let flag = false;
+    var dayList = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+    let dates = "";
+    dayList.forEach(day => {
+        let isChecked = $('#yes-' + day).is(':checked');
+        if (isChecked) {
+            let selectedValue = $('#' + day + '-slot' + ' :selected').text();
+            if (selectedValue === "Select Time") {
+                dates += day + ",";
+                flag = true;
+            }
+        }
+    });
+    if (flag) {
+        dates = dates.substring(0, dates.length - 1);
+        $("#warning-msg-head").text("Please select time slot for below days before submitting.");
+        $("#warning-msg").text(dates);
+        $("#warnModal").modal('show');
+    }
+    console.log("flag==>" + flag);
+    return flag;
+}
 
+function checkAvailability(dateDetails, userId, dayList) {
+    let request = {};
+    request["employeeNumber"] = userId;
+    dateList = [];
+    dayList.forEach(day => {
+        var dateArr = dateDetails[day];
+        var dateArr2 = dateArr[0].split(" ");
+        var date = dateArr2[0]
+        dateList.push(dateArr2[0]);
+    });
+
+    request["dates"] = dateList;
+    console.log("request", request);
+    $.ajax({
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(request),
+        type: 'POST',
+        url: '/staff/check/availability',
+        passwordType: true,
+        success: function (data, response) {
+            if (response === "success") {
+                console.log("Success:", response)
+                console.log("data:", data)
+                // sessionStorage.setItem('userId', loginId);
+                let modified = data.modified;
+                if (modified) {
+                    let modifiedDates = data.dates;
+                    let dates = "";
+                    modifiedDates.forEach(item => {
+                        dates += item.trim() + ", "
+                    });
+                    dates = dates.substring(0, dates.length - 2);
+                    $("#warning-msg-head").text("Availability already provided for this week for below dates.");
+                    $("#warning-msg").text(dates);
+                    $("#warnModal").modal('show');
+                }
+            }
+        }, error: function (response) {
+            console.log("Error status", response.status, "Error text", response.statusText);
+        }
+    });
+}
