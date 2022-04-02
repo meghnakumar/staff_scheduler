@@ -1,7 +1,6 @@
 $(document).ready(function(){
     fetchShifts();
 
-    let shifts;
     function fetchShifts() {
         $.ajax({
             contentType: 'application/json',
@@ -23,13 +22,10 @@ $(document).ready(function(){
         var date = new Date();
         var weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
         console.log("weekStart", weekStart);
-        // var weekend = new Date();
-        // weekend.setDate(weekStart.getDate() + 6);
         for(var day = 1; day < 6; day++) {
-            var shiftDate = new Date();
-            shiftDate.setDate(weekStart.getDate() + day);
-            var date = shiftDate.toLocaleDateString('en-CA')
-            // shiftDate.toISOString().slice(0, 10);
+            var shiftDate = new Date(weekStart);
+            shiftDate.setDate(shiftDate.getDate()+day);
+            var date = shiftDate.toLocaleDateString('en-CA');
             for(var i = 0; i < shifts.length; i++) {
                 var timeArr = shifts[i].split("-");
                 var startTime = convertTime12to24(timeArr[0].trim());
@@ -37,22 +33,20 @@ $(document).ready(function(){
                 endTime = endTime == "00:00" ? "24:00": endTime;
                 events.push(
                     {
-                        title: 'Slot',
+                        // title: 'Slot',
                         start: date + 'T' + startTime,
                         end: date + 'T' + endTime,
                         className: 'fc-bg-blue',
-                        allDay: false
+                        allDay: false,
+                        editable: false
                     }
                 );
             }
         }
-
-
         return events;
     }
 
     const convertTime12to24 = (time12h) => {
-        console.log(time12h);
         const [time, modifier] = time12h.split(' ');
         let [hours, minutes] = time.split(':');
         if (hours === '12') {
@@ -66,11 +60,11 @@ $(document).ready(function(){
 
 
     function openCalendar(events) {
+        console.log(events);
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',
                 themeSystem: 'bootstrap4',
-                // emphasizes business hours
                 businessHours: false,
                 editable: true,
                 headerToolbar: {
@@ -79,19 +73,29 @@ $(document).ready(function(){
                     right: 'timeGridWeek, timeGridDay'
                 },
                 events: events,
-                eventRender: function(event, element) {
-                    if(event.icon){
-                        element.find(".fc-title").prepend("<i class='fa fa-"+event.icon+"'></i>");
-                    }
+                selectAllow: true,
+                dateClick: function(info) {
+                    alert('clicked ' + info.dateStr);
                 },
-                dayClick: function() {
+                dateClick: function(info) {
+                    alert('Clicked on: ' + info.dateStr);
+                    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                    alert('Current view: ' + info.view.type);
+                },
+                select: function(info) {
+            alert('selected ' + info.startStr + ' to ' + info.endStr);
+        },
+                eventClick: function(info) {
+                    console.log("event click", info.event.start);
+                    console.log("event click", info.event.end);
 
-                },
-                eventClick: function(event, jsEvent, view) {
-                    $('.event-icon').html("<i class='fa fa-"+event.icon+"'></i>");
-                    $('.event-title').html(event.title);
-                    $('.event-body').html(event.description);
-                    $('.eventUrl').attr('href',event.url);
+
+                    // console.log("jsevent ", jsEvent);
+                    // console.log("info click", view);
+                    // $('.event-icon').html("<i class='fa fa-"+event.icon+"'></i>");
+                    // $('.event-title').html(event.title);
+                    // $('.event-body').html(event.description);
+                    // $('.eventUrl').attr('href',event.url);
                     $('#modal-view-event').modal();
                 },
             });
