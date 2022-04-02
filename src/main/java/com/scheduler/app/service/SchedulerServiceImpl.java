@@ -191,7 +191,7 @@ public class SchedulerServiceImpl implements SchedulerService {
             if (!scheduleOutput.isEmpty()) {
 
                 List<ScheduleOutputPOJO> scheduleOutputPOJOList = new ArrayList<>(scheduleOutput);
-                scheduleMap.put(departmentType, scheduleOutputPOJOList);
+                scheduleMap.put("employees", scheduleOutputPOJOList);
 
                 return new ScheduleOutputResponse(REQUEST_STATUS.SUCCESS, true, scheduleMap);
             } else {
