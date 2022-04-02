@@ -20,7 +20,6 @@ public class RandomTextGeneratorUtil {
     public String generateRandomAlphabet(int length, boolean flag) {
         RandomStringGenerator pwdGenerator = null;
         if (flag) {
-//			pwdGenerator = new RandomStringGenerator.Builder().withinRange(97, 122).build();
             pwdGenerator = new RandomStringGenerator.Builder().withinRange('a', 'z').build();
         } else {
             pwdGenerator = new RandomStringGenerator.Builder().withinRange('A', 'Z').build();
@@ -29,7 +28,7 @@ public class RandomTextGeneratorUtil {
     }
 
     public String generateRandomCharacters(int length) {
-        RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(33, 41).build();
+        RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(37, 41).build();
         return pwdGenerator.generate(length);
     }
 
