@@ -69,7 +69,7 @@ public class StaffController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "sucessfully fetched employee availability details",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EmployeeDetailsResponse.class))}),
+                            schema = @Schema(implementation = EmployeeAvailabilityExistsResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "not found",

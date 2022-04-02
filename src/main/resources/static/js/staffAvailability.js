@@ -106,6 +106,11 @@ function createRequestBody(form, userId, dateDetails) {
 function submitForm(e, form, userId, dateDetails) {
     e.preventDefault()
     // console.log("clicked-->", form);
+    let flag = performValidation();
+    if(flag){
+        console.log("inside flag block")
+        return;
+    }
     submit = document.getElementById("form-submit");
     submit.disabled = true;
     setTimeout(submit.disabled = false, 2000);
@@ -128,40 +133,10 @@ function submitForm(e, form, userId, dateDetails) {
                 console.log("data:", data)
                 // sessionStorage.setItem('userId', loginId);
             }
-
-            // Get userId from session storage which will be used in request body of APIs
-            // let userId = sessionStorage.getItem('userId');
-            // if (data.userType === "ADMIN" && data.status === 'SUCCESS') {
-            //     $(location).attr('href',"/views/admin.html");
-            // } else if (data.userType === "SUPERVISOR" && data.status === 'SUCCESS') {
-            //     $(location).attr('href',"/views/supervisorShifts.html");
-            // } else if (data.userType === 'STAFF' && data.status === 'SUCCESS'){
-            //     $(location).attr('href',"/views/staffHome.html");
-            // } else if (data.status === 'INCORRECT_PASSWORD'){
-            //     //Respond with Error
-            //     alert("Incorrect Password for ID: " + loginId);
-            // } else {
-            //     $("#invalid").modal('show');
-            // }
         }, error: function (response) {
             console.log("Error status", response.status, "Error text", response.statusText);
         }
     });
-
-
-    /*
-    {
-"staffAvailabilityRequest": [
-{
-  "employeeNumber": "string",
-  "startTime": "2022-03-16T03:41:02.788Z",
-  "endTime": "2022-03-16T03:41:02.788Z",
-  "availableDate": "2022-03-16T03:41:02.788Z",
-  "availableDay": "string"
-}
-]
-}
-    */
 }
 
 function radioFunction(element, day) {
@@ -195,6 +170,27 @@ function fetchShifts() {
             console.log("Error status", response.status, "Error text", response.statusText);
         }
     });
+}
+
+function performValidation(){
+    let flag = false;
+    // console.log("dropdown value-->" + $('#'+ day + '-slot' +' :selected').text());
+    var dayList = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+    dayList.forEach(day=>{
+        let isChecked = $('#yes-'+ day).is(':checked');
+        if(isChecked){
+            let selectedValue = $('#'+ day + '-slot' +' :selected').text();
+            if(selectedValue === "Select Time"){
+                window.alert("Please select time slot for " + day + ".")
+                console.log("Please select time slot for " + day + ".")
+                flag = true;
+            }
+        }
+        console.log("dropdown value-->" + $('#yes-'+ day).text());
+        console.log("dropdown value-->" + $('#'+ day + '-slot' +' :selected').text());
+    });
+    console.log("flag==>" + flag);
+    return flag;
 }
 
 
