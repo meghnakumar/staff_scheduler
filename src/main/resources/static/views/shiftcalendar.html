@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
+
 </head>
 <body>
     <div class="p-5">
@@ -15,6 +16,43 @@
             </div>
         </div>
     </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="calendarModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Shift Detail</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table class="table table-striped" >
+                        <thead>
+                        <tr>
+                            <th>employee ID</th>
+                            <th>Shift Start Time</th>
+                            <th>Shift End Time</th>
+                            <th>Role ID</th>
+                        </tr>
+                        </thead>
+                        <tbody id="emp-table-details">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>

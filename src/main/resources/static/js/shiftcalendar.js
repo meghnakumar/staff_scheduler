@@ -74,32 +74,53 @@ $(document).ready(function(){
                 },
                 events: events,
                 selectAllow: true,
-                dateClick: function(info) {
-                    alert('clicked ' + info.dateStr);
-                },
-                dateClick: function(info) {
-                    alert('Clicked on: ' + info.dateStr);
-                    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-                    alert('Current view: ' + info.view.type);
-                },
-                select: function(info) {
-            alert('selected ' + info.startStr + ' to ' + info.endStr);
-        },
                 eventClick: function(info) {
-                    console.log("event click", info.event.start);
-                    console.log("event click", info.event.end);
-
-
-                    // console.log("jsevent ", jsEvent);
-                    // console.log("info click", view);
-                    // $('.event-icon').html("<i class='fa fa-"+event.icon+"'></i>");
-                    // $('.event-title').html(event.title);
-                    // $('.event-body').html(event.description);
-                    // $('.eventUrl').attr('href',event.url);
-                    $('#modal-view-event').modal();
+                    $("#emp-table-details").empty();
+                    var shiftDate = info.event.start.toLocaleDateString('en-CA');
+                    var shiftTime = convertTime12to24(info.event.start.toLocaleTimeString());
+                    var time = shiftTime.split(':');
+                    var hour = time[0].length == 1 ? '0' + time[0] + ':' + time[1] : shiftTime;
+                    console.log("get date", shiftDate);
+                    console.log("shift time", hour);
+                    var scheduleObj = {
+                        shiftDate: shiftDate,
+                        shiftTime: hour,
+                        departmentId: "D01"
+                    }
+                    addTable(scheduleObj);
+                    $("#calendarModal").modal('show');
                 },
             });
             calendar.render();
+    }
+
+    function addTable(scheduleRequest) {
+        $.ajax({
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(scheduleRequest),
+            type: 'POST',
+            url: '/schedule/fetch',
+            success: function(data){
+                console.log("schedule data", data.schedule);
+                if(data.schedule.employees) {
+                    var employees = data.schedule.employees;
+
+                    var html = '';
+                    for(var i = 0; i < employees.length; i++) {
+                        html += '<tr>';
+                        html += '   <td>'+ employees[i].employeeId + '</td>';
+                        html += '   <td>'+ employees[i].startTime + '</td>';
+                        html += '   <td>'+ employees[i].endTime + '</td>';
+                        html += '   <td>'+ employees[i].roleId + '</td>';
+                        html += '</tr>';
+                    }
+                    }
+                $('#emp-table-details').append(html);
+            },error: function(response) {
+                console.log("Error status", response.status, "Error text", response.statusText);
+            }
+        });
     }
 
 
