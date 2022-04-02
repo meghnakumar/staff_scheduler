@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/jquery-ui.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Staff Scheduler</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../views/staffHome.html">Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="col-md-6" style="margin: inherit"><h1> Enter Availability </h1></div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-7">
+            <form id="user-registration" action="/" method="post" class="col-md-7 custom-form">
+                <fieldset>
+                    <hr align="center">
+                    <div class="form-group">
+                        <label class="form-label mt-lg-2" id="userDate-monday"></label>
+                        <br>
+                        <input class="form-check-input" type="radio" id="yes-monday" name="monday" value="yes"
+                               onclick="radioFunction(this, 'monday')" checked="checked"> Available </input>
+                        <input class="form-check-input" type="radio" id="no-monday" name="monday" value="no"
+                               onclick="radioFunction(this, 'monday')"> Not Available</input>
+
+                        <div id="monday-group">
+                            <label for="monday-slot" class="form-label mt-4"> Select shift time </label>
+                            <select class="form-select" name="monday-slot" id="monday-slot">
+                                <option>Select Time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="form-label mt-lg-2" id="userDate-tuesday"></label>
+                        <br>
+                        <input class="form-check-input" type="radio" id="yes-tuesday" name="tuesday" value="yes"
+                               onclick="radioFunction(this, 'tuesday')" checked="checked"> Available </input>
+                        <input class="form-check-input" type="radio" id="no-tuesday" name="tuesday" value="no"
+                               onclick="radioFunction(this, 'tuesday')">Not Available </input>
+
+                        <div id="tuesday-group">
+                            <label for="tuesday-slot" class="form-label mt-4"> Select shift start time </label>
+                            <select class="form-select" name="tuesday-slot" id="tuesday-slot">
+                                <option>Select Time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="form-label mt-lg-2" id="userDate-wednesday"></label>
+                        <br>
+                        <input class="form-check-input" type="radio" id="yes-wednesday" name="wednesday" value="yes"
+                               onclick="radioFunction(this, 'wednesday')" checked="checked">
+                        <label for="yes-wednesday"> Available </label>
+                        <input class="form-check-input" type="radio" id="no-wednesday" name="wednesday" value="no"
+                               onclick="radioFunction(this, 'wednesday')">
+                        <label for="no-wednesday">Not Available</label><br>
+
+                        <div id="wednesday-group">
+                            <label for="wednesday-slot" class="form-label mt-4"> Select shift start time </label>
+                            <select class="form-select" name="wednesday-slot" id="wednesday-slot">
+                                <option>Select Time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="form-label mt-lg-2" id="userDate-thursday"></label>
+                        <br>
+                        <input class="form-check-input" type="radio" id="yes-thursday" name="thursday" value="yes"
+                               onclick="radioFunction(this, 'thursday')" checked="checked">
+                        <label for="yes-thursday"> Available </label>
+                        <input class="form-check-input" type="radio" id="no-thursday" name="thursday" value="no"
+                               onclick="radioFunction(this, 'thursday')">
+                        <label for="no-thursday">Not Available</label><br>
+
+                        <div id="thursday-group">
+                            <label for="thursday-slot" class="form-label mt-4"> Select shift start time </label>
+                            <select class="form-select" name="thursday-slot" id="thursday-slot">
+                                <option>Select Time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group" class="col-md-7">
+                        <label class="form-label mt-lg-2" id="userDate-friday"></label>
+                        <br>
+                        <input class="form-check-input" type="radio" id="yes-friday" name="friday" value="yes"
+                               onclick="radioFunction(this, 'friday')"
+                               checked="checked">
+                        <label for="yes-friday"> Available </label>
+                        <input class="form-check-input" type="radio" id="no-friday" name="friday" value="no"
+                               onclick="radioFunction(this, 'friday')">
+                        <label for="no-friday">Not Available</label><br>
+
+                        <div id="friday-group">
+                            <label for="friday-slot" class="form-label mt-4">Select shift start time</label>
+                            <select class="form-select" name="friday-slot" id="friday-slot">
+                                <option>Select Time</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <br>
+                    <button type="submit" id="form-submit" class="btn btn-primary" style="margin-left: 150px">Submit
+                        Availability
+                    </button>
+                    <hr>
+                </fieldset>
+            </form>
+        </div>
+
+
+        <div class="modal fade" id="informSuccess">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content card">
+                    <div class="text-black bg-success">
+                        <div class="card-header text-center"><b>Success</b></div>
+                        <div class="card-body text-center">
+                            <h4 class="card-title" id="success-msg">Availability stored successfully for the current week</h4>
+                            <br>
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px"
+                                    data-bs-dismiss="modal"> Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="informFailure">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content card">
+                    <div class="text-white bg-danger">
+                        <div class="card-header text-center"><b>Failure!</b></div>
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Availability submission failed.</h4>
+                            <br>
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px"
+                                    data-bs-dismiss="modal"> Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="warnModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="card text-black bg-warning " >
+                        <div class="card-header">Warning</div>
+                        <div class="card-body">
+                            <h4 class="card-title" id="warning-msg-head">Availability already provided for this week for below dates.</h4>
+                            <p class="card-text" id="warning-msg">Submit again to update availability for this week.</p>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/staffAvailability.js"></script>
+</body>
+</html>

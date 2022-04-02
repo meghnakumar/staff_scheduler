@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/createHoliday.js"></script>
+    <script src="../js/createEmployee.js"></script>
+    <script src="../js/staffHome.js"></script>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: "Times New Roman", Times, serif;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Staff Scheduler</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="../views/staffavailability.html">Set Availability
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <form class="d-flex">
+
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-7" style="margin: inherit"><br>
+            <img class="img-fluid" src="../assets/images/employee.jpg" alt="" width="80%" height="80%">
+        </div>
+
+        <div class="card text-black bg-primary mb-3" style="max-width: 30rem; height:30rem">
+            <div class="card-body">
+                <h4 id=user-welcome class="card-title text-white" style="margin-inline: 15px"><span id="employee-name"></span></h4>
+                <br>
+                <br>
+                <br>
+                <table id="employeeTable">
+                    <tr>
+                        <td><h6 class="card-text"> Employee ID</h6></td>
+                        <td><span id="employee-id"></span></td>
+                    </tr>
+                    <tr>
+                        <td><h6 class="card-text"> Department ID</h6></td>
+                        <td><span id="dept-id"></span></td>
+                    </tr>
+                    <tr>
+                        <td><h6 class="card-text"> Registered Email ID</h6></td>
+                        <td><span id="email-id"></span></td>
+                    </tr>
+                    <tr>
+                        <td><h6 class="card-text"> Registered contact number</h6></td>
+                        <td><span id="mobile-number"></span></td>
+                    </tr>
+                    <tr>
+                        <td><h6 class="card-text"> Maximum Availability Hours</h6></td>
+                        <td><span id="hours"></span></td>
+                    </tr>
+                    <tr>
+                        <td><h6 class="card-text"> Date of Joining</h6></td>
+                        <td><span id="joining-date"></span></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="modal fade" id="invalid">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="card text-black bg-warning " >-->
+<!--                <div class="card-header">Header</div>-->
+<!--                <div class="card-body">-->
+<!--                    <h4 class="card-title">Warning card title</h4>-->
+<!--                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--    <img src="../assets/images/construction-page.png" />-->
+</body>
+</html>

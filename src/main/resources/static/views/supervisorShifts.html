@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Supervisor</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/jquery-ui.min.css">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ICON</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../views/supervisorHome.html"><h5>Supervisor Home</h5>
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class = "container">
+        <div class="row mt-5">
+            <div class="col-md-2"></div>
+            <form class="col-md-7 custom-form" id="supervisor-form" action="/" method="post">
+                <h2>Scheduler</h2>
+                <div class="form-group">
+                    <label for="supervisor-date-picker">Select Date:</label>
+                    <input type="text" class="form-control" id="supervisor-date-picker" autocomplete="off">
+                </div>
+                <div class="form-group" id="department-type">
+                    <label for="department">Department:</label>
+                    <input type="text" class="form-control" id="department" autocomplete="off" disabled>
+                </div>
+                <div id="employee-detail">
+                    <fieldset class="shift-section">
+                        <legend>Add Shift Details</legend>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="slot">Select slot</label>
+                                <select class="form-control form-select" id="slot"></select>
+                            </div>
+                        </div>
+
+                        <div id="add-emp-sec"></div>
+                        <div class="row" id="dynamic-emp">
+                            <i id="add-emp-details" class="fa fa-plus-circle" style="font-size: 20px; cursor: pointer" aria-hidden="true">
+                                <span style="font-size: 14px">Add other role</span>
+                            </i>
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+                <input type="submit" id="scheduler-submit" class="btn btn-success col-md-5" style="margin-left: 200px"/>
+            </form>
+        </div>
+    </div>
+
+    <div class = "container">
+        <div class="row mt-md-auto">
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <div class="d-grid gap-2" style="margin-left: 200px">
+                    <br><br>
+                    <button class="btn btn-lg btn-primary" id="generateSchedule"
+                            type="button" onclick="window.location.href='/views/shiftcalendar.html'">Generate Schedule </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- show modal for invalid date   -->
+    <div class="modal fade" id="informInvalidDate">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content card">
+                <div class="text-black bg-warning">
+                    <div class="card-header text-center"> !!! INFO</div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title"> Shift Requirement can be set only on Sundays.</h4>
+                        <br>
+                        <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bs-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- show modal for invalid date   -->
+    <div class="modal fade" id="shiftDetailsSaved">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content card">
+                <div class="text-white bg-secondary">
+                    <div class="card-header text-center">INFO!!!</div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title"> Shift saved successfully.</h4>
+                        <br>
+                        <button type="button" class="btn btn-primary" style="margin-left: 10px" data-bs-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../js/supervisor.js"></script>
+    <script>
+        //Script to Make sure that shifts can only be modified on Sundays.
+        $( document ).ready(function() {
+            var today = new Date()
+            if(today.getDay() === 0) {
+                //do nothing -> On Weekend
+            }else {
+                document.getElementById("scheduler-submit").disabled = true;
+                document.getElementById("supervisor-date-picker").disabled = true;
+                $("#informInvalidDate").modal('show');
+            }
+        });
+
+    </script>
+</body>
+</html>
