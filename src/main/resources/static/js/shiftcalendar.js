@@ -60,7 +60,6 @@ $(document).ready(function(){
 
 
     function openCalendar(events) {
-        console.log(events);
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',
@@ -85,7 +84,7 @@ $(document).ready(function(){
                     var scheduleObj = {
                         shiftDate: shiftDate,
                         shiftTime: hour,
-                        departmentId: "D01"
+                        departmentId: sessionStorage.getItem('departmentId')
                     }
                     addTable(scheduleObj);
                     $("#calendarModal").modal('show');
