@@ -25,6 +25,16 @@ import java.util.*;
 
 @Service
 public class UtilityServiceImpl implements  UtilityService {
+    int zero = UTIL_CONSTANTS.ZERO.getNumVal();
+    int one = UTIL_CONSTANTS.ONE.getNumVal();
+    int two = UTIL_CONSTANTS.TWO.getNumVal();
+    int three = UTIL_CONSTANTS.THREE.getNumVal();
+    int four = UTIL_CONSTANTS.FOUR.getNumVal();
+    int five = UTIL_CONSTANTS.FIVE.getNumVal();
+    int six = UTIL_CONSTANTS.SIX.getNumVal();
+    int seven = UTIL_CONSTANTS.SEVEN.getNumVal();
+    int eight = UTIL_CONSTANTS.EIGHT.getNumVal();
+    String hyphen=UTIL_CONSTANTS.HYPHEN.getStringVal();
 
     @Autowired
     EmpDetailRepository empDetailRepository;
@@ -83,7 +93,7 @@ public class UtilityServiceImpl implements  UtilityService {
     private Map<String, String> getUpcomingHolidays() {
         LocalDate date = LocalDate.now();
         Date dateSQL = Date.valueOf(date);
-        Date dateEnd = Date.valueOf(date.plusDays(7));
+        Date dateEnd = Date.valueOf(date.plusDays(seven));
         List<HolidayPOJO> upcomingHolidays = holidayRepository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(dateSQL, dateEnd);
 
         Map<String, String> holidayInfo = new HashMap<>();
@@ -97,7 +107,7 @@ public class UtilityServiceImpl implements  UtilityService {
     @Override
     public ShiftCreationResponse logNewShiftDuration(ShiftCreationRequest request) {
 
-        if (request.getShiftDuration() == 4 || request.getShiftDuration() == 6 || request.getShiftDuration() == 8) {
+        if (getShiftDuration(request)) {
 
             AdminShiftPOJO adminShiftPOJO = new AdminShiftPOJO();
             LocalDate date = LocalDate.now();
@@ -109,9 +119,9 @@ public class UtilityServiceImpl implements  UtilityService {
 
             DateFormat df = new SimpleDateFormat("HH:mm");
             Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.HOUR_OF_DAY, 0);
-            cal.set(Calendar.MINUTE, 0);
-            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.HOUR_OF_DAY, zero);
+            cal.set(Calendar.MINUTE, zero);
+            cal.set(Calendar.SECOND, zero);
             int startDate = cal.get(Calendar.DATE);
             while (cal.get(Calendar.DATE) == startDate) {
                 String[] splitTime = df.format(cal.getTime()).toString().split(":");
@@ -123,25 +133,25 @@ public class UtilityServiceImpl implements  UtilityService {
             switch (timeSlots.size()) {
 
                 case 6:
-                    adminShiftPOJO.setShift1StartTime(timeSlots.get(0));
-                    adminShiftPOJO.setShift2StartTime(timeSlots.get(1));
-                    adminShiftPOJO.setShift3StartTime(timeSlots.get(2));
-                    adminShiftPOJO.setShift4StartTime(timeSlots.get(3));
-                    adminShiftPOJO.setShift5StartTime(timeSlots.get(4));
-                    adminShiftPOJO.setShift6StartTime(timeSlots.get(5));
+                    adminShiftPOJO.setShift1StartTime(timeSlots.get(zero));
+                    adminShiftPOJO.setShift2StartTime(timeSlots.get(one));
+                    adminShiftPOJO.setShift3StartTime(timeSlots.get(two));
+                    adminShiftPOJO.setShift4StartTime(timeSlots.get(three));
+                    adminShiftPOJO.setShift5StartTime(timeSlots.get(four));
+                    adminShiftPOJO.setShift6StartTime(timeSlots.get(five));
                     break;
 
                 case 4:
-                    adminShiftPOJO.setShift1StartTime(timeSlots.get(0));
-                    adminShiftPOJO.setShift2StartTime(timeSlots.get(1));
-                    adminShiftPOJO.setShift3StartTime(timeSlots.get(2));
-                    adminShiftPOJO.setShift4StartTime(timeSlots.get(3));
+                    adminShiftPOJO.setShift1StartTime(timeSlots.get(zero));
+                    adminShiftPOJO.setShift2StartTime(timeSlots.get(one));
+                    adminShiftPOJO.setShift3StartTime(timeSlots.get(two));
+                    adminShiftPOJO.setShift4StartTime(timeSlots.get(three));
                     break;
 
                 case 3:
-                    adminShiftPOJO.setShift1StartTime(timeSlots.get(0));
-                    adminShiftPOJO.setShift2StartTime(timeSlots.get(1));
-                    adminShiftPOJO.setShift3StartTime(timeSlots.get(2));
+                    adminShiftPOJO.setShift1StartTime(timeSlots.get(zero));
+                    adminShiftPOJO.setShift2StartTime(timeSlots.get(one));
+                    adminShiftPOJO.setShift3StartTime(timeSlots.get(two));
                     break;
 
                 default:
@@ -159,8 +169,16 @@ public class UtilityServiceImpl implements  UtilityService {
         return new ShiftCreationResponse(REQUEST_STATUS.FAILED, false);
     }
 
+    private boolean getShiftDuration(ShiftCreationRequest request) {
+        return request.getShiftDuration() == four || request.getShiftDuration() == six || request.getShiftDuration() == eight;
+    }
+
     @Override
     public ShiftTimingsResponse getShiftTimes() {
+
+
+
+
         ShiftTimingsResponse shiftTimingsResponse = new ShiftTimingsResponse();
         AdminShiftPOJO adminShiftPOJO = adminRepository.findDistinctTopByOrderByShiftCreationDateDesc();
         if (null != adminShiftPOJO) {
@@ -168,29 +186,29 @@ public class UtilityServiceImpl implements  UtilityService {
             shiftTimingsResponse.setSlotType(adminShiftPOJO.getSlotType());
             convertTimeFormat(adminShiftPOJO);
             List<String> finalShiftTimes = new ArrayList<>();
-            if (adminShiftPOJO.getSlotType() == 8) {
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal()));
+            if (adminShiftPOJO.getSlotType() == eight) {
+                finalShiftTimes.add(shiftTimes.get(zero)+hyphen+shiftTimes.get(one));
+                finalShiftTimes.add(shiftTimes.get(one)+hyphen+shiftTimes.get(two));
+                finalShiftTimes.add(shiftTimes.get(two)+hyphen+shiftTimes.get(zero));
                 shiftTimingsResponse.setShiftTimes(finalShiftTimes);
 
             }
-            if (adminShiftPOJO.getSlotType() == 6) {
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.THREE.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.THREE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal()));
+            if (adminShiftPOJO.getSlotType() == six) {
+                finalShiftTimes.add(shiftTimes.get(zero)+hyphen+shiftTimes.get(one));
+                finalShiftTimes.add(shiftTimes.get(one)+hyphen+shiftTimes.get(two));
+                finalShiftTimes.add(shiftTimes.get(two)+hyphen+shiftTimes.get(three));
+                finalShiftTimes.add(shiftTimes.get(three)+hyphen+shiftTimes.get(zero));
                 shiftTimingsResponse.setShiftTimes(finalShiftTimes);
 
             }
 
-            if (adminShiftPOJO.getSlotType() == 4) {
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.THREE.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.THREE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.FOUR.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.FOUR.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.FIVE.getNumVal()));
-                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.FIVE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal()));
+            if (adminShiftPOJO.getSlotType() == four) {
+                finalShiftTimes.add(shiftTimes.get(zero)+hyphen+shiftTimes.get(one));
+                finalShiftTimes.add(shiftTimes.get(one)+hyphen+shiftTimes.get(two));
+                finalShiftTimes.add(shiftTimes.get(two)+hyphen+shiftTimes.get(three));
+                finalShiftTimes.add(shiftTimes.get(three)+hyphen+shiftTimes.get(four));
+                finalShiftTimes.add(shiftTimes.get(four)+hyphen+shiftTimes.get(five));
+                finalShiftTimes.add(shiftTimes.get(five)+hyphen+shiftTimes.get(zero));
                 shiftTimingsResponse.setShiftTimes(finalShiftTimes);
             }
         } else {
@@ -229,19 +247,25 @@ public class UtilityServiceImpl implements  UtilityService {
         private String convertedTime(String shiftTime){
             String finalShift="";
             String[] timeDivision = shiftTime.split(UTIL_CONSTANTS.COLON.getStringVal());
+            String am =UTIL_CONSTANTS.AM.getStringVal();
+            String colon = UTIL_CONSTANTS.COLON.getStringVal();
+            String doubleZero = UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal();
+            String pm =UTIL_CONSTANTS.PM.getStringVal();
+            String singleZero = UTIL_CONSTANTS.SINGLE_ZERO.getStringVal();
+
             if((Integer.parseInt(timeDivision[0]))>=12){
                 int convertedShiftTime = Integer.parseInt(timeDivision[0])==12?Integer.parseInt(timeDivision[0]):(Integer.parseInt(timeDivision[0])) - 12;
                 if(convertedShiftTime<10)
-                    finalShift = finalShift+"0"+convertedShiftTime +UTIL_CONSTANTS.COLON.getStringVal()+UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal()+UTIL_CONSTANTS.PM.getStringVal();
+                    finalShift = finalShift+singleZero+convertedShiftTime +colon+doubleZero+pm;
                 else
-                    finalShift = finalShift+convertedShiftTime +UTIL_CONSTANTS.COLON.getStringVal()+UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal()+UTIL_CONSTANTS.PM.getStringVal();
+                    finalShift = finalShift+convertedShiftTime +colon+doubleZero+pm;
             }
             else if((Integer.parseInt(timeDivision[0]))<12){
                 int convertedShiftTime = Integer.parseInt(timeDivision[0])==00?12:Integer.parseInt(timeDivision[0]);
                 if(convertedShiftTime<10)
-                    finalShift = finalShift+"0"+convertedShiftTime+UTIL_CONSTANTS.COLON.getStringVal()+UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal()+UTIL_CONSTANTS.AM.getStringVal();
+                    finalShift = finalShift+singleZero+convertedShiftTime+colon+doubleZero+am;
                 else
-                    finalShift = finalShift+convertedShiftTime+UTIL_CONSTANTS.COLON.getStringVal()+UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal()+UTIL_CONSTANTS.AM.getStringVal();
+                    finalShift = finalShift+convertedShiftTime+colon+doubleZero+am;
             }
             return finalShift;
         }
@@ -249,8 +273,9 @@ public class UtilityServiceImpl implements  UtilityService {
 
     public enum UTIL_CONSTANTS {
         ZERO(0),ONE(1),TWO(2),THREE(3),FOUR(4),
-        FIVE(5),SIX(6),SEVEN(7),
-        COLON(":"),AM(" AM"),PM(" PM"),DOUBLE_ZERO("00");
+        FIVE(5),SIX(6),SEVEN(7),HYPHEN(" - "),EIGHT(8),
+        COLON(":"),AM(" AM"),PM(" PM"),DOUBLE_ZERO("00"),
+        SINGLE_ZERO("0");
 
         private int numVal;
         private String stringVal;
