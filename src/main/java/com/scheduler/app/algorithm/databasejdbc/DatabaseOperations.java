@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseOperations {
-	public static Connection connection = DatabaseConnection.getConnection();
+	private static Connection connection = DatabaseConnection.getConnection();
 
 	public static List<EligibleEmployees> getEligibleEmployees(
 			String roleId
@@ -33,7 +33,7 @@ public class DatabaseOperations {
 		return list;
 	}
 
-	public static void truncateEmpHistory(){
+	/*public static void truncateEmpHistory(){
 		Connection connection=DatabaseConnection.getConnection();
 		try {
 
@@ -47,7 +47,7 @@ public class DatabaseOperations {
 		catch (SQLException sqlException){
 			sqlException.printStackTrace();
 		}
-	}
+	}*/
 	public static void updateEmpHistory(int totalHoursWeekly, String employeeId) {
 		Connection connection=DatabaseConnection.getConnection();
 		try {

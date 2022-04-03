@@ -243,9 +243,9 @@ public class SchedulerServiceImpl implements SchedulerService {
                     }
                     totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
 
-                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", dailyShiftPOJO.getShiftType() + "");
+                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.getEmployeeId(), dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", dailyShiftPOJO.getShiftType() + "");
 
-                    DatabaseOperations.updateEmpHistory(Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.employeeId);
+                    DatabaseOperations.updateEmpHistory(Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.getEmployeeId());
                 }
                 
                 else if((eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&!(eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())))){
@@ -267,8 +267,8 @@ public class SchedulerServiceImpl implements SchedulerService {
                         break;
                     }
                     totalHours -= diffHours;
-                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", diffHours + "");
-                    DatabaseOperations.updateEmpHistory(diffHours,eligibleEmployee.employeeId);
+                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.getEmployeeId(), dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", diffHours + "");
+                    DatabaseOperations.updateEmpHistory(diffHours,eligibleEmployee.getEmployeeId());
 
                 }
             }

@@ -19,22 +19,22 @@ public class EligibleEmployees implements Serializable {
     @Column(name ="starttime")
     @Getter
     @Setter
-    public Time availableStartTime;
+    private Time availableStartTime;
 
     @Column(name="endtime")
     @Getter
     @Setter
-    public Time availableEndTime;
+    private Time availableEndTime;
 
     @Column(name="employee_id")
     @Getter
     @Setter
-    public String employeeId;
+    private String employeeId;
 
     @Column(name="total_hours_weekly")
     @Getter
     @Setter
-    public int totalHoursLastWeek;
+    private int totalHoursLastWeek;
 
     public EligibleEmployees(Time availableStartTime, Time availableEndTime, String employeeId, int totalHoursLastWeek){
 
