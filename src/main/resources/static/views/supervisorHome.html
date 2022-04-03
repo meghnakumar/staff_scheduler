@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <title>Supervisor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="../css/bootstrap.min.css" >
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/common.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/createHoliday.js"></script>
     <script src="../js/createEmployee.js"></script>
@@ -37,13 +39,17 @@
                     </a>
                 </li>
             </ul>
-            <form class="d-flex">
-            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button type="button" id="logout" class="btn btn-danger">Logout</button>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
     <div class = "container">
+        <br>
         <div class="row">
             <div class="col-md-7" style="margin: inherit">
                 <img class="img-fluid" src="../assets/images/admin.png" alt="" width = "80%" height = "80%">
