@@ -6,8 +6,8 @@ import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
 import com.scheduler.app.staff.model.repo.EmpDetailRepository;
 import com.scheduler.app.admin.model.request.EmployeeCreationRequest;
 import com.scheduler.app.admin.model.response.EmployeeCreationResponse;
-import com.scheduler.app.util.MailService;
-import com.scheduler.app.util.RandomTextGeneratorUtil;
+import com.scheduler.app.admin.util.MailService;
+import com.scheduler.app.admin.util.RandomTextGeneratorUtil;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,10 +51,6 @@ public class EmployeeCreationServiceImpl implements EmployeeCreationService {
             EmployeeCredsDTO emp = empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber());
             if (emp == null && Strings.isNotBlank(employeeCreationRequest.getEmployeeNumber())) {
 
-                // To generate a random password for first time login
-                //Will be sent to the new Employee via an email.
-                RandomTextGeneratorUtil passwordGenerator = new RandomTextGeneratorUtil();
-                String generatedPassword = passwordGenerator.generateCommonTextPassword();
 
                 //Create a new Employee with request values.
                 newEmployee.setId(null);
@@ -70,6 +66,10 @@ public class EmployeeCreationServiceImpl implements EmployeeCreationService {
                 newEmployee.setRoleId(employeeCreationRequest.getRoleId());
                 newEmployee.setSinNumber(employeeCreationRequest.getSinNumber());
                 newEmployee.setPhoto(employeeCreationRequest.getPhoto());
+                // To generate a random password for first time login
+                //Will be sent to the new Employee via an email.
+                String generatedPassword = getGeneratedPassword();
+
                 //Set one-time password.
                 newEmployee.setLoginPassword(generatedPassword);
                 //Save the Employee in the DB.
@@ -97,6 +97,12 @@ public class EmployeeCreationServiceImpl implements EmployeeCreationService {
         //Return EmployeeCreationResponse
         return employeeCreationResponse;
 
+    }
+
+    private String getGeneratedPassword() {
+        RandomTextGeneratorUtil passwordGenerator = new RandomTextGeneratorUtil();
+        String generatedPassword = passwordGenerator.generateCommonTextPassword();
+        return generatedPassword;
     }
 
 

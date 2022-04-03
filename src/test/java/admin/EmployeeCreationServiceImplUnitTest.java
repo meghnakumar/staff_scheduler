@@ -8,7 +8,7 @@ import com.scheduler.app.staff.model.repo.EmpDetailRepository;
 import com.scheduler.app.admin.model.request.EmployeeCreationRequest;
 import com.scheduler.app.admin.model.response.EmployeeCreationResponse;
 import com.scheduler.app.admin.service.EmployeeCreationServiceImpl;
-import com.scheduler.app.util.MailService;
+import com.scheduler.app.admin.util.MailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -47,7 +47,7 @@ public class EmployeeCreationServiceImplUnitTest {
         setupEmployeeInputRequest();
         when(empDetailRepository.getDistinctFirstByEmployeeNumber(employeeCreationRequest.getEmployeeNumber())).thenReturn(null);
         when(empDetailRepository.saveAndFlush(any())).thenReturn(empDetailPOJO);
-        when(mailService.sendMailToEmployee(any(),any(),any())).thenReturn(true);
+        /*when(mailService.sendMailToEmployee(any(),any(),any())).thenReturn(true);*/
         employeeCreationResponse = employeeCreationService.createNewEmployee(employeeCreationRequest);
         assertEquals(employeeCreationResponse.getStatus(),(REQUEST_STATUS.SUCCESS));
     }
