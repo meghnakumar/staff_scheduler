@@ -7,7 +7,18 @@ $(document).ready(function(){
     let rolesObj = [{name: "Admin", "value": 0}, {name: "Supervisor", "value": 1},
         {name: "Staff", "value": 2}, {name: "Intern", value: 3}];
     addEmpSection(employeeSectionCount, rolesObj);
+    const convertTime12to24 = (time12h) => {
+        const [time, modifier] = time12h.split(' ');
+        let [hours, minutes] = time.split(':');
+        if (hours === '12') {
+            hours = '00';
+        }
+        if (modifier === 'PM') {
+            hours = parseInt(hours, 10) + 12;
+        }
 
+        return `${hours}:${minutes}`;
+    }
     $( "#department" ).val(sessionStorage.getItem('departmentId'));
 
     $('#supervisor-date-picker').datepicker( {
@@ -63,13 +74,14 @@ $(document).ready(function(){
         addShifts(formData);
     });
 
-    $("#generateSchedule").onclick(function (e){
+    $("#generateSchedule").click(function (e){
         e.preventDefault();
 
         $.ajax({
             type: 'GET',
             url: '/supervisor/generate/schedule',
             success: function(data, response){
+                window.location.href="/views/shiftcalendar.html";
                 console.log("SUCESS")
             },
             error: function (response){
@@ -79,19 +91,6 @@ $(document).ready(function(){
 
 
     });
-
-    const convertTime12to24 = (time12h) => {
-        const [time, modifier] = time12h.split(' ');
-        let [hours, minutes] = time.split(':');
-        if (hours === '12') {
-            hours = '00';
-        }
-        if (modifier === 'PM') {
-            hours = parseInt(hours, 10) + 12;
-        }
-
-        return `${hours}:${minutes}`;
-    }
 
     function addShifts(shiftsData){
         $.ajax({
