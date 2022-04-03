@@ -70,7 +70,10 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 }
                 empHistoryPOJO = new EmpHistoryPOJO();
                 empHistoryPOJO.setEmployeeId(empDetailPOJO.getId());
-                empHistoryPOJO.setTotalHoursWeekly(0);
+                boolean ifExist = employeeHistoryRepository.existsByEmployeeId(empDetailPOJO.getId());
+                if (!ifExist){
+                    empHistoryPOJO.setTotalHoursWeekly(0);
+                }
                 empAvailabilityRepository.saveAndFlush(employeeAvailabilityPOJO);
                 employeeHistoryRepository.saveAndFlush(empHistoryPOJO);
 

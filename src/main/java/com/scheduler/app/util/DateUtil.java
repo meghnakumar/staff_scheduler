@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.util.Calendar;
 
-@Component
+/*@Component
 public class DateUtil {
 
     public static Date addDays(Date date, int days) {
@@ -14,4 +14,4 @@ public class DateUtil {
         cal.add(Calendar.DATE, days);
         return new Date(cal.getTimeInMillis());
     }
-}
+}*/
