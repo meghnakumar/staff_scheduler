@@ -169,28 +169,28 @@ public class UtilityServiceImpl implements  UtilityService {
             convertTimeFormat(adminShiftPOJO);
             List<String> finalShiftTimes = new ArrayList<>();
             if (adminShiftPOJO.getSlotType() == 8) {
-                finalShiftTimes.add(shiftTimes.get(0)+" - "+shiftTimes.get(1));
-                finalShiftTimes.add(shiftTimes.get(1)+" - "+shiftTimes.get(2));
-                finalShiftTimes.add(shiftTimes.get(2)+" - "+shiftTimes.get(0));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal()));
                 shiftTimingsResponse.setShiftTimes(finalShiftTimes);
 
             }
             if (adminShiftPOJO.getSlotType() == 6) {
-                finalShiftTimes.add(shiftTimes.get(0)+" - "+shiftTimes.get(1));
-                finalShiftTimes.add(shiftTimes.get(1)+" - "+shiftTimes.get(2));
-                finalShiftTimes.add(shiftTimes.get(2)+" - "+shiftTimes.get(3));
-                finalShiftTimes.add(shiftTimes.get(3)+" - "+shiftTimes.get(0));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.THREE.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.THREE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal()));
                 shiftTimingsResponse.setShiftTimes(finalShiftTimes);
 
             }
 
             if (adminShiftPOJO.getSlotType() == 4) {
-                finalShiftTimes.add(shiftTimes.get(0)+" - "+shiftTimes.get(1));
-                finalShiftTimes.add(shiftTimes.get(1)+" - "+shiftTimes.get(2));
-                finalShiftTimes.add(shiftTimes.get(2)+" - "+shiftTimes.get(3));
-                finalShiftTimes.add(shiftTimes.get(3)+" - "+shiftTimes.get(4));
-                finalShiftTimes.add(shiftTimes.get(4)+" - "+shiftTimes.get(5));
-                finalShiftTimes.add(shiftTimes.get(5)+" - "+shiftTimes.get(0));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.ONE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.TWO.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.THREE.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.THREE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.FOUR.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.FOUR.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.FIVE.getNumVal()));
+                finalShiftTimes.add(shiftTimes.get(UTIL_CONSTANTS.FIVE.getNumVal())+" - "+shiftTimes.get(UTIL_CONSTANTS.ZERO.getNumVal()));
                 shiftTimingsResponse.setShiftTimes(finalShiftTimes);
             }
         } else {
@@ -228,22 +228,46 @@ public class UtilityServiceImpl implements  UtilityService {
 
         private String convertedTime(String shiftTime){
             String finalShift="";
-            String[] timeDivision = shiftTime.split(":");
+            String[] timeDivision = shiftTime.split(UTIL_CONSTANTS.COLON.getStringVal());
             if((Integer.parseInt(timeDivision[0]))>=12){
                 int convertedShiftTime = Integer.parseInt(timeDivision[0])==12?Integer.parseInt(timeDivision[0]):(Integer.parseInt(timeDivision[0])) - 12;
                 if(convertedShiftTime<10)
-                    finalShift = finalShift+"0"+convertedShiftTime +":"+"00"+" PM";
+                    finalShift = finalShift+"0"+convertedShiftTime +UTIL_CONSTANTS.COLON.getStringVal()+UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal()+UTIL_CONSTANTS.PM.getStringVal();
                 else
-                    finalShift = finalShift+convertedShiftTime +":"+"00"+" PM";
+                    finalShift = finalShift+convertedShiftTime +UTIL_CONSTANTS.COLON.getStringVal()+UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal()+UTIL_CONSTANTS.PM.getStringVal();
             }
             else if((Integer.parseInt(timeDivision[0]))<12){
                 int convertedShiftTime = Integer.parseInt(timeDivision[0])==00?12:Integer.parseInt(timeDivision[0]);
                 if(convertedShiftTime<10)
-                    finalShift = finalShift+"0"+convertedShiftTime+":"+"00"+" AM";
+                    finalShift = finalShift+"0"+convertedShiftTime+UTIL_CONSTANTS.COLON.getStringVal()+UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal()+UTIL_CONSTANTS.AM.getStringVal();
                 else
-                    finalShift = finalShift+convertedShiftTime+":"+"00"+" AM";
+                    finalShift = finalShift+convertedShiftTime+UTIL_CONSTANTS.COLON.getStringVal()+UTIL_CONSTANTS.DOUBLE_ZERO.getStringVal()+UTIL_CONSTANTS.AM.getStringVal();
             }
             return finalShift;
         }
+
+
+    public enum UTIL_CONSTANTS {
+        ZERO(0),ONE(1),TWO(2),THREE(3),FOUR(4),
+        FIVE(5),SIX(6),SEVEN(7),
+        COLON(":"),AM(" AM"),PM(" PM"),DOUBLE_ZERO("00");
+
+        private int numVal;
+        private String stringVal;
+
+        UTIL_CONSTANTS(int numVal) {
+            this.numVal = numVal;
+        }
+        UTIL_CONSTANTS(String stringVal) {
+            this.stringVal = stringVal;
+        }
+
+        public String getStringVal(){
+            return stringVal;
+        }
+        public int getNumVal() {
+            return numVal;
+        }
+    }
 }
 

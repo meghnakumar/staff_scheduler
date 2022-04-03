@@ -9,6 +9,7 @@ import java.util.List;
 public class DatabaseOperations {
 	private static Connection connection = DatabaseConnection.getConnection();
 
+
 	public static List<EligibleEmployees> getEligibleEmployees(
 			String roleId
 			, String shiftDate
@@ -20,10 +21,10 @@ public class DatabaseOperations {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
-				Time starttime = rs.getTime(1);
-				Time endtime = rs.getTime(2);
-				String empId = rs.getString(3);
-				int totalHours = rs.getInt(4);
+				Time starttime = rs.getTime(COLUMN_INDEX.ONE.getNumVal());
+				Time endtime = rs.getTime(COLUMN_INDEX.TWO.getNumVal());
+				String empId = rs.getString(COLUMN_INDEX.THREE.getNumVal());
+				int totalHours = rs.getInt(COLUMN_INDEX.FOUR.getNumVal());
 				list.add(new EligibleEmployees(starttime, endtime, empId, totalHours));
 			}
 		} 
@@ -33,13 +34,13 @@ public class DatabaseOperations {
 		return list;
 	}
 
-	/*public static void truncateEmpHistory(){
+	public static void truncateScheduleOutput(){
 		Connection connection=DatabaseConnection.getConnection();
 		try {
 
-			String query="truncate table emphistory";
+			String query="truncate table scheduleoutput";
 			Statement statement=connection.createStatement();
-			statement.executeQuery(query);
+			statement.execute(query);
 
 			connection.commit();
 
@@ -47,14 +48,14 @@ public class DatabaseOperations {
 		catch (SQLException sqlException){
 			sqlException.printStackTrace();
 		}
-	}*/
+	}
 	public static void updateEmpHistory(int totalHoursWeekly, String employeeId) {
 		Connection connection=DatabaseConnection.getConnection();
 		try {
 			String query = "update emphistory set total_hours_weekly = ? where employee_id = ?";
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setInt(1, totalHoursWeekly);
-			ps.setInt(2, Integer.parseInt(employeeId));
+			ps.setInt(COLUMN_INDEX.ONE.getNumVal(), totalHoursWeekly);
+			ps.setInt(COLUMN_INDEX.TWO.getNumVal(), Integer.parseInt(employeeId));
 			ps.execute();
 			connection.commit();
 			ps.close();
@@ -71,13 +72,13 @@ public class DatabaseOperations {
 		try {
 			String query = "Insert into  scheduleoutput (department_id, employee_id, shift_date, start_time, end_time, role_id, emp_hours) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setString(1, deptId);
-			ps.setInt(2, Integer.parseInt(empno));
-			ps.setDate(3, shift_date);
-			ps.setTime(4, startTime);
-			ps.setTime(5, endTime);
-			ps.setInt(6, Integer.parseInt(roleId));
-			ps.setInt(7, Integer.parseInt(emp_hours));
+			ps.setString(COLUMN_INDEX.ONE.getNumVal(), deptId);
+			ps.setInt(COLUMN_INDEX.TWO.getNumVal(), Integer.parseInt(empno));
+			ps.setDate(COLUMN_INDEX.THREE.getNumVal(), shift_date);
+			ps.setTime(COLUMN_INDEX.FOUR.getNumVal(), startTime);
+			ps.setTime(COLUMN_INDEX.FIVE.getNumVal(), endTime);
+			ps.setInt(COLUMN_INDEX.SIX.getNumVal(), Integer.parseInt(roleId));
+			ps.setInt(COLUMN_INDEX.SEVEN.getNumVal(), Integer.parseInt(emp_hours));
 			ps.execute();
 			connection.commit();
 			ps.close();
@@ -87,6 +88,17 @@ public class DatabaseOperations {
 			System.out.println("INSERTION FAILED");
 			e.printStackTrace();
 		}
+
 	}
-	
+	public enum COLUMN_INDEX {
+		ONE(1),TWO(2),THREE(3),FOUR(4),
+		FIVE(5),SIX(6),SEVEN(7);
+		private int numVal;
+		COLUMN_INDEX(int numVal) {
+			this.numVal = numVal;
+		}
+		public int getNumVal() {
+			return numVal;
+		}
+	}
 }

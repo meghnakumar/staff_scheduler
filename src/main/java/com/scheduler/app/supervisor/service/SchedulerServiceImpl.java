@@ -227,6 +227,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 
     @Override
     public void algoImplementation(){
+        DatabaseOperations.truncateScheduleOutput();
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 
         double totalHours;
@@ -244,7 +245,6 @@ public class SchedulerServiceImpl implements SchedulerService {
                     totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
 
                     DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.getEmployeeId(), dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", dailyShiftPOJO.getShiftType() + "");
-
                     DatabaseOperations.updateEmpHistory(Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.getEmployeeId());
                 }
                 
