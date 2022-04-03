@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.List;
 
+/*
 @AllArgsConstructor
 public class ScheduleDetails {
 
@@ -19,3 +20,4 @@ public class ScheduleDetails {
 
 
 }
+*/

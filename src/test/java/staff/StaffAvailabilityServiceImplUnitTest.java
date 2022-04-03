@@ -47,6 +47,7 @@ public class StaffAvailabilityServiceImplUnitTest {
     @Test
     public void inputStaffAvailabilityTest() {
         EmpDetailPOJO emp = new EmpDetailPOJO();
+         emp.setId(1);
         emp.setEmployeeNumber("EMP001");
         staffAvailabilityRequest = new StaffAvailabilityRequest();
         staffAvailabilityRequest.setEmployeeNumber("EMP001");

@@ -55,7 +55,7 @@ public class DatabaseOperations {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, totalHoursWeekly);
 			ps.setInt(2, Integer.parseInt(employeeId));
-			ps.executeUpdate();
+			ps.execute();
 			connection.commit();
 			ps.close();
 
