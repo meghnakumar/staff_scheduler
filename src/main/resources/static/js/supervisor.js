@@ -81,6 +81,7 @@ $(document).ready(function(){
             type: 'GET',
             url: '/supervisor/generate/schedule',
             success: function(data, response){
+                window.location.href="/views/shiftcalendar.html";
                 console.log("SUCESS")
             },
             error: function (response){
