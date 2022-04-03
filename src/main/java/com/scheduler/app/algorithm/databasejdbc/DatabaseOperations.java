@@ -55,7 +55,7 @@ public class DatabaseOperations {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, totalHoursWeekly);
 			ps.setInt(2, Integer.parseInt(employeeId));
-			ps.executeUpdate();
+			ps.execute();
 			connection.commit();
 			ps.close();
 
@@ -78,7 +78,7 @@ public class DatabaseOperations {
 			ps.setTime(5, endTime);
 			ps.setInt(6, Integer.parseInt(roleId));
 			ps.setInt(7, Integer.parseInt(emp_hours));
-			
+			ps.execute();
 			connection.commit();
 			ps.close();
 

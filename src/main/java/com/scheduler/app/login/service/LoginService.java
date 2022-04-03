@@ -5,5 +5,5 @@ import com.scheduler.app.login.model.response.LoginResponse;
 
 public interface LoginService {
 
-    public LoginResponse inputCredentials(LoginRequest loginRequest);
+     LoginResponse inputCredentials(LoginRequest loginRequest);
 }

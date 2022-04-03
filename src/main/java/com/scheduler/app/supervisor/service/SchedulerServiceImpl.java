@@ -3,7 +3,6 @@ package com.scheduler.app.supervisor.service;
 import com.scheduler.app.algorithm.databasejdbc.DatabaseOperations;
 import com.scheduler.app.algorithm.model.entity.EligibleEmployees;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
-import com.scheduler.app.algorithm.model.entity.ScheduleDetails;
 import com.scheduler.app.algorithm.model.entity.ScheduleOutputPOJO;
 import com.scheduler.app.algorithm.model.repo.EmployeeHistoryRepository;
 import com.scheduler.app.constants.REQUEST_STATUS;
@@ -23,6 +22,9 @@ import com.scheduler.app.utility.model.entity.DepartmentPOJO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.Date;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -31,26 +33,26 @@ import java.util.*;
 @Service
 public class SchedulerServiceImpl implements SchedulerService {
 
-    public Map<String, Map> algoMap = new HashMap<>();
-    List<ScheduleDetails> scheduleList = new ArrayList<>();
+    /*private Map<String, Map> algoMap = new HashMap<>();
+    private List<ScheduleDetails> scheduleList = new ArrayList<>();
+*/
+    @Autowired
+    private EmpAvailabilityRepository empAvailabilityRepository;
 
     @Autowired
-    EmpAvailabilityRepository empAvailabilityRepository;
+    private DailyShiftRepository dailyShiftRepository;
 
     @Autowired
-    DailyShiftRepository dailyShiftRepository;
+    private EmployeeHistoryRepository employeeHistoryRepository;
 
     @Autowired
-    EmployeeHistoryRepository employeeHistoryRepository;
+    private EmpDetailRepository empDetailRepository;
 
     @Autowired
-    EmpDetailRepository empDetailRepository;
+    private ScheduleRepository scheduleRepository;
 
     @Autowired
-    ScheduleRepository scheduleRepository;
-
-    @Autowired
-    ShiftDetailsRepository shiftDetailsRepository;
+    private ShiftDetailsRepository shiftDetailsRepository;
 
     @Override
     public ShiftDetailsResponse saveShiftDetails(ShiftDetailsRequest shiftDetailsRequest) {
@@ -182,10 +184,11 @@ public class SchedulerServiceImpl implements SchedulerService {
         return empHistoryList;
     }
 
+
     @Override
     public ScheduleOutputResponse getScheduleByDateTimeDepartment(ScheduleOutputRequest scheduleOutputRequest) {
 
-        if(scheduleOutputRequest.getShiftDate() == null || scheduleOutputRequest.getShiftTime() == null || scheduleOutputRequest.getDepartmentId().isEmpty()){
+        if(isScheduleRequestNull(scheduleOutputRequest)){
             return new ScheduleOutputResponse(REQUEST_STATUS.INVALID_REQUEST, false, Collections.emptyMap());
 
         } else {
@@ -211,14 +214,21 @@ public class SchedulerServiceImpl implements SchedulerService {
         }
     }
 
+    private boolean isScheduleRequestNull(ScheduleOutputRequest scheduleOutputRequest) {
+        return scheduleOutputRequest.getShiftDate() == null || scheduleOutputRequest.getShiftTime() == null || scheduleOutputRequest.getDepartmentId().isEmpty();
+    }
+
     @Override
     public List<DailyShiftPOJO> getDailyShifts() {
         List<DailyShiftPOJO> dailyShiftList = dailyShiftRepository.findAll();
         return dailyShiftList;
     }
 
+
     @Override
     public void algoImplementation(){
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
         double totalHours;
         List<DailyShiftPOJO> shiftList=getDailyShifts();
         for (DailyShiftPOJO dailyShiftPOJO : shiftList){
@@ -226,23 +236,39 @@ public class SchedulerServiceImpl implements SchedulerService {
             totalHours=dailyShiftPOJO.getEmployeeHours();
 
             for (EligibleEmployees eligibleEmployee: eligibleEmployeesList){
-                if(eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())) {
+                if(eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())) {
 
                     if(totalHours <= 0) {
                         break;
                     }
                     totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
 
-                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
-                    DatabaseOperations.updateEmpHistory(eligibleEmployee.totalHoursLastWeek,eligibleEmployee.employeeId);
+                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", dailyShiftPOJO.getShiftType() + "");
+
+                    DatabaseOperations.updateEmpHistory(Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.employeeId);
                 }
+                
                 else if((eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&!(eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())))){
+                    Time startTimeEmp = eligibleEmployee.getAvailableStartTime();
+                    Time endTimeEmp = eligibleEmployee.getAvailableEndTime();
+                    java.util.Date timeStart = null;
+                    java.util.Date timeEnd= null;
+                    try {
+                        timeStart =  format.parse(String.valueOf(startTimeEmp));
+                        timeEnd = format.parse(String.valueOf(endTimeEmp));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    long diff = timeEnd.getTime() - timeStart.getTime();
+                    int diffHours = Math.toIntExact(diff / (60 * 60 * 1000));
+
                     if(totalHours <= 0) {
                         break;
                     }
-                    totalHours -= eligibleEmployee.availableEndTime.getTime();
-
-                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", (eligibleEmployee.availableStartTime.getHours() - eligibleEmployee.availableEndTime.getHours()) + "");
+                    totalHours -= diffHours;
+                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.employeeId, dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", diffHours + "");
+                    DatabaseOperations.updateEmpHistory(diffHours,eligibleEmployee.employeeId);
 
                 }
             }
