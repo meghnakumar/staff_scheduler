@@ -78,7 +78,7 @@ public class DatabaseOperations {
 			ps.setTime(5, endTime);
 			ps.setInt(6, Integer.parseInt(roleId));
 			ps.setInt(7, Integer.parseInt(emp_hours));
-			
+			ps.execute();
 			connection.commit();
 			ps.close();
 
