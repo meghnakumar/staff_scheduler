@@ -37,6 +37,8 @@ public class SchedulerServiceImpl implements SchedulerService {
     /*private Map<String, Map> algoMap = new HashMap<>();
     private List<ScheduleDetails> scheduleList = new ArrayList<>();
 */
+    private static final int SIXTY = 60;
+    private static final int THOUSAND = 1000;
     InsertScheduleParam insertScheduleParam = new InsertScheduleParam();
 
     @Autowired
@@ -270,7 +272,7 @@ public class SchedulerServiceImpl implements SchedulerService {
                     }
 
                     long diff = timeEnd.getTime() - timeStart.getTime();
-                    int diffHours = Math.toIntExact(diff / (60 * 60 * 1000));
+                    int diffHours = Math.toIntExact(diff / (SIXTY * SIXTY * THOUSAND));
 
                     if(totalHours <= 0) {
                         break;

@@ -1,14 +1,9 @@
 package com.scheduler.app.algorithm.model.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.Column;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.sql.Time;
 

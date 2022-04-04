@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoginServiceImpl implements LoginService{
+    private static final int ADMIN = 0;
+    private static final int SUPERVISOR = 1;
+    private static final int STAFF = 2;
 
     @Autowired
     EmpDetailRepository empDetailRepository;
@@ -51,17 +54,17 @@ public class LoginServiceImpl implements LoginService{
             switch (employeeCredsDTO.getRoleId()){
 
 
-                case 0 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                case ADMIN :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
                             loginResponse.setValid(true);
                             loginResponse.setUserType(USER_TYPE.ADMIN);
                             break;
 
-                case 1 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                case SUPERVISOR :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
                             loginResponse.setValid(true);
                             loginResponse.setUserType(USER_TYPE.SUPERVISOR);
                             break;
 
-                case 2 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                case STAFF :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
                             loginResponse.setValid(true);
                             loginResponse.setUserType(USER_TYPE.STAFF);
                             break;
