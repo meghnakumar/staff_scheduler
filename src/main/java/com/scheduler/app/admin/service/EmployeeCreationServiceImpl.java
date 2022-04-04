@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 /**
  * Employee Creation Service.
  * This Service helps in the creation & registration of a new Employee in the System.
- * All the details for the new Employee are received form the front-end.
+ * All the details for the new Employee are received form the front-end via the Admin Flow.
  */
 @Service
 public class EmployeeCreationServiceImpl implements EmployeeCreationService {
@@ -27,7 +27,7 @@ public class EmployeeCreationServiceImpl implements EmployeeCreationService {
     EmpDetailRepository empDetailRepository;
 
     /**
-     * Auto-wired Component : Utility Service to Send Email sto Newly Created Employees.
+     * Auto-wired Component : Utility Service to Send Emails to Newly Created Employees.
      */
     @Autowired
     MailService mailService;
@@ -99,11 +99,14 @@ public class EmployeeCreationServiceImpl implements EmployeeCreationService {
 
     }
 
+    /*
+     * Generates a new Randomised password for the newly created employee
+     *
+     * @return the generated password string
+     */
     private String getGeneratedPassword() {
         RandomTextGeneratorUtil passwordGenerator = new RandomTextGeneratorUtil();
-        String generatedPassword = passwordGenerator.generateCommonTextPassword();
-        return generatedPassword;
+        return passwordGenerator.generateCommonTextPassword();
     }
-
 
 }
