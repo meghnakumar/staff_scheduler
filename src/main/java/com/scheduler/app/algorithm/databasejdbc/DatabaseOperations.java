@@ -18,7 +18,7 @@ public class DatabaseOperations {
 		List<EligibleEmployees> list = new ArrayList<>();
 		try {
 
-			String query = "SELECT starttime, endtime, empavailablitynew.employee_id, total_hours_weekly FROM CSCI5308_20_DEVINT.empavailablitynew, CSCI5308_20_DEVINT.emphistory  where emphistory.employee_id = empavailablitynew.employee_id and role_id = " + roleId + " and shiftdate = '"+ shiftDate +"' and department_id = '" + deptId + "' order by emphistory.total_hours_weekly;";
+			String query = "SELECT starttime, endtime, empavailablitynew.employee_id, total_hours_weekly FROM empavailablitynew, emphistory  where emphistory.employee_id = empavailablitynew.employee_id and role_id = " + roleId + " and shiftdate = '"+ shiftDate +"' and department_id = '" + deptId + "' order by emphistory.total_hours_weekly;";
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
