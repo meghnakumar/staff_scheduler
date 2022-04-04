@@ -58,7 +58,7 @@
         </script>
 
         <div class = "container">
-            <div class="col-md-6" style="margin: inherit"> <h1 >Register A New Employee</h1> </div>
+            <div class="col-md-6" style="margin: inherit"> <h1 >Register a new employee</h1> </div>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-5">
@@ -66,11 +66,11 @@
                         <div >
                             <label class="col-form-label mt-4" for="employeeNumber"> <b>Enter the Employee Number:</b></label>
                             <input type="text" class="form-control" placeholder="Starts with EMP" id="employeeNumber" name='employeeNumber' spellcheck="false" data-ms-editor="true">
-                            <div id="error" class="invalid-feedback"> <b>Employee Number is Mandatory Field.</b><br></div>
+                            <div id="error" class="invalid-feedback"> <b></b><br></div>
                         </div>
                         <div >
                             <label class="col-form-label mt-4" for="emailId"> <b>Enter the Employee Email:</b></label>
-                            <input type="text" class="form-control" placeholder="Starts with EMP" id="emailId" name='emailId' spellcheck="false" data-ms-editor="true">
+                            <input type="text" class="form-control" placeholder="Enter valid email " id="emailId" name='emailId' spellcheck="false" data-ms-editor="true">
                         </div>
                         <div >
                             <label class="col-form-label mt-4" for="firstName"> <b>Enter the First Name:</b></label>
@@ -86,8 +86,17 @@
                         </div>
                         <div >
                             <label class="col-form-label mt-4" for="departmentId"> <b> Department Id:</b></label>
-                            <input type="number" min= 1 max= 5 class="form-control" placeholder="What's their Department?" id="departmentId" name='departmentId' spellcheck="false" data-ms-editor="true">
+<!--                            <input type="number" min= 1 max= 5 class="form-control" placeholder="What's their Department?" id="departmentId" name='departmentId' spellcheck="false" data-ms-editor="true">-->
+                            <select class="form-control" name="departmentId" id="departmentId" spellcheck="false" placeholder="What's their Department?">
+                                <option value = "D01">D01</option>
+                                <option value = "D02">D02</option>
+                                <option value = "D03">D03</option>
+                                <option value = "D04">D04</option>
+                                <option value = "D05">D05</option>
+                            </select>
                         </div>
+                        <div id="error-department-id" class="invalid-feedback"> <b></b><br></div>
+
                         <div>
                             <br><h6> <b>What's their Role?</b></h6>
                             <div class="form-check disabled">
