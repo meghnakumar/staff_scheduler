@@ -1,6 +1,7 @@
 package com.scheduler.app.algorithm.databasejdbc;
 
 import com.scheduler.app.algorithm.model.entity.EligibleEmployees;
+import com.scheduler.app.algorithm.model.entity.InsertScheduleParam;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -67,18 +68,21 @@ public class DatabaseOperations {
 		}
 
 	}
-	public static void insert(String deptId, String empno, Time startTime, Time endTime, Date shift_date, String roleId, String emp_hours) {
+
+	public static void insert(InsertScheduleParam insertScheduleParam) {
 		Connection connection = DatabaseConnection.getConnection();
+
 		try {
 			String query = "Insert into  scheduleoutput (department_id, employee_id, shift_date, start_time, end_time, role_id, emp_hours) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = connection.prepareStatement(query);
-			ps.setString(COLUMN_INDEX.ONE.getNumVal(), deptId);
-			ps.setInt(COLUMN_INDEX.TWO.getNumVal(), Integer.parseInt(empno));
-			ps.setDate(COLUMN_INDEX.THREE.getNumVal(), shift_date);
-			ps.setTime(COLUMN_INDEX.FOUR.getNumVal(), startTime);
-			ps.setTime(COLUMN_INDEX.FIVE.getNumVal(), endTime);
-			ps.setInt(COLUMN_INDEX.SIX.getNumVal(), Integer.parseInt(roleId));
-			ps.setInt(COLUMN_INDEX.SEVEN.getNumVal(), Integer.parseInt(emp_hours));
+
+			ps.setString(COLUMN_INDEX.ONE.getNumVal(), insertScheduleParam.deptId);
+			ps.setInt(COLUMN_INDEX.TWO.getNumVal(), Integer.parseInt(insertScheduleParam.empno));
+			ps.setDate(COLUMN_INDEX.THREE.getNumVal(), insertScheduleParam.shift_date);
+			ps.setTime(COLUMN_INDEX.FOUR.getNumVal(), insertScheduleParam.startTime);
+			ps.setTime(COLUMN_INDEX.FIVE.getNumVal(), insertScheduleParam.endTime);
+			ps.setInt(COLUMN_INDEX.SIX.getNumVal(), Integer.parseInt(insertScheduleParam.roleId));
+			ps.setInt(COLUMN_INDEX.SEVEN.getNumVal(), Integer.parseInt(insertScheduleParam.emp_hours));
 			ps.execute();
 			connection.commit();
 			ps.close();

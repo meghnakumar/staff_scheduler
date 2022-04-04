@@ -3,6 +3,7 @@ package com.scheduler.app.supervisor.service;
 import com.scheduler.app.algorithm.databasejdbc.DatabaseOperations;
 import com.scheduler.app.algorithm.model.entity.EligibleEmployees;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
+import com.scheduler.app.algorithm.model.entity.InsertScheduleParam;
 import com.scheduler.app.algorithm.model.entity.ScheduleOutputPOJO;
 import com.scheduler.app.algorithm.model.repo.EmployeeHistoryRepository;
 import com.scheduler.app.constants.REQUEST_STATUS;
@@ -36,6 +37,8 @@ public class SchedulerServiceImpl implements SchedulerService {
     /*private Map<String, Map> algoMap = new HashMap<>();
     private List<ScheduleDetails> scheduleList = new ArrayList<>();
 */
+    InsertScheduleParam insertScheduleParam = new InsertScheduleParam();
+
     @Autowired
     private EmpAvailabilityRepository empAvailabilityRepository;
 
@@ -243,8 +246,14 @@ public class SchedulerServiceImpl implements SchedulerService {
                         break;
                     }
                     totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
-
-                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.getEmployeeId(), dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", dailyShiftPOJO.getShiftType() + "");
+                    insertScheduleParam.setDeptId(dailyShiftPOJO.getDepartment().getId());
+                    insertScheduleParam.setEmpno(eligibleEmployee.getEmployeeId());
+                    insertScheduleParam.setStartTime(dailyShiftPOJO.getStartTime());
+                    insertScheduleParam.setEndTime( dailyShiftPOJO.getEndTime());
+                    insertScheduleParam.setShift_date(dailyShiftPOJO.getShiftDate());
+                    insertScheduleParam.setRoleId(dailyShiftPOJO.getRoleId()+"");
+                    insertScheduleParam.setEmp_hours(dailyShiftPOJO.getShiftType() + "");
+                    DatabaseOperations.insert(insertScheduleParam);
                     DatabaseOperations.updateEmpHistory(Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.getEmployeeId());
                 }
                 
@@ -267,7 +276,16 @@ public class SchedulerServiceImpl implements SchedulerService {
                         break;
                     }
                     totalHours -= diffHours;
-                    DatabaseOperations.insert(dailyShiftPOJO.getDepartment().getId(), eligibleEmployee.getEmployeeId(), dailyShiftPOJO.getStartTime(), dailyShiftPOJO.getEndTime(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getRoleId()+"", diffHours + "");
+
+                    insertScheduleParam.setRoleId(dailyShiftPOJO.getRoleId()+"");
+                    insertScheduleParam.setEmp_hours(diffHours + "");
+                    insertScheduleParam.setDeptId(dailyShiftPOJO.getDepartment().getId());
+                    insertScheduleParam.setEmpno(eligibleEmployee.getEmployeeId());
+                    insertScheduleParam.setShift_date(dailyShiftPOJO.getShiftDate());
+                    insertScheduleParam.setStartTime(dailyShiftPOJO.getStartTime());
+                    insertScheduleParam.setEndTime(dailyShiftPOJO.getEndTime());
+
+                    DatabaseOperations.insert(insertScheduleParam);
                     DatabaseOperations.updateEmpHistory(diffHours,eligibleEmployee.getEmployeeId());
 
                 }
