@@ -1,4 +1,4 @@
-package admin;
+package admin.integration;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;

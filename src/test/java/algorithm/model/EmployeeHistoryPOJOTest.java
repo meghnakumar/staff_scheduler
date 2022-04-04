@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.model;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.algorithm.model.entity.EligibleEmployees;
@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(classes = StaffSchedulerApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class EmployeeHistoryPOJOTest {
+
     private EmpHistoryPOJO employeeHistoryPOJOTest;
 
     @Test

@@ -1,4 +1,4 @@
-package admin;
+package admin.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scheduler.app.StaffSchedulerApplication;
