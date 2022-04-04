@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.integration;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.algorithm.controller.ScheduleController;
