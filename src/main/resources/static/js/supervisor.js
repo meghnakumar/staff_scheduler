@@ -4,7 +4,7 @@ $(document).ready(function(){
     fetchShifts();
     let employeeSectionCount = 1;
     let slotType = 0;
-    let rolesObj = [{name: "Admin", "value": 0}, {name: "Supervisor", "value": 1},
+    let rolesObj = [
         {name: "Staff", "value": 2}, {name: "Intern", value: 3}];
     addEmpSection(employeeSectionCount, rolesObj);
     const convertTime12to24 = (time12h) => {
