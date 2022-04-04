@@ -17,5 +17,5 @@ public interface SchedulerService {
      ShiftDetailsResponse saveShiftDetails(ShiftDetailsRequest shiftDetailsRequest);
      ScheduleOutputResponse getScheduleByDateTimeDepartment(ScheduleOutputRequest request);
      List<DailyShiftPOJO> getDailyShifts();
-     void algoImplementation();
+     boolean algoImplementation();
 }

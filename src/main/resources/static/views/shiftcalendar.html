@@ -5,56 +5,88 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css">
-
+    <link id="favicon" rel="shortcut icon" type="image/jpg" href="./../assets/images/login.jpg" />
 </head>
 <body>
-    <div class="p-5">
-        <h2 class="mb-4">Full Calendar</h2>
-        <div class="card">
-            <div class="card-body p-0">
-                <div id="calendar"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Staff Scheduler</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../views/supervisorHome.html"><h5>Home</h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../views/supervisorShifts.html"><h5>Enter Shift Availability</h5></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><h5>View Schedule</h5></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button type="button" id="logout" class="btn btn-danger">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <button type="button" class="btn btn-primary breadcrumb-item" style="margin-top: 20px; margin-left: -30px"><a href="/views/supervisorHome.html"> Back </a></button>
+        <div class="mt-5">
+            <h2 class="mb-4">Scheduler</h2>
+            <div class="card">
+                <div class="card-body p-0">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="calendarModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Shift Detail</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <table class="table table-striped table-bordered" >
+                            <thead>
+                            <tr>
+                                <th>employee ID</th>
+                                <th>Shift Start Time</th>
+                                <th>Shift End Time</th>
+                                <th>Role ID</th>
+                            </tr>
+                            </thead>
+                            <tbody id="emp-table-details">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- The Modal -->
-    <div class="modal fade" id="calendarModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Shift Detail</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <table class="table table-striped table-bordered" >
-                        <thead>
-                        <tr>
-                            <th>employee ID</th>
-                            <th>Shift Start Time</th>
-                            <th>Shift End Time</th>
-                            <th>Role ID</th>
-                        </tr>
-                        </thead>
-                        <tbody id="emp-table-details">
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
 
     <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/common.js"></script>
     <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js'></script>
