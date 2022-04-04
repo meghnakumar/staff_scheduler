@@ -11,7 +11,7 @@ import com.scheduler.app.admin.model.response.EmployeeCreationResponse;
 import com.scheduler.app.admin.model.response.HolidayCreationResponse;
 import com.scheduler.app.supervisor.model.response.ShiftCreationResponse;
 import com.scheduler.app.admin.service.HolidayCreationService;
-import com.scheduler.app.util.MailService;
+import com.scheduler.app.admin.util.MailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

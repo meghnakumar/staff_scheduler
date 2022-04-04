@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoginServiceImpl implements LoginService{
+    private static final int ADMIN = 0;
+    private static final int SUPERVISOR = 1;
+    private static final int STAFF = 2;
 
     @Autowired
     EmpDetailRepository empDetailRepository;
@@ -30,58 +33,63 @@ public class LoginServiceImpl implements LoginService{
                         empDetailPOJO.getEmailId(), empDetailPOJO.getLoginPassword(), empDetailPOJO.getRoleId(), empDetailPOJO.getDepartmentId());
             }
 
-            //Flag for checking validity of Credentials
-            boolean isValidPassword = checkPasswordMatch(employeeCredsDTO, loginRequest);
-            if(isValidPassword && empDetailPOJO != null) {
-
-                switch (employeeCredsDTO.getRoleId()){
-
-
-                    case 0 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
-                                loginResponse.setValid(true);
-                                loginResponse.setUserType(USER_TYPE.ADMIN);
-                                break;
-
-                    case 1 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
-                                loginResponse.setValid(true);
-                                loginResponse.setUserType(USER_TYPE.SUPERVISOR);
-                                break;
-
-                    case 2 :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
-                                loginResponse.setValid(true);
-                                loginResponse.setUserType(USER_TYPE.STAFF);
-                                break;
-
-                    default :   loginResponse.setStatus(REQUEST_STATUS.INVALID_REQUEST);
-                                loginResponse.setValid(false);
-                                loginResponse.setUserType(USER_TYPE.INVALID);
-                }
-
-                loginResponse.setId(employeeCredsDTO.getId());
-                loginResponse.setEmployeeNumber(employeeCredsDTO.getEmployeeNumber());
-                loginResponse.setDepartmentId(employeeCredsDTO.getDepartmentId());
-
-            } else if (empDetailPOJO != null && employeeCredsDTO.getEmployeeNumber().equals(loginRequest.getUserID())){
-
-                loginResponse.setStatus(REQUEST_STATUS.INCORRECT_PASSWORD);
-                loginResponse.setValid(false);
-                loginResponse.setUserType(USER_TYPE.INVALID);
-
-            } else {
-
-                loginResponse.setStatus(REQUEST_STATUS.ERROR);
-                loginResponse.setValid(false);
-                loginResponse.setUserType(USER_TYPE.INVALID);
-
-            }
-
-            return loginResponse;
+            return validateCredentials(loginRequest, loginResponse, empDetailPOJO, employeeCredsDTO);
 
         } else {
 
             loginResponse.setStatus(REQUEST_STATUS.BAD_REQUEST);
             loginResponse.setValid(false);
             loginResponse.setUserType(USER_TYPE.INVALID);
+        }
+
+        return loginResponse;
+    }
+
+
+    private LoginResponse validateCredentials(LoginRequest loginRequest, LoginResponse loginResponse, EmpDetailPOJO empDetailPOJO, EmployeeCredsDTO employeeCredsDTO) {
+        //Flag for checking validity of Credentials
+        boolean isValidPassword = checkPasswordMatch(employeeCredsDTO, loginRequest);
+        if(isValidPassword && empDetailPOJO != null) {
+
+            switch (employeeCredsDTO.getRoleId()){
+
+
+                case ADMIN :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                            loginResponse.setValid(true);
+                            loginResponse.setUserType(USER_TYPE.ADMIN);
+                            break;
+
+                case SUPERVISOR :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                            loginResponse.setValid(true);
+                            loginResponse.setUserType(USER_TYPE.SUPERVISOR);
+                            break;
+
+                case STAFF :    loginResponse.setStatus(REQUEST_STATUS.SUCCESS);
+                            loginResponse.setValid(true);
+                            loginResponse.setUserType(USER_TYPE.STAFF);
+                            break;
+
+                default :   loginResponse.setStatus(REQUEST_STATUS.INVALID_REQUEST);
+                            loginResponse.setValid(false);
+                            loginResponse.setUserType(USER_TYPE.INVALID);
+            }
+
+            loginResponse.setId(employeeCredsDTO.getId());
+            loginResponse.setEmployeeNumber(employeeCredsDTO.getEmployeeNumber());
+            loginResponse.setDepartmentId(employeeCredsDTO.getDepartmentId());
+
+        } else if (empDetailPOJO != null && employeeCredsDTO.getEmployeeNumber().equals(loginRequest.getUserID())){
+
+            loginResponse.setStatus(REQUEST_STATUS.INCORRECT_PASSWORD);
+            loginResponse.setValid(false);
+            loginResponse.setUserType(USER_TYPE.INVALID);
+
+        } else {
+
+            loginResponse.setStatus(REQUEST_STATUS.ERROR);
+            loginResponse.setValid(false);
+            loginResponse.setUserType(USER_TYPE.INVALID);
+
         }
 
         return loginResponse;

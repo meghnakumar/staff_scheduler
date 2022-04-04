@@ -23,9 +23,11 @@ public class DatabaseConnection {
     {
         if(connection == null) {
             try {
-                connection = DriverManager.getConnection(Config.db_url, Config.db_username, Config.db_password);
+                connection = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUsername(), Config.getDbPassword());
                 connection.setAutoCommit(false);
+/*
                 System.out.println("Connection Successful");
+*/
             }
             catch (SQLException e) {
                 e.printStackTrace();

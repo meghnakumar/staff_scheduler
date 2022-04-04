@@ -1,4 +1,4 @@
-package com.scheduler.app.util;
+package com.scheduler.app.admin.util;
 
 import org.springframework.stereotype.Component;
 
