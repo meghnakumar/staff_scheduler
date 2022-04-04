@@ -2,6 +2,9 @@ $(document).ready(function(){
     $( "#department-type" ).hide();
     $( "#employee-detail" ).hide();
     fetchShifts();
+    let startDate = getNextWorkingMonday();
+    var endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate()+4);
     let employeeSectionCount = 1;
     let slotType = 0;
     let rolesObj = [
@@ -16,17 +19,24 @@ $(document).ready(function(){
         if (modifier === 'PM') {
             hours = parseInt(hours, 10) + 12;
         }
-
         return `${hours}:${minutes}`;
     }
     $( "#department" ).val(sessionStorage.getItem('departmentId'));
+
+    function getNextWorkingMonday() {
+        var d = new Date();
+        d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
+        console.log(d);
+        return d;
+    }
 
     $('#supervisor-date-picker').datepicker( {
         showOtherMonths: true,
         selectOtherMonths: true,
         multiselect: true,
-        minDate:0,
         dateFormat: 'yy-mm-dd',
+        minDate: startDate,
+        maxDate: endDate,
         onSelect: function(selectedDate, instance) {
             $( "#department-type" ).show();
             $( "#employee-detail" ).show();
