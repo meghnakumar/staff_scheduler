@@ -5,6 +5,7 @@ import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
 import com.scheduler.app.algorithm.model.entity.ScheduleOutputPOJO;
 import com.scheduler.app.algorithm.model.repo.EmployeeHistoryRepository;
 import com.scheduler.app.constants.REQUEST_STATUS;
+import com.scheduler.app.supervisor.model.entity.DailyShiftPOJO;
 import com.scheduler.app.supervisor.model.request.RequiredRoleHours;
 import com.scheduler.app.algorithm.model.request.ScheduleOutputRequest;
 import com.scheduler.app.supervisor.model.request.ShiftDetailsRequest;
@@ -17,6 +18,7 @@ import com.scheduler.app.supervisor.model.repo.ShiftDetailsRepository;
 import com.scheduler.app.supervisor.service.SchedulerServiceImpl;
 import com.scheduler.app.staff.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.staff.model.repo.EmpDetailRepository;
+import com.scheduler.app.utility.model.entity.DepartmentPOJO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,14 +26,15 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -178,5 +181,66 @@ public class SchedulerServiceImplUnitTest {
         ScheduleOutputResponse = schedulerService.getScheduleByDateTimeDepartment(ScheduleOutputRequest);
         assertEquals(REQUEST_STATUS.INVALID_REQUEST, ScheduleOutputResponse.getStatus());
     }
+
+    @Test
+    public void testAlgoImplementation(){
+        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
+        dailyShiftPOJO.setShiftType("4");
+        dailyShiftPOJO.setShiftDate(Date.valueOf("2022-04-04"));
+        dailyShiftPOJO.setRoleId(2);
+        dailyShiftPOJO.setEmployeeHours(9.0);
+        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
+        departmentPOJO.setDepartmentName("name");
+        departmentPOJO.setId("D01");
+        dailyShiftPOJO.setDepartment(departmentPOJO);
+        dailyShiftPOJO.setStartTime(Time.valueOf("12:00:00"));
+        dailyShiftPOJO.setEndTime(Time.valueOf("16:00:00"));
+        List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
+        dailyShiftPOJOS.add(dailyShiftPOJO);
+        when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
+        boolean result = schedulerService.algoImplementation();
+        assertTrue(result);
+    }
+
+    @Test
+    public void testAlgoImplementationWhenEndTimeNotEqual(){
+        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
+        dailyShiftPOJO.setShiftType("4");
+        dailyShiftPOJO.setShiftDate(Date.valueOf("2022-04-04"));
+        dailyShiftPOJO.setRoleId(2);
+        dailyShiftPOJO.setEmployeeHours(9.0);
+        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
+        departmentPOJO.setDepartmentName("name");
+        departmentPOJO.setId("D01");
+        dailyShiftPOJO.setDepartment(departmentPOJO);
+        dailyShiftPOJO.setStartTime(Time.valueOf("12:00:00"));
+        dailyShiftPOJO.setEndTime(Time.valueOf("20:00:00"));
+        List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
+        dailyShiftPOJOS.add(dailyShiftPOJO);
+        when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
+        boolean result = schedulerService.algoImplementation();
+        assertTrue(result);
+    }
+
+    @Test
+    public void testAlgoImplementationWhenNoValueInDB(){
+        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
+        dailyShiftPOJO.setShiftType("4");
+        dailyShiftPOJO.setShiftDate(Date.valueOf("2022-03-03"));
+        dailyShiftPOJO.setRoleId(2);
+        dailyShiftPOJO.setEmployeeHours(9.0);
+        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
+        departmentPOJO.setDepartmentName("name");
+        departmentPOJO.setId("D01");
+        dailyShiftPOJO.setDepartment(departmentPOJO);
+        dailyShiftPOJO.setStartTime(Time.valueOf("12:00:00"));
+        dailyShiftPOJO.setEndTime(Time.valueOf("20:00:00"));
+        List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
+        dailyShiftPOJOS.add(dailyShiftPOJO);
+        when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
+        boolean result = schedulerService.algoImplementation();
+        assertFalse(result);
+    }
+
 
 }

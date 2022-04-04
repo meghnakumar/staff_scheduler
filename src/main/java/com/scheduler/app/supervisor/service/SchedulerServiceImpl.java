@@ -231,7 +231,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 
 
     @Override
-    public void algoImplementation(){
+    public boolean algoImplementation(){
         DatabaseOperations.truncateScheduleOutput();
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 
@@ -257,6 +257,7 @@ public class SchedulerServiceImpl implements SchedulerService {
                     insertScheduleParam.setEmp_hours(dailyShiftPOJO.getShiftType() + "");
                     DatabaseOperations.insert(insertScheduleParam);
                     DatabaseOperations.updateEmpHistory(Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.getEmployeeId());
+                    return true;
                 }
                 
                 else if((eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&!(eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())))){
@@ -289,11 +290,11 @@ public class SchedulerServiceImpl implements SchedulerService {
 
                     DatabaseOperations.insert(insertScheduleParam);
                     DatabaseOperations.updateEmpHistory(diffHours,eligibleEmployee.getEmployeeId());
-
+                    return true;
                 }
             }
         }
-
+    return false;
     }
 
 }
