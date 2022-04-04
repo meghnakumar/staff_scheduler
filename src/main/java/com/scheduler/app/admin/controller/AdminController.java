@@ -23,23 +23,38 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * The type Admin controller.
+ * The type - Admin controller.
  */
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
 
-
+    /**
+     * Auto-wired Component : Employee Creation Service.
+     */
     @Autowired
     EmployeeCreationService employeeCreationService;
+
+    /**
+     * Auto-wired Component : Holiday Creation Service
+     */
     @Autowired
     HolidayCreationService holidayCreationService;
 
+    /**
+     * Auto-wired Component : Utility Service
+     */
     @Autowired
     UtilityService utilityService;
 
 
+    /**
+     * Create employee employee creation response.
+     *
+     * @param employeeCreationRequest the employee creation request
+     * @return the employee creation response
+     */
     @Operation(summary = "Register the employees and store the data to DB")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Employee is successfully created and added to DB",
@@ -58,6 +73,12 @@ public class AdminController {
         return employeeCreationService.createNewEmployee(employeeCreationRequest);
     }
 
+    /**
+     * Create holiday holiday creation response.
+     *
+     * @param holiday the holiday
+     * @return the holiday creation response
+     */
     @Operation(summary = "Store the holidays declared by admin to holiday table in DB")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Holiday is successfully created and added to DB",

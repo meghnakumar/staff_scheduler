@@ -8,6 +8,9 @@ import javax.transaction.Transactional;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * The interface for Holiday repository.
+ */
 @Repository
 public interface HolidayRepository extends JpaRepository<HolidayPOJO, Integer> {
 
@@ -15,5 +18,12 @@ public interface HolidayRepository extends JpaRepository<HolidayPOJO, Integer> {
     @Transactional
     HolidayPOJO saveAndFlush(HolidayPOJO holiday);
 
+    /**
+     * Find DB Records by Start Date Greater than or equal to given date AND the End Date less than or equal to the given date.
+     *
+     * @param start the start date
+     * @param end   the end date
+     * @return the list of Records
+     */
     List<HolidayPOJO> findByStartDateGreaterThanEqualAndEndDateLessThanEqual(Date start , Date end);
 }

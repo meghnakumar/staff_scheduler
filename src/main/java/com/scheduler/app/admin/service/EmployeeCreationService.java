@@ -4,7 +4,7 @@ import com.scheduler.app.admin.model.request.EmployeeCreationRequest;
 import com.scheduler.app.admin.model.response.EmployeeCreationResponse;
 
 /**
- * The interface for Employee Creation Service.
+ * The interface for the Employee Creation Service.
  */
 public interface EmployeeCreationService {
 
