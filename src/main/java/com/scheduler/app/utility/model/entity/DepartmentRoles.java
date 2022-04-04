@@ -10,12 +10,13 @@ import java.util.List;
 @AllArgsConstructor
 public class DepartmentRoles {
 
+/*
     @Getter
     @Setter
     private Integer role;
 
     @Getter
     @Setter
-    private List<AssignedEmployeeDetail> employeeList;
+    private List<AssignedEmployeeDetail> employeeList;*/
 
 }

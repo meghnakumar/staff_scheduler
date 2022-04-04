@@ -8,12 +8,12 @@ import java.util.List;
 
 @AllArgsConstructor
 public class DepartmentDetails {
-    @Getter
+   /* @Getter
     @Setter
     private String departmentId;
 
     @Getter
     @Setter
-    private List shiftEmployees;
+    private List shiftEmployees;*/
 
 }
