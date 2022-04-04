@@ -2,7 +2,6 @@ package com.scheduler.app.admin.util;
 
 import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,6 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -70,6 +68,7 @@ public class MailService {
         property.put("mail.smtp.auth", "true");
         property.put("mail.smtp.socketFactory.port", "465");
         property.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        property.put("mail.smtp.ssl.checkserveridentity", "true");
 
         //Create a new session with the given properties.
         Session session = Session.getInstance(property,

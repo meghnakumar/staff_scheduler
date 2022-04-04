@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface for Employee Detail Repository.
+ * Employee Detail JPA Repository.
  */
 public interface EmpDetailRepository extends JpaRepository<EmpDetailPOJO, Integer> {
 

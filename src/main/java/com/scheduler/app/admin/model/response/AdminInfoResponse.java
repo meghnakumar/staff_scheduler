@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.Map;
 
+/**
+ * The type - Response object for the Statistics for Admin Homepage.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

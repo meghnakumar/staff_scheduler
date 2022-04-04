@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.util.List;
 
 /**
- * The interface for Holiday repository.
+ * Holiday JPA repository.
  */
 @Repository
 public interface HolidayRepository extends JpaRepository<HolidayPOJO, Integer> {

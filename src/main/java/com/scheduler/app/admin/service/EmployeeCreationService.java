@@ -14,6 +14,6 @@ public interface EmployeeCreationService {
      * @param employeeCreationRequest the employee creation request, with fields for creating the new employee.
      * @return the employee creation response type, with status.
      */
-    public EmployeeCreationResponse createNewEmployee(EmployeeCreationRequest employeeCreationRequest);
+     EmployeeCreationResponse createNewEmployee(EmployeeCreationRequest employeeCreationRequest);
 
 }

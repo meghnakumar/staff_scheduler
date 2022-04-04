@@ -50,10 +50,11 @@ public class AdminController {
 
 
     /**
-     * Create employee employee creation response.
+     * Create employee method associated with the "/admin/create/employee" API call.
+     * Creates a new employee in the system.
      *
-     * @param employeeCreationRequest the employee creation request
-     * @return the employee creation response
+     * @param employeeCreationRequest the employee creation request type object
+     * @return the employee creation response type object
      */
     @Operation(summary = "Register the employees and store the data to DB")
     @ApiResponses(value = {
@@ -74,10 +75,11 @@ public class AdminController {
     }
 
     /**
-     * Create holiday holiday creation response.
+     * Create holiday method associated with the "/admin/create/holiday" API call.
+     * Creates a new holiday in the system.
      *
-     * @param holiday the holiday
-     * @return the holiday creation response
+     * @param holiday the holiday creation request type object.
+     * @return the holiday creation response type object.
      */
     @Operation(summary = "Store the holidays declared by admin to holiday table in DB")
     @ApiResponses(value = {
@@ -98,10 +100,11 @@ public class AdminController {
     }
 
     /**
-     * Get statistic admin info response.
+     * Get Statistic method associated with the "/admin/fetch/info" API call.
+     * Returns information for the Admin Homepage.
      *
-     * @param onload the onload
-     * @return the admin info response
+     * @param onload the onload boolean value signifying page load.
+     * @return the admin info response type object.
      */
     @Operation(summary = "Retrieve the general information and display it on admin homepage")
     @ApiResponses(value = {
@@ -122,10 +125,11 @@ public class AdminController {
     }
 
     /**
-     * Log shift duration shift creation response.
+     * Log shift duration method associated with the "/admin/shift" API call.
+     * Updates the value of the shift duration for every shift in the company.
      *
-     * @param shift the shift
-     * @return the shift creation response
+     * @param shift the shift creating request type object
+     * @return the shift creation response type object
      */
     @Operation(summary = "Store the shift duration for next week to the DB")
     @ApiResponses(value = {
