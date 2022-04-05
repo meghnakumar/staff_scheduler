@@ -263,7 +263,10 @@ public class SchedulerServiceImpl implements SchedulerService {
                         e.printStackTrace();
                     }
 
-                    long diff = timeEnd.getTime() - timeStart.getTime();
+                    long diff = 0;
+                    if (timeEnd != null) {
+                        diff = timeEnd.getTime() - timeStart.getTime();
+                    }
                     int diffHours = Math.toIntExact(diff / (SIXTY * SIXTY * THOUSAND));
 
                     if(totalHours <= 0) {

@@ -1,8 +1,6 @@
 package com.scheduler.app.staff.service;
 
 import com.scheduler.app.constants.REQUEST_STATUS;
-import com.scheduler.app.admin.model.dto.EmployeeDetailDTO;
-import com.scheduler.app.admin.model.dto.EmployeeCredsDTO;
 import com.scheduler.app.staff.model.dto.EmployeeDetailDTO;
 import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
