@@ -42,7 +42,7 @@ $(document).ready(function(){
                 var timeArr = shifts[i].split("-");
                 var startTime = convertTime12to24(timeArr[0].trim());
                 var endTime = convertTime12to24(timeArr[1].trim());
-                endTime = endTime == "00:00" ? "24:00": endTime;
+                endTime = endTime === "00:00" ? "24:00": endTime;
                 events.push(
                     {
                         // title: 'Slot',
@@ -86,7 +86,7 @@ $(document).ready(function(){
                     var shiftDate = info.event.start.toLocaleDateString('en-CA');
                     var shiftTime = convertTime12to24(info.event.start.toLocaleTimeString());
                     var time = shiftTime.split(':');
-                    var hour = time[0].length == 1 ? '0' + time[0] + ':' + time[1] : shiftTime;
+                    var hour = time[0].length === 1 ? '0' + time[0] + ':' + time[1] : shiftTime;
                     console.log("get date", shiftDate);
                     console.log("shift time", hour);
                     var scheduleObj = {

@@ -21,34 +21,6 @@ $(document).ready(function(){
             valid = true;
         }
 
-        /* UNDER CONSTRUCTION var barProgress = function () {
-            var i = 0;
-            var re = $.Deferred;
-            if (i === 0) {
-                $('#bar').show();
-                i = 1;
-                var elem = document.getElementById("bar");
-                var width = 10;
-
-                 setTimeout(   function frame() {
-                     var id = setInterval(frame, 10);
-                     if (width >= 100) {
-                         clearInterval(id);
-                         i = 0;
-                     } else {
-                         width++;
-                         elem.style.width = width + "%";
-                     }
-                 }, Math.random() * 4000)
-            }
-
-            return $.Deferred(function (def) {
-                $.when(re).done(function () {
-                    def.resolve();
-                });
-            });
-        }*/
-
         if(loginId !== "" && loginPwd !== "" && valid) {
 
             $.ajax({
@@ -59,7 +31,7 @@ $(document).ready(function(){
                 url: '/login/request',
                 passwordType: true,
                 success: function(data, response){
-                    if(response == "success") {
+                    if(response === "success") {
                         sessionStorage.setItem('userId', loginId);
                         sessionStorage.setItem('departmentId', data.departmentId);
                         sessionStorage.setItem('userType', data.userType);
