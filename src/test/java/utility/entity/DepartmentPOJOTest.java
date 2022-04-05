@@ -1,4 +1,4 @@
-package utility;
+package utility.entity;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
@@ -17,6 +17,10 @@ import static org.junit.Assert.assertEquals;
 public class DepartmentPOJOTest {
 
     private DepartmentPOJO departmentPOJOTest;
+    private String DEPARTMENT_ID ="D01";
+    private String DEPARTMENT_NAME = "Android";
+    private Integer NUMBER_SHIFTS = 2;
+    private
 
     @Mock
     SupervisorPOJO supervisorPOJO;
@@ -26,15 +30,14 @@ public class DepartmentPOJOTest {
 
         supervisorPOJO = new SupervisorPOJO();
         departmentPOJOTest = new DepartmentPOJO();
-        departmentPOJOTest.setId("D01");
-        departmentPOJOTest.setDepartmentName("Android");
-        departmentPOJOTest.setNumberOfShifts(2);
+        departmentPOJOTest.setId(DEPARTMENT_ID);
+        departmentPOJOTest.setDepartmentName(DEPARTMENT_NAME);
+        departmentPOJOTest.setNumberOfShifts(NUMBER_SHIFTS);
         departmentPOJOTest.setSupervisorPOJO(supervisorPOJO);
 
-
-        assertEquals("D01", departmentPOJOTest.getId());
-        assertEquals("Android", departmentPOJOTest.getDepartmentName());
-        assertEquals(Integer.valueOf(2), departmentPOJOTest.getNumberOfShifts());
+        assertEquals(DEPARTMENT_ID, departmentPOJOTest.getId());
+        assertEquals(DEPARTMENT_NAME, departmentPOJOTest.getDepartmentName());
+        assertEquals(NUMBER_SHIFTS, departmentPOJOTest.getNumberOfShifts());
         assertEquals(supervisorPOJO, departmentPOJOTest.getSupervisorPOJO());
 
     }

@@ -40,6 +40,8 @@ public class LoginControllerUnitTest {
     private LoginRequest loginRequest;
     private LoginResponse loginResponse;
 
+    private static final String USER_NAME = "demo";
+    private static final String PASSWORD = "Something";
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
@@ -51,8 +53,8 @@ public class LoginControllerUnitTest {
     public void inputCredentialsTest() throws Exception {
         loginRequest = new LoginRequest();
         loginResponse = new LoginResponse();
-        loginRequest.setUserID("demo");
-        loginRequest.setPassword("Something");
+        loginRequest.setUserID(USER_NAME);
+        loginRequest.setPassword(PASSWORD);
         loginResponse.setUserType(USER_TYPE.ADMIN);
         when(loginService.inputCredentials(loginRequest)).thenReturn(loginResponse);
         mockMvc.perform(post("/login/request").contentType("application/json")

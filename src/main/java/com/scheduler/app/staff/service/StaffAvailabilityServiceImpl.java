@@ -196,6 +196,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
      */
     @Override
     public EmployeeAvailabilityExistsResponse checkEmployeeAvailability(EmployeeAvailabilityExistsRequest request) {
+        EmployeeAvailabilityExistsResponse employeeAvaExiResponse = new EmployeeAvailabilityExistsResponse();
 
         EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
         String employeeNumber = request.getEmployeeNumber();
@@ -214,10 +215,10 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 modified = true;
             }
         }
-        employeeAvailabilityExistsResponse.setModified(modified);
-        employeeAvailabilityExistsResponse.setStatus(REQUEST_STATUS.SUCCESS);
-        employeeAvailabilityExistsResponse.setDates(alreadyExisitngDates);
-        return employeeAvailabilityExistsResponse;
+        employeeAvaExiResponse.setModified(modified);
+        employeeAvaExiResponse.setStatus(REQUEST_STATUS.SUCCESS);
+        employeeAvaExiResponse.setDates(alreadyExisitngDates);
+        return employeeAvaExiResponse;
     }
 }
 

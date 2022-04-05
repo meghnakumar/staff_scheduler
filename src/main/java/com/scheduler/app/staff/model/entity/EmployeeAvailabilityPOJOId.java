@@ -1,5 +1,10 @@
 package com.scheduler.app.staff.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.sql.Date;
@@ -9,34 +14,19 @@ import java.util.Objects;
  * The type - Composite Key Id Class
  * Maps the composite key for the Employee Availability Entity POJO.
  */
+
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class EmployeeAvailabilityPOJOId implements Serializable {
+    @Getter
+    @Setter
     private String employeeNumber;
+
+    @Getter
+    @Setter
     private Date shiftDate;
-
-    public EmployeeAvailabilityPOJOId(String employeeNumber, Date shiftDate) {
-        this.employeeNumber = employeeNumber;
-        this.shiftDate = shiftDate;
-    }
-
-    public EmployeeAvailabilityPOJOId() {
-    }
-
-    public String getEmployeeNumber() {
-        return employeeNumber;
-    }
-
-    public void setEmployeeNumber(String employeeNumber) {
-        this.employeeNumber = employeeNumber;
-    }
-
-    public Date getShiftDate() {
-        return shiftDate;
-    }
-
-    public void setShiftDate(Date shiftDate) {
-        this.shiftDate = shiftDate;
-    }
 
     @Override
     public boolean equals(Object o) {

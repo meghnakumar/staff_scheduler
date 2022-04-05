@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SupervisorPOJOTest {
     private SupervisorPOJO supervisorPOJOTest;
-
+    private Integer ID =1;
     @Mock
     EmpDetailPOJO empDetailPOJO;
 
@@ -26,9 +26,9 @@ public class SupervisorPOJOTest {
         supervisorPOJOTest = new SupervisorPOJO();
         empDetailPOJO=new EmpDetailPOJO();
 
-        supervisorPOJOTest.setId(1);
+        supervisorPOJOTest.setId(ID);
         supervisorPOJOTest.setEmployee(empDetailPOJO);
-        assertEquals(Integer.valueOf(1), supervisorPOJOTest.getId());
+        assertEquals(ID, supervisorPOJOTest.getId());
         assertEquals(empDetailPOJO, supervisorPOJOTest.getEmployee());
 
     }

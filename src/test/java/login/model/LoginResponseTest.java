@@ -13,20 +13,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(classes = StaffSchedulerApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LoginResponseTest {
-
-
+    private static final String EMP_NUMBER = "employee";
+    private static final String DEPT_ID="D01";
+    private static final int ID = 1;
     @Test
     public void testGetterSetter(){
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setUserType(USER_TYPE.ADMIN);
         loginResponse.setValid(true);
-        loginResponse.setEmployeeNumber("employee");
-        loginResponse.setDepartmentId("D01");
-        loginResponse.setId(1);
+        loginResponse.setEmployeeNumber(EMP_NUMBER);
+        loginResponse.setDepartmentId(DEPT_ID);
+        loginResponse.setId(ID);
         assertEquals(USER_TYPE.ADMIN,loginResponse.getUserType());
         assertEquals(true,loginResponse.isValid());
-        assertEquals("D01",loginResponse.getDepartmentId());
-        assertEquals("employee",loginResponse.getEmployeeNumber());
-        assertEquals(1,loginResponse.getId());
+        assertEquals(DEPT_ID,loginResponse.getDepartmentId());
+        assertEquals(EMP_NUMBER,loginResponse.getEmployeeNumber());
+        assertEquals(ID,loginResponse.getId());
     }
 }

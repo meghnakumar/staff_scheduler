@@ -1,4 +1,4 @@
-package staff;
+package staff.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scheduler.app.StaffSchedulerApplication;
@@ -83,14 +83,13 @@ public class StaffControllerUnitTest {
 
     @Test
     public void getEmployeeAvailabilityTest() throws Exception {
-        EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
-        employeeAvailabilityExistsResponse.setStatus(REQUEST_STATUS.SUCCESS);
-        EmployeeAvailabilityExistsRequest employeeAvailabilityExistsRequest = new EmployeeAvailabilityExistsRequest();
-        employeeAvailabilityExistsRequest.setEmployeeNumber("EMP001");
-        when(staffAvailabilityService.checkEmployeeAvailability(employeeAvailabilityExistsRequest)).thenReturn(employeeAvailabilityExistsResponse);
+        EmployeeAvailabilityExistsResponse response = new EmployeeAvailabilityExistsResponse();
+        response.setStatus(REQUEST_STATUS.SUCCESS);
+        EmployeeAvailabilityExistsRequest request = new EmployeeAvailabilityExistsRequest();
+        request.setEmployeeNumber("EMP001");
+        when(staffAvailabilityService.checkEmployeeAvailability(request)).thenReturn(response);
         mockMvc.perform(post("/staff/check/availability").contentType("application/json")
-                .content(new ObjectMapper().writeValueAsString(employeeAvailabilityExistsRequest))).andDo(print()).andExpect(status().isOk());
+                .content(new ObjectMapper().writeValueAsString(request))).andDo(print()).andExpect(status().isOk());
     }
-
 
 }

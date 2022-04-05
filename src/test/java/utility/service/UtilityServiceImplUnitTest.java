@@ -1,4 +1,4 @@
-package utility;
+package utility.service;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
@@ -37,6 +37,43 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UtilityServiceImplUnitTest {
 
+    /**
+     * The enum Employee Detail values.
+     */
+    public enum EMPLOYEE_DETAILS_MAP {
+
+        INVALID_DURATION(9),
+
+        SHIFT_DURATION_FOUR(4),
+
+        SHIFT_DURATION_EIGHT(8) ,
+
+        SHIFT_DURATION_SIX(6),
+
+        EMPLOYEE_COUNT(2L),
+
+        DEPARTMENT_COUNT(5L),
+
+        DATE(20);
+
+        private long longVal;
+        private int numVal;
+
+        EMPLOYEE_DETAILS_MAP(int numVal) {
+            this.numVal = numVal;
+        }
+        EMPLOYEE_DETAILS_MAP(long longVal){
+            this.longVal = longVal;
+        }
+
+        public int getNumVal() {
+            return numVal;
+        }
+        public long getLongVal(){
+            return longVal;
+        }
+    }
+
     @InjectMocks
     private UtilityServiceImpl utilityService = new UtilityServiceImpl();
 
@@ -63,13 +100,13 @@ public class UtilityServiceImplUnitTest {
         departmentPOJO.setDepartmentName("Android");
         List<DepartmentPOJO> departmentList = new ArrayList<>();
         departmentList.add(departmentPOJO);
-        when(empDetailRepository.count()).thenReturn(2L);
-        when(departmentRepository.count()).thenReturn(5L);
+        when(empDetailRepository.count()).thenReturn(EMPLOYEE_DETAILS_MAP.EMPLOYEE_COUNT.getLongVal());
+        when(departmentRepository.count()).thenReturn(EMPLOYEE_DETAILS_MAP.DEPARTMENT_COUNT.getLongVal());
         when(departmentRepository.findAll()).thenReturn(departmentList);
         HolidayPOJO holidayPOJO = new HolidayPOJO();
         holidayPOJO.setId(1);
         holidayPOJO.setHolidayTitle("Christmas");
-        holidayPOJO.setStartDate(new Date(20));
+        holidayPOJO.setStartDate(new Date(EMPLOYEE_DETAILS_MAP.DATE.getNumVal()));
         List<HolidayPOJO> holidayList = new ArrayList<>();
         holidayList.add(holidayPOJO);
         when(holidayRepository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(any(),any())).thenReturn(holidayList);
@@ -93,7 +130,7 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testLogNewShiftDuration6(){
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(6);
+        shiftCreationRequest.setShiftDuration(EMPLOYEE_DETAILS_MAP.SHIFT_DURATION_SIX.getNumVal());
         shiftCreationResponse = utilityService.logNewShiftDuration(shiftCreationRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftCreationResponse.getStatus());
     }
@@ -101,14 +138,14 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testLogNewShiftDuration8(){
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(8);
+        shiftCreationRequest.setShiftDuration(EMPLOYEE_DETAILS_MAP.SHIFT_DURATION_EIGHT.getNumVal());
         shiftCreationResponse = utilityService.logNewShiftDuration(shiftCreationRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftCreationResponse.getStatus());
     }
     @Test
     public void testLogNewShiftDuration4(){
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(4);
+        shiftCreationRequest.setShiftDuration(EMPLOYEE_DETAILS_MAP.SHIFT_DURATION_FOUR.getNumVal());
         shiftCreationResponse = utilityService.logNewShiftDuration(shiftCreationRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftCreationResponse.getStatus());
     }
@@ -116,14 +153,14 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testLogNewShiftDurationInvalidSlot() throws RuntimeException{
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(9);
+        shiftCreationRequest.setShiftDuration(EMPLOYEE_DETAILS_MAP.INVALID_DURATION.getNumVal());
         shiftCreationResponse = utilityService.logNewShiftDuration(shiftCreationRequest);
     }
 
     @Test
     public void testGetShiftTime_4(){
         AdminShiftPOJO adminShiftPOJO = new AdminShiftPOJO();
-        adminShiftPOJO.setSlotType(4);
+        adminShiftPOJO.setSlotType(EMPLOYEE_DETAILS_MAP.SHIFT_DURATION_FOUR.getNumVal());
         adminShiftPOJO.setShift1StartTime(LocalTime.NOON);
         adminShiftPOJO.setShift2StartTime(LocalTime.now());
         adminShiftPOJO.setShift3StartTime(LocalTime.MAX);
@@ -139,7 +176,7 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testGetShiftTime_6(){
         AdminShiftPOJO adminShiftPOJO = new AdminShiftPOJO();
-        adminShiftPOJO.setSlotType(6);
+        adminShiftPOJO.setSlotType(EMPLOYEE_DETAILS_MAP.SHIFT_DURATION_SIX.getNumVal());
         adminShiftPOJO.setShift1StartTime(LocalTime.NOON);
         adminShiftPOJO.setShift2StartTime(LocalTime.now());
         adminShiftPOJO.setShift3StartTime(LocalTime.MAX);
@@ -154,7 +191,7 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testGetShiftTime_8(){
         AdminShiftPOJO adminShiftPOJO = new AdminShiftPOJO();
-        adminShiftPOJO.setSlotType(8);
+        adminShiftPOJO.setSlotType(EMPLOYEE_DETAILS_MAP.SHIFT_DURATION_EIGHT.getNumVal());
         adminShiftPOJO.setShift1StartTime(LocalTime.NOON);
         adminShiftPOJO.setShift2StartTime(LocalTime.now());
         adminShiftPOJO.setShift3StartTime(LocalTime.MAX);
