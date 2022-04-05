@@ -6,7 +6,7 @@ import com.scheduler.app.supervisor.controller.SupervisorController;
 import com.scheduler.app.supervisor.model.entity.DailyShiftPOJO;
 import com.scheduler.app.supervisor.model.request.RequiredRoleHours;
 import com.scheduler.app.supervisor.model.request.ShiftDetailsRequest;
-import com.scheduler.app.algorithm.model.response.ShiftDetailsResponse;
+import com.scheduler.app.supervisor.model.response.ShiftDetailsResponse;
 import com.scheduler.app.supervisor.model.response.SupervisorInfoResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;

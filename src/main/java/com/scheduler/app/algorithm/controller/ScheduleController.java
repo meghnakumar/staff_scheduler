@@ -16,13 +16,27 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * The type - Schedule Controller.
+ * Spring Boot Controller for all the APIs for the Schedule Algorithm Module.
+ */
 @RestController
 @RequestMapping("/schedule")
 public class ScheduleController {
 
+    /**
+     * Auto-wired Component : Schedule Service.
+     */
     @Autowired
     SchedulerService schedulerService;
 
+
+    /**
+     * Get Schedule by Shift output request object type.
+     *
+     * @param scheduleOutputRequest the schedule output request
+     * @return the schedule output response
+     */
     @Operation(summary = "Return the Generated Schedule based on the requested Shift Date, Shift Time, and Department")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Shift details are successfully queried from the DB and returned ",

@@ -3,7 +3,7 @@ package com.scheduler.app.supervisor.controller;
 import com.scheduler.app.supervisor.model.entity.DailyShiftPOJO;
 import com.scheduler.app.supervisor.model.request.ShiftDetailsRequest;
 import com.scheduler.app.admin.model.response.AdminInfoResponse;
-import com.scheduler.app.algorithm.model.response.ShiftDetailsResponse;
+import com.scheduler.app.supervisor.model.response.ShiftDetailsResponse;
 import com.scheduler.app.supervisor.model.response.SupervisorInfoResponse;
 import com.scheduler.app.supervisor.service.SchedulerService;
 import com.scheduler.app.utility.service.UtilityService;
