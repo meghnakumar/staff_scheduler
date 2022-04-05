@@ -23,5 +23,10 @@ public enum USER_TYPE {
     /**
      * Invalid user type - for comparison's.
      */
-    INVALID
+    INVALID,
+
+    /**
+     * Intern user type.
+     */
+    INTERN
 }

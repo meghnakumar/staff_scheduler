@@ -85,9 +85,25 @@ public class LoginServiceImplUnitTest {
         loginRequest.setPassword("Password");
         when(empDetailRepository.getTopByEmployeeNumber(loginRequest.getUserID())).thenReturn(emp);
         loginResponse = loginService.inputCredentials(loginRequest);
+        assertEquals(loginResponse.getStatus(),(REQUEST_STATUS.SUCCESS));
+
+    }
+
+    @Test
+    public void inputCredentialsForRole_4_Test(){
+        EmpDetailPOJO emp = new EmpDetailPOJO();
+        emp.setEmployeeNumber("EMP001");
+        emp.setLoginPassword("Password");
+        emp.setRoleId(5);
+        loginRequest = new LoginRequest();
+        loginRequest.setUserID("EMP001");
+        loginRequest.setPassword("Password");
+        when(empDetailRepository.getTopByEmployeeNumber(loginRequest.getUserID())).thenReturn(emp);
+        loginResponse = loginService.inputCredentials(loginRequest);
         assertEquals(loginResponse.getStatus(),(REQUEST_STATUS.INVALID_REQUEST));
 
     }
+
     @Test
     public void inputCredentialsForIncorrectPasswordTest(){
         EmpDetailPOJO emp = new EmpDetailPOJO();
