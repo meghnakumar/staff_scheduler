@@ -34,9 +34,6 @@ import java.util.*;
 @Service
 public class SchedulerServiceImpl implements SchedulerService {
 
-    /*private Map<String, Map> algoMap = new HashMap<>();
-    private List<ScheduleDetails> scheduleList = new ArrayList<>();
-*/
     private static final int SIXTY = 60;
     private static final int THOUSAND = 1000;
     InsertScheduleParam insertScheduleParam = new InsertScheduleParam();
