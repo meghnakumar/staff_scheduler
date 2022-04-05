@@ -135,13 +135,14 @@
             var today = new Date()
             if(today.getDay() === 0) {
                 //do nothing -> On Weekend
-            }else {
-                document.getElementById("scheduler-submit").disabled = true;
-                document.getElementById("supervisor-date-picker").disabled = true;
-                $("#informInvalidDate").modal('show');
+            } else {
+                if(!localStorage.getItem("isDemo")) {
+                    document.getElementById("scheduler-submit").disabled = true;
+                    document.getElementById("supervisor-date-picker").disabled = true;
+                    $("#informInvalidDate").modal('show');
+                }
             }
         });
-
     </script>
 </body>
 </html>
