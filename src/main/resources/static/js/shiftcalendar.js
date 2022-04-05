@@ -122,47 +122,5 @@ $(document).ready(function(){
         });
     }
 
-
-
-    // $('#calendar').fullCalendar({
-    //     themeSystem: 'bootstrap4',
-    //     // emphasizes business hours
-    //     businessHours: false,
-    //     defaultView: 'month',
-    //     // event dragging & resizing
-    //     editable: true,
-    //     // header
-    //     header: {
-    //         left: 'title',
-    //         center: 'month,agendaWeek,agendaDay',
-    //         right: 'today prev,next'
-    //     },
-    //     events: [
-    //         {
-    //             title: 'Dentist',
-    //             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu pellentesque nibh. In nisl nulla, convallis ac nulla eget, pellentesque pellentesque magna.',
-    //             start: '2022-03-18T11:30:00',
-    //             end: '2022-03-27T012:30:00',
-    //             className: 'fc-bg-blue',
-    //             icon : "medkit",
-    //             allDay: false
-    //         }
-    //     ],
-    //     eventRender: function(event, element) {
-    //         if(event.icon){
-    //             element.find(".fc-title").prepend("<i class='fa fa-"+event.icon+"'></i>");
-    //         }
-    //     },
-    //     dayClick: function() {
-    //
-    //     },
-    //     eventClick: function(event, jsEvent, view) {
-    //         $('.event-icon').html("<i class='fa fa-"+event.icon+"'></i>");
-    //         $('.event-title').html(event.title);
-    //         $('.event-body').html(event.description);
-    //         $('.eventUrl').attr('href',event.url);
-    //         $('#modal-view-event').modal();
-    //     },
-    // })
 });
 
