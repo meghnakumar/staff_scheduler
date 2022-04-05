@@ -54,6 +54,4 @@ public class EmpAvailablityNewPOJO {
     @Setter
     private Integer employeeId;
 
-
-
 }

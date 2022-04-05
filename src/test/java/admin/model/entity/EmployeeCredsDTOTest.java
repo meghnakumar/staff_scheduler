@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class EmployeeCredsDTOTest {
     private EmployeeCredsDTO employeeCredsDTO;
+
     @Test
     public void readEmployeeCredsDTOTest() {
 

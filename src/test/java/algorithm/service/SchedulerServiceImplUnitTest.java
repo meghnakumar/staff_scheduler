@@ -65,23 +65,43 @@ public class SchedulerServiceImplUnitTest {
 
     private ShiftDetailsResponse shiftDetailsResponse = new ShiftDetailsResponse(REQUEST_STATUS.SUCCESS,true);
 
+    private static final Double TOTAL_EMP_HOURS = 20.9;
+    private static final Double EMP_HOURS = 9.0;
+    private static final int ROLE_ID_1 = 1;
+    private static final int ROLE_ID_2 = 2;
+    private static final Time START_TIME= Time.valueOf("12:00:00");
+    private static final Time END_TIME = Time.valueOf("20:00:00");
+    private static final String DEPT_ID_123 = "123";
+    private static final String DEPT_ID_1 = "1";
+    private static final Integer SLOT_TYPE = 4;
+    private static final String SHIFT_DATE = "2020-09-09";
+    private static final String TIME_16 = "16:00";
+    private static final String TIME_18 = "18:00";
+    private static final LocalDate SHIFT_DATE_2_11 = LocalDate.ofEpochDay(2020-11-02);
+    private static final Date Date_4_4 = Date.valueOf("2022-04-04");
+    private static final String DEPT_ID_D01 = "D01";
+    private static final String DEPT_NAME = "name";
+    private static final int EMP_ID_1 = 1;
+    private static final Date DATE_3_3= Date.valueOf("2022-03-03");
+
+
     @Test
     public void testSaveShiftDetails(){
         ShiftDetailsRequest shiftDetailsRequest = new ShiftDetailsRequest();
         RequiredRoleHours hours = new RequiredRoleHours();
-        hours.setEmployeeHours(20.9);
-        hours.setRoleId(1);
+        hours.setEmployeeHours(TOTAL_EMP_HOURS);
+        hours.setRoleId(ROLE_ID_1);
         List<RequiredRoleHours> hourList = new ArrayList<>();
         hourList.add(hours);
         shiftDetailsRequest.setShiftRoleHours(hourList);
-        shiftDetailsRequest.setSlotType(4);
-        shiftDetailsRequest.setStartTime("16:00");
-        shiftDetailsRequest.setDepartmentId("1");
-        shiftDetailsRequest.setEndTime("18:00");
-        shiftDetailsRequest.setShiftDate("2020-09-09");
+        shiftDetailsRequest.setSlotType(SLOT_TYPE);
+        shiftDetailsRequest.setStartTime(TIME_16);
+        shiftDetailsRequest.setDepartmentId(DEPT_ID_1);
+        shiftDetailsRequest.setEndTime(TIME_18);
+        shiftDetailsRequest.setShiftDate(SHIFT_DATE);
         List<ShiftDetailsPOJO> shiftDetailsPOJOS = new ArrayList<>();
         ShiftDetailsPOJO shiftDetailsPOJO = new ShiftDetailsPOJO();
-        shiftDetailsPOJO.setDepartmentId("1");
+        shiftDetailsPOJO.setDepartmentId(DEPT_ID_1);
         shiftDetailsPOJOS.add(shiftDetailsPOJO);
         when(shiftDetailsRepository.findByShiftDateAndDepartmentIdAndStartTime(any(),any(),any())).thenReturn(shiftDetailsPOJOS);
         shiftDetailsResponse = schedulerService.saveShiftDetails(shiftDetailsRequest);
@@ -93,7 +113,7 @@ public class SchedulerServiceImplUnitTest {
     public void testGetEmpHistory(){
         List<EmpHistoryPOJO> empHistoryPOJOS = new ArrayList<>();
         EmpHistoryPOJO empHistoryPOJO = new EmpHistoryPOJO();
-        empHistoryPOJO.setId(1);
+        empHistoryPOJO.setId(EMP_ID_1);
         empHistoryPOJO.setEmployeeId(123);
         empHistoryPOJOS.add(empHistoryPOJO);
         when(employeeHistoryRepository.findEmpHistoryById(1)).thenReturn(empHistoryPOJOS);
@@ -106,9 +126,9 @@ public class SchedulerServiceImplUnitTest {
         ScheduleOutputRequest ScheduleOutputRequest = new ScheduleOutputRequest();
         ScheduleOutputRequest.setShiftDate(LocalDate.ofEpochDay(2020-11-02));
         ScheduleOutputRequest.setShiftTime(LocalTime.MAX);
-        ScheduleOutputRequest.setDepartmentId("123");
+        ScheduleOutputRequest.setDepartmentId(DEPT_ID_123);
         ScheduleOutputPOJO ScheduleOutputPOJO = new ScheduleOutputPOJO();
-        ScheduleOutputPOJO.setDepartmentId("123");
+        ScheduleOutputPOJO.setDepartmentId(DEPT_ID_123);
         when(scheduleRepository.findById(any())).thenReturn(Optional.of(ScheduleOutputPOJO));
         ScheduleOutputResponse = schedulerService.getScheduleByDateTimeDepartment(ScheduleOutputRequest);
         assertEquals(REQUEST_STATUS.SUCCESS, ScheduleOutputResponse.getStatus());
@@ -118,9 +138,9 @@ public class SchedulerServiceImplUnitTest {
     public void testGetScheduleByDateTimeDepartmentWhenScheduleOutputNull(){
         ScheduleOutputResponse ScheduleOutputResponse = new ScheduleOutputResponse(REQUEST_STATUS.FAILED,false,null);
         ScheduleOutputRequest ScheduleOutputRequest = new ScheduleOutputRequest();
-        ScheduleOutputRequest.setShiftDate(LocalDate.ofEpochDay(2020-11-02));
+        ScheduleOutputRequest.setShiftDate(SHIFT_DATE_2_11);
         ScheduleOutputRequest.setShiftTime(LocalTime.MAX);
-        ScheduleOutputRequest.setDepartmentId("123");
+        ScheduleOutputRequest.setDepartmentId(DEPT_ID_123);
         when(scheduleRepository.findById(any())).thenReturn(Optional.empty());
         ScheduleOutputResponse = schedulerService.getScheduleByDateTimeDepartment(ScheduleOutputRequest);
         assertEquals(REQUEST_STATUS.SUCCESS, ScheduleOutputResponse.getStatus());
@@ -140,16 +160,16 @@ public class SchedulerServiceImplUnitTest {
     @Test
     public void testAlgoImplementation(){
         DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
-        dailyShiftPOJO.setShiftType("4");
-        dailyShiftPOJO.setShiftDate(Date.valueOf("2022-04-04"));
-        dailyShiftPOJO.setRoleId(2);
-        dailyShiftPOJO.setEmployeeHours(9.0);
+        dailyShiftPOJO.setShiftType(String.valueOf(SLOT_TYPE));
+        dailyShiftPOJO.setShiftDate(Date_4_4);
+        dailyShiftPOJO.setRoleId(ROLE_ID_2);
+        dailyShiftPOJO.setEmployeeHours(EMP_HOURS);
         DepartmentPOJO departmentPOJO = new DepartmentPOJO();
-        departmentPOJO.setDepartmentName("name");
-        departmentPOJO.setId("D01");
+        departmentPOJO.setDepartmentName(DEPT_NAME);
+        departmentPOJO.setId(DEPT_ID_D01);
         dailyShiftPOJO.setDepartment(departmentPOJO);
-        dailyShiftPOJO.setStartTime(Time.valueOf("12:00:00"));
-        dailyShiftPOJO.setEndTime(Time.valueOf("16:00:00"));
+        dailyShiftPOJO.setStartTime(START_TIME);
+        dailyShiftPOJO.setEndTime(END_TIME);
         List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
         dailyShiftPOJOS.add(dailyShiftPOJO);
         when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
@@ -160,16 +180,16 @@ public class SchedulerServiceImplUnitTest {
     @Test
     public void testAlgoImplementationWhenEndTimeNotEqual(){
         DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
-        dailyShiftPOJO.setShiftType("4");
-        dailyShiftPOJO.setShiftDate(Date.valueOf("2022-04-04"));
-        dailyShiftPOJO.setRoleId(2);
-        dailyShiftPOJO.setEmployeeHours(9.0);
+        dailyShiftPOJO.setShiftType(String.valueOf(SLOT_TYPE));
+        dailyShiftPOJO.setShiftDate(Date_4_4);
+        dailyShiftPOJO.setRoleId(ROLE_ID_2);
+        dailyShiftPOJO.setEmployeeHours(EMP_HOURS);
         DepartmentPOJO departmentPOJO = new DepartmentPOJO();
-        departmentPOJO.setDepartmentName("name");
-        departmentPOJO.setId("D01");
+        departmentPOJO.setDepartmentName(DEPT_NAME);
+        departmentPOJO.setId(DEPT_ID_D01);
         dailyShiftPOJO.setDepartment(departmentPOJO);
-        dailyShiftPOJO.setStartTime(Time.valueOf("12:00:00"));
-        dailyShiftPOJO.setEndTime(Time.valueOf("20:00:00"));
+        dailyShiftPOJO.setStartTime(START_TIME);
+        dailyShiftPOJO.setEndTime(END_TIME);
         List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
         dailyShiftPOJOS.add(dailyShiftPOJO);
         when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
@@ -180,16 +200,16 @@ public class SchedulerServiceImplUnitTest {
     @Test
     public void testAlgoImplementationWhenNoValueInDB(){
         DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
-        dailyShiftPOJO.setShiftType("4");
-        dailyShiftPOJO.setShiftDate(Date.valueOf("2022-03-03"));
-        dailyShiftPOJO.setRoleId(2);
-        dailyShiftPOJO.setEmployeeHours(9.0);
+        dailyShiftPOJO.setShiftType(String.valueOf(SLOT_TYPE));
+        dailyShiftPOJO.setShiftDate(DATE_3_3);
+        dailyShiftPOJO.setRoleId(ROLE_ID_2);
+        dailyShiftPOJO.setEmployeeHours(EMP_HOURS);
         DepartmentPOJO departmentPOJO = new DepartmentPOJO();
-        departmentPOJO.setDepartmentName("name");
-        departmentPOJO.setId("D01");
+        departmentPOJO.setDepartmentName(DEPT_NAME);
+        departmentPOJO.setId(DEPT_ID_D01);
         dailyShiftPOJO.setDepartment(departmentPOJO);
-        dailyShiftPOJO.setStartTime(Time.valueOf("12:00:00"));
-        dailyShiftPOJO.setEndTime(Time.valueOf("20:00:00"));
+        dailyShiftPOJO.setStartTime(START_TIME);
+        dailyShiftPOJO.setEndTime(END_TIME);
         List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
         dailyShiftPOJOS.add(dailyShiftPOJO);
         when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);

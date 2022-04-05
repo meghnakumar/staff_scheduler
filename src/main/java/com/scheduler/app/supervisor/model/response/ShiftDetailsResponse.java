@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ShiftDetailsResponse {
-
     private REQUEST_STATUS status;
     private Boolean isSaved;
 }

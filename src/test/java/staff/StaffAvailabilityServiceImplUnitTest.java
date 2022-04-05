@@ -49,17 +49,26 @@ public class StaffAvailabilityServiceImplUnitTest {
     @Mock
     private EmployeeHistoryRepository employeeHistoryRepository;
 
+    private static final String EMP_NUM = "EMP001";
+    private static final int ID = 1;
+    private static final String AVAILABLE_DATE = "2020-05-05";
+    private static final String START_TIME = "08:00";
+    private static final String END_TIME = "12:00";
+    private static final String AVAILABLE_DAY = "Friday";
+    private static final String EMP_NUM_17 = "EMP0017";
+    private static final String EMP_NUM_25 = "EMP0025";
+
     @Test
     public void inputStaffAvailabilityTest() {
         EmpDetailPOJO emp = new EmpDetailPOJO();
-         emp.setId(1);
-        emp.setEmployeeNumber("EMP001");
+         emp.setId(ID);
+        emp.setEmployeeNumber(EMP_NUM);
         staffAvailabilityRequest = new StaffAvailabilityRequest();
-        staffAvailabilityRequest.setEmployeeNumber("EMP001");
-        staffAvailabilityRequest.setAvailableDate("2020-05-05");
-        staffAvailabilityRequest.setStartTime("08:00");
-        staffAvailabilityRequest.setEndTime("12:00");
-        staffAvailabilityRequest.setAvailableDay("Friday");
+        staffAvailabilityRequest.setEmployeeNumber(EMP_NUM);
+        staffAvailabilityRequest.setAvailableDate(AVAILABLE_DATE);
+        staffAvailabilityRequest.setStartTime(START_TIME);
+        staffAvailabilityRequest.setEndTime(END_TIME);
+        staffAvailabilityRequest.setAvailableDay(AVAILABLE_DAY);
         List<StaffAvailabilityRequest> list = new ArrayList<>();
         list.add(staffAvailabilityRequest);
         when(empDetailRepository.getTopByEmployeeNumber(staffAvailabilityRequest.getEmployeeNumber())).thenReturn(emp);
@@ -72,8 +81,8 @@ public class StaffAvailabilityServiceImplUnitTest {
     @Test
     public void inputStaffAvailabilityWhenEmployeeNotinDBTest() {
         staffAvailabilityRequest = new StaffAvailabilityRequest();
-        staffAvailabilityRequest.setEmployeeNumber("EMP0017");
-        staffAvailabilityRequest.setAvailableDay("Friday");
+        staffAvailabilityRequest.setEmployeeNumber(EMP_NUM_17);
+        staffAvailabilityRequest.setAvailableDay(AVAILABLE_DAY);
         List<StaffAvailabilityRequest> list = new ArrayList<>();
         list.add(staffAvailabilityRequest);
         when(empDetailRepository.getTopByEmployeeNumber(staffAvailabilityRequest.getEmployeeNumber())).thenReturn(null);
@@ -84,17 +93,16 @@ public class StaffAvailabilityServiceImplUnitTest {
     @Test
     public void fetchEmployeeInfoAvailableinDB() {
         EmpDetailPOJO emp = new EmpDetailPOJO();
-        String employeeNumber = "EMP001";
-        when(empDetailRepository.getTopByEmployeeNumber(employeeNumber)).thenReturn(emp);
-        employeeDetailsResponse = staffAvailabilityService.fetchEmployeeInfo(employeeNumber);
+        when(empDetailRepository.getTopByEmployeeNumber(EMP_NUM)).thenReturn(emp);
+        employeeDetailsResponse = staffAvailabilityService.fetchEmployeeInfo(EMP_NUM);
         assertEquals(REQUEST_STATUS.SUCCESS, employeeDetailsResponse.getStatus());
     }
 
     @Test
     public void fetchEmployeeInfoNotAvailableinDB() {
-        String employeeNumber = "EMP025";
-        when(empDetailRepository.getTopByEmployeeNumber(employeeNumber)).thenReturn(null);
-        employeeDetailsResponse = staffAvailabilityService.fetchEmployeeInfo(employeeNumber);
+
+        when(empDetailRepository.getTopByEmployeeNumber(EMP_NUM_25)).thenReturn(null);
+        employeeDetailsResponse = staffAvailabilityService.fetchEmployeeInfo(EMP_NUM_25);
         assertEquals(REQUEST_STATUS.INVALID_REQUEST, employeeDetailsResponse.getStatus());
     }
 

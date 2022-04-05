@@ -19,27 +19,30 @@ import static org.junit.Assert.assertEquals;
 public class EmployeeHistoryPOJOTest {
 
     private EmpHistoryPOJO employeeHistoryPOJOTest;
-
+    final static private int ID =1;
+    final static private int DAILY_SHIFT_HOUR =4;
+    final static private int TOTAL_HOURS_WEEKLY =32;
     @Test
     public void readyEmployeeHistoryPOJOTest() {
 
         employeeHistoryPOJOTest = new EmpHistoryPOJO();
-        employeeHistoryPOJOTest.setId(1);
-        employeeHistoryPOJOTest.setEmployeeId(1);
-        employeeHistoryPOJOTest.setMonday(4);
-        employeeHistoryPOJOTest.setTuesday(4);
-        employeeHistoryPOJOTest.setWednesday(4);
-        employeeHistoryPOJOTest.setThursday(4);
-        employeeHistoryPOJOTest.setFriday(4);
-        employeeHistoryPOJOTest.setTotalHoursWeekly(32);
+        employeeHistoryPOJOTest.setId(ID);
+        employeeHistoryPOJOTest.setEmployeeId(ID);
+        employeeHistoryPOJOTest.setMonday(DAILY_SHIFT_HOUR);
+        employeeHistoryPOJOTest.setTuesday(DAILY_SHIFT_HOUR);
+        employeeHistoryPOJOTest.setWednesday(DAILY_SHIFT_HOUR);
+        employeeHistoryPOJOTest.setThursday(DAILY_SHIFT_HOUR);
+        employeeHistoryPOJOTest.setFriday(DAILY_SHIFT_HOUR);
+        employeeHistoryPOJOTest.setTotalHoursWeekly(TOTAL_HOURS_WEEKLY);
 
-        assertEquals(Integer.valueOf(1), employeeHistoryPOJOTest.getId());
-        assertEquals(Integer.valueOf(4), employeeHistoryPOJOTest.getMonday());
-        assertEquals(Integer.valueOf(4), employeeHistoryPOJOTest.getTuesday());
-        assertEquals(Integer.valueOf(4), employeeHistoryPOJOTest.getWednesday());
-        assertEquals(Integer.valueOf(4), employeeHistoryPOJOTest.getThursday());
-        assertEquals(Integer.valueOf(4), employeeHistoryPOJOTest.getFriday());
-        assertEquals(Integer.valueOf(32), employeeHistoryPOJOTest.getTotalHoursWeekly());
+        assertEquals(Integer.valueOf(ID), employeeHistoryPOJOTest.getId());
+        assertEquals(Integer.valueOf(ID),employeeHistoryPOJOTest.getEmployeeId());
+        assertEquals(Integer.valueOf(DAILY_SHIFT_HOUR), employeeHistoryPOJOTest.getMonday());
+        assertEquals(Integer.valueOf(DAILY_SHIFT_HOUR), employeeHistoryPOJOTest.getTuesday());
+        assertEquals(Integer.valueOf(DAILY_SHIFT_HOUR), employeeHistoryPOJOTest.getWednesday());
+        assertEquals(Integer.valueOf(DAILY_SHIFT_HOUR), employeeHistoryPOJOTest.getThursday());
+        assertEquals(Integer.valueOf(DAILY_SHIFT_HOUR), employeeHistoryPOJOTest.getFriday());
+        assertEquals(Integer.valueOf(TOTAL_HOURS_WEEKLY), employeeHistoryPOJOTest.getTotalHoursWeekly());
 
     }
 
