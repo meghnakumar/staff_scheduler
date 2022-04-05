@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link id="favicon" rel="shortcut icon" type="image/jpg" href="./../assets/images/login.jpg" />
     <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/adminCheck.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/shiftmanagement.js"></script>
@@ -123,8 +124,10 @@
         if(today.getDay() === 6) {
             //do nothing -> On Weekend
         }else {
-            document.getElementById("shiftbtn").disabled = true;
-            $("#informInvalidDate").modal('show');
+            if(!localStorage.getItem("isDemo")) {
+                document.getElementById("shiftbtn").disabled = true;
+                $("#informInvalidDate").modal('show');
+            }
         }
     });
 

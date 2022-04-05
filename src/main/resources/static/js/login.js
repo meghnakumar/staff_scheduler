@@ -62,6 +62,7 @@ $(document).ready(function(){
                     if(response == "success") {
                         sessionStorage.setItem('userId', loginId);
                         sessionStorage.setItem('departmentId', data.departmentId);
+                        sessionStorage.setItem('userType', data.userType);
                     }
 
                     // Get userId from session storage which will be used in request body of APIs
