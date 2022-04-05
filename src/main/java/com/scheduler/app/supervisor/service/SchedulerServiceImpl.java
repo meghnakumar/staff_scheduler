@@ -1,5 +1,6 @@
 package com.scheduler.app.supervisor.service;
 
+import com.scheduler.app.algorithm.databasejdbc.DatabaseConnection;
 import com.scheduler.app.algorithm.databasejdbc.DatabaseOperations;
 import com.scheduler.app.algorithm.model.entity.EligibleEmployees;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
@@ -19,6 +20,8 @@ import com.scheduler.app.supervisor.model.repo.ScheduleRepository;
 import com.scheduler.app.supervisor.model.repo.ShiftDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
@@ -127,30 +130,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         return localTime;
     }
 
-    /**
-     * Gets shifts based on the Date inout.
-     *
-     * @param date the date
-     * @return the list of shifts
-     */
-    @Override
-    public List<DailyShiftPOJO> getShifts(Date date) {
-        List<DailyShiftPOJO> dailyShiftList = dailyShiftRepository.findByShiftDate(date);
-        return dailyShiftList;
-    }
-
-    /**
-     * Gets Employee history based on the employee id.
-     *
-     * @param employeeId the employee id
-     * @return the emp history
-     */
-    @Override
-    public List<EmpHistoryPOJO> getEmpHistory(int employeeId) {
-        List<EmpHistoryPOJO> empHistoryList = employeeHistoryRepository.findEmpHistoryById(employeeId);
-        return empHistoryList;
-    }
-
 
     /**
      * Gets schedule by the date, time, and department specified.
@@ -220,7 +199,10 @@ public class SchedulerServiceImpl implements SchedulerService {
     @Override
     public boolean algoImplementation(){
 
-        DatabaseOperations.truncateScheduleOutput();
+        DatabaseOperations databaseOperations = new DatabaseOperations();
+        Connection connection = new DatabaseConnection().openConnection();
+
+        databaseOperations.truncateScheduleOutput(connection);
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 
         double totalHours;
@@ -233,7 +215,7 @@ public class SchedulerServiceImpl implements SchedulerService {
             // Eligibility is fetched based on availability given by employee in terms of start-time , end-time and shift-date
             // Past week work hours of employee are fetched from employee history table and considered while selecting employees as eligible employees
 
-            List<EligibleEmployees> eligibleEmployeesList = DatabaseOperations.getEligibleEmployees(dailyShiftPOJO.getRoleId().toString(), dailyShiftPOJO.getShiftDate().toString(), dailyShiftPOJO.getDepartment().getId());
+            List<EligibleEmployees> eligibleEmployeesList = databaseOperations.getEligibleEmployees(connection, dailyShiftPOJO.getRoleId().toString(), dailyShiftPOJO.getShiftDate().toString(), dailyShiftPOJO.getDepartment().getId());
             totalHours=dailyShiftPOJO.getEmployeeHours();
 
             for (EligibleEmployees eligibleEmployee: eligibleEmployeesList) {
@@ -253,8 +235,9 @@ public class SchedulerServiceImpl implements SchedulerService {
 
                     // if an employee is available from shift starting time till end of the shift it will insert the time same as shift slot for each employee's history table
 
-                    DatabaseOperations.insertFinalSchedule(insertScheduleParam);
-                    DatabaseOperations.updateEmpHistory(Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.getEmployeeId());
+                    databaseOperations.insertFinalSchedule(connection, insertScheduleParam);
+                    databaseOperations.updateEmpHistory(connection, Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.getEmployeeId());
+
                     return true;
                 }
                 
@@ -292,16 +275,25 @@ public class SchedulerServiceImpl implements SchedulerService {
 
                     // if an employee is available from shift starting time but the end time is different, it will insert the amount of hours the employee worked in employee history table
 
-                    DatabaseOperations.insertFinalSchedule(insertScheduleParam);
-                    DatabaseOperations.updateEmpHistory(diffHours,eligibleEmployee.getEmployeeId());
-                    //Return true - schedule was generated.
-                    return true;
+                    databaseOperations.insertFinalSchedule(connection,insertScheduleParam);
+                    databaseOperations.updateEmpHistory(connection, diffHours,eligibleEmployee.getEmployeeId());
+
                 }
             }
         }
 
-        //Return false
-        return false;
+
+        DatabaseConnection.closeConnection(connection);
+
+        if(shiftList.size() > 0){
+
+            return true;
+        } else {
+
+            return false;
+        }
+
+
     }
 
 }

@@ -33,7 +33,7 @@ public class DatabaseConnection {
         }
     }
 
-    DatabaseConnection() {
+    public DatabaseConnection() {
         Properties properties = EnvironmentalProperties.getProperties("application.properties");
         this.dbUserName = properties.getProperty("spring.datasource.username");
         this.dbPassword = properties.getProperty("spring.datasource.password");
@@ -63,6 +63,18 @@ public class DatabaseConnection {
 
         //Return the connection object.
         return connection;
+    }
+
+    public static void closeConnection(Connection connection){
+
+        if(connection != null){
+
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

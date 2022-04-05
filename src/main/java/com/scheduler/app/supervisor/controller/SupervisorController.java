@@ -68,19 +68,6 @@ public class SupervisorController {
     }
 
     /**
-     * Gets the list of daily shifts for a given date input.
-     *
-     * @param shiftDate the shift date
-     * @return the list of records where each one is a daily shift
-     */
-    @GetMapping("/dailyshifts")
-    @Produces(value = MediaType.APPLICATION_JSON)
-    public @ResponseBody
-    List<DailyShiftPOJO> getShifts(@RequestParam Date shiftDate){
-        return schedulerService.getShifts(shiftDate);
-    }
-
-    /**
      * Algorithm trigger - Triggers to Generate Schedule Algorithm.
      * Had no Input Params or output as the algorithm uses data from the DB & writes the output to the DB as well.
      */
@@ -88,21 +75,6 @@ public class SupervisorController {
     @ResponseStatus(value = HttpStatus.OK)
     public void algorithmTrigger(){
         schedulerService.algoImplementation();
-    }
-
-
-    /**
-     * Gets the Employees work hour history based on the employee id.
-     *
-     * @param employeeId the employee id
-     * @return the string
-     */
-    @GetMapping("/emphistory")
-    @Produces(value = MediaType.APPLICATION_JSON)
-    public @ResponseBody
-    String getEmpHistory(@RequestParam int employeeId){
-        schedulerService.getEmpHistory(employeeId);
-        return "success";
     }
 
     /**

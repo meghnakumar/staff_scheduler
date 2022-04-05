@@ -14,9 +14,6 @@ import java.util.List;
  */
 public class DatabaseOperations {
 
-	// Global connection object - obtains a new connection using the DatabaseConnection class.
-	private static Connection connection = new DatabaseConnection().openConnection();
-
 	/**
 	 * The enum for mapping Column indices in the tables.
 	 */
@@ -55,7 +52,7 @@ public class DatabaseOperations {
 	 * @param deptId    the dept id
 	 * @return the list of eligible employees
 	 */
-	public static List<EligibleEmployees> getEligibleEmployees(String roleId, String shiftDate, String deptId) {
+	public List<EligibleEmployees> getEligibleEmployees(Connection connection, String roleId, String shiftDate, String deptId) {
 
 		List<EligibleEmployees> list = new ArrayList<>();
 		try {
@@ -88,7 +85,7 @@ public class DatabaseOperations {
 	 * This method cleans the schedule output table every time a new schedule is generated.
 	 * This makes sure that the schedule being sent to the front-end will always have the latest generated schedule.
 	 */
-	public static void truncateScheduleOutput(){
+	public void truncateScheduleOutput(Connection connection){
 
 		try {
 
@@ -112,7 +109,7 @@ public class DatabaseOperations {
 	 * @param totalHoursWeekly the total hours weekly
 	 * @param employeeId       the employee id
 	 */
-	public static void updateEmpHistory(int totalHoursWeekly, String employeeId) {
+	public  void updateEmpHistory(Connection connection, int totalHoursWeekly, String employeeId) {
 
 		try {
 
@@ -137,7 +134,7 @@ public class DatabaseOperations {
 	 *
 	 * @param insertScheduleParam the insert schedule param
 	 */
-	public static void insertFinalSchedule(InsertScheduleParam insertScheduleParam) {
+	public void insertFinalSchedule(Connection connection, InsertScheduleParam insertScheduleParam) {
 
 
 		try {
