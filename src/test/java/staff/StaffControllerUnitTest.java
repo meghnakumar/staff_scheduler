@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.staff.controller.StaffController;
+import com.scheduler.app.staff.model.request.EmployeeAvailabilityExistsRequest;
 import com.scheduler.app.staff.model.request.StaffAvailabilitiesRequest;
 import com.scheduler.app.staff.model.request.StaffAvailabilityRequest;
+import com.scheduler.app.staff.model.response.EmployeeAvailabilityExistsResponse;
 import com.scheduler.app.staff.model.response.EmployeeDetailsResponse;
 import com.scheduler.app.staff.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.staff.service.StaffAvailabilityService;
@@ -78,4 +80,17 @@ public class StaffControllerUnitTest {
         mockMvc.perform(get("/staff/get/info").contentType("application/json").param("employeeNumber", employeeNumber))
                 .andDo(print()).andExpect(status().isOk());
     }
+
+    @Test
+    public void getEmployeeAvailabilityTest() throws Exception {
+        EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
+        employeeAvailabilityExistsResponse.setStatus(REQUEST_STATUS.SUCCESS);
+        EmployeeAvailabilityExistsRequest employeeAvailabilityExistsRequest = new EmployeeAvailabilityExistsRequest();
+        employeeAvailabilityExistsRequest.setEmployeeNumber("EMP001");
+        when(staffAvailabilityService.checkEmployeeAvailability(employeeAvailabilityExistsRequest)).thenReturn(employeeAvailabilityExistsResponse);
+        mockMvc.perform(post("/staff/check/availability").contentType("application/json")
+                .content(new ObjectMapper().writeValueAsString(employeeAvailabilityExistsRequest))).andDo(print()).andExpect(status().isOk());
+    }
+
+
 }
