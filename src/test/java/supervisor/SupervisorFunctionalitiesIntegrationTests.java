@@ -16,7 +16,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class SupervisorFunctionalitiesIntegrationTests {
         shiftDetailsRequest.setDepartmentId(DEPARTMENT_ID);
         shiftDetailsRequest.setEndTime(END_TIME);
         shiftDetailsRequest.setShiftDate(SHIFT_DATE);
-        shiftDetailsResponse = supervisorController.shiftDetails(shiftDetailsRequest);
+        shiftDetailsResponse = supervisorController.inputShiftDetails(shiftDetailsRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftDetailsResponse.getStatus());
     }
 
