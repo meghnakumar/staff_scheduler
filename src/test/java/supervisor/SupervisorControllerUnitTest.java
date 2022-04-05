@@ -92,6 +92,13 @@ public class SupervisorControllerUnitTest {
                 .andDo(print()).andExpect(status().isOk());
     }
 
+    @Test
+    public void testAlgorithmTrigger() throws Exception {
+        //when(schedulerService.getEmpHistory(1)).thenReturn(any());
+        mockMvc.perform(get("/supervisor/generate/schedule"))
+                .andDo(print()).andExpect(status().isOk());
+    }
+
 
     private void createShiftDetailsRequest() {
         shiftDetailsRequest.setDepartmentId("1");
