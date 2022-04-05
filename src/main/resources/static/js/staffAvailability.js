@@ -113,14 +113,14 @@ function submitForm(e, form, userId, dateDetails) {
     setTimeout(submit.disabled = false, 2000);
     var staffAvailabilityArr = createRequestBody(form, userId, dateDetails)//$('form').serializeArray();
 
-    var request = {
-        "staffAvailabilityRequest": staffAvailabilityArr
+    var staffAvailabilitiesRequest = {
+        "staffAvailabilityRequestList": staffAvailabilityArr
     }
-    console.log(request);
+    console.log(staffAvailabilitiesRequest);
     $.ajax({
         contentType: 'application/json',
         dataType: 'json',
-        data: JSON.stringify(request),
+        data: JSON.stringify(staffAvailabilitiesRequest),
         type: 'POST',
         url: '/staff/input/availability',
         passwordType: true,
