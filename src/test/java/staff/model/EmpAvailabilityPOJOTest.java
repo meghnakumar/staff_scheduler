@@ -1,4 +1,4 @@
-package staff;
+package staff.model;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.staff.model.entity.EmpAvailablityNewPOJO;

@@ -34,6 +34,10 @@ import static org.mockito.Mockito.when;
         locations = "classpath:application.test.properties")
 public class AdminFunctionalitiesIntegrationTests {
 
+    private static final int SHIFT_DURATION = 4;
+    private static final int EMPLOYEE_ID = 123;
+    private static final long PHONE_NUMBER = 7L;
+    private static final double MAX_AVAILABILITY_HOURS = 12.0;
     @Autowired
     private AdminController adminController;
 
@@ -86,7 +90,7 @@ public class AdminFunctionalitiesIntegrationTests {
     @Test
     public void saveShiftDurationToDBTest(){
         shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(4);
+        shiftCreationRequest.setShiftDuration(SHIFT_DURATION);
         shiftCreationResponse = adminController.logShiftDuration(shiftCreationRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftCreationResponse.getStatus());
     }
@@ -94,7 +98,7 @@ public class AdminFunctionalitiesIntegrationTests {
 
     private void setupEmployeeInputRequest() {
         employeeCreationRequest = new EmployeeCreationRequest();
-        employeeCreationRequest.setEmployeeID(123);
+        employeeCreationRequest.setEmployeeID(EMPLOYEE_ID);
         employeeCreationRequest.setEmployeeNumber("DEMO001");
         employeeCreationRequest.setEmailId("demo1@abc.com");
         employeeCreationRequest.setDateOfJoining(LocalDate.now());
@@ -102,9 +106,9 @@ public class AdminFunctionalitiesIntegrationTests {
         employeeCreationRequest.setFirstName("Some");
         employeeCreationRequest.setLastName("Person");
         employeeCreationRequest.setRoleId(1);
-        employeeCreationRequest.setPhoneNumber(7L);
+        employeeCreationRequest.setPhoneNumber(PHONE_NUMBER);
         employeeCreationRequest.setJobType(1);
-        employeeCreationRequest.setMaxAvailabilityHours(12.0);
+        employeeCreationRequest.setMaxAvailabilityHours(MAX_AVAILABILITY_HOURS);
     }
 
 

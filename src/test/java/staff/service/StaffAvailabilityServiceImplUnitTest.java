@@ -1,4 +1,4 @@
-package staff;
+package staff.service;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
@@ -108,18 +108,18 @@ public class StaffAvailabilityServiceImplUnitTest {
 
     @Test
     public void checkEmployeeAvailabilityTest(){
-        EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
-        EmployeeAvailabilityExistsRequest employeeAvailabilityExistsRequest = new EmployeeAvailabilityExistsRequest();
-        employeeAvailabilityExistsRequest.setEmployeeNumber("employee");
+        EmployeeAvailabilityExistsResponse response = new EmployeeAvailabilityExistsResponse();
+        EmployeeAvailabilityExistsRequest request = new EmployeeAvailabilityExistsRequest();
+        request.setEmployeeNumber("employee");
         String date_1 = "2022-05-04";
         String date_2 = "2022-05-05";
         List<String> dates = new ArrayList<>();
         dates.add(date_2);
         dates.add(date_1);
-        employeeAvailabilityExistsRequest.setDates(dates);
+        request.setDates(dates);
         when(empAvailabilityRepository.existsById(any())).thenReturn(true);
-        employeeAvailabilityExistsResponse = staffAvailabilityService.checkEmployeeAvailability(employeeAvailabilityExistsRequest);
-        assertEquals(REQUEST_STATUS.SUCCESS,employeeAvailabilityExistsResponse.getStatus());
+        response = staffAvailabilityService.checkEmployeeAvailability(request);
+        assertEquals(REQUEST_STATUS.SUCCESS,response.getStatus());
 
 
 

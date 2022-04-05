@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class HolidayCreationServiceImplUnitTest {
 
+    private static final int HOLIDAY_ID = 12;
     @InjectMocks
     private HolidayCreationServiceImpl holidayCreationService = new HolidayCreationServiceImpl();
 
@@ -44,7 +45,7 @@ public class HolidayCreationServiceImplUnitTest {
         Date enddate = Date.valueOf(end_date);
         holidayCreationRequest = new HolidayCreationRequest();
         holidayCreationRequest.setHolidayTitle("Christmas");
-        holidayCreationRequest.setHolidayId(12);
+        holidayCreationRequest.setHolidayId(HOLIDAY_ID);
         holidayCreationRequest.setStartDate(startdate);
         holidayCreationRequest.setEndDate(enddate);
         when(holidayRepo.saveAndFlush(any())).thenReturn(holidayPOJO);
