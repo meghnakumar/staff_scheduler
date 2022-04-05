@@ -63,7 +63,7 @@ public class StaffControllerUnitTest {
         staffAvailabilityRequest.setEmployeeNumber("123456");
         List<StaffAvailabilityRequest> requests = new ArrayList<>();
         requests.add(staffAvailabilityRequest);
-        staffAvailabilitiesRequest.setStaffAvailabilityRequest(requests);
+        staffAvailabilitiesRequest.setStaffAvailabilityRequestList(requests);
         staffAvailabilityResponse.setStatus(REQUEST_STATUS.SUCCESS);
         when(staffAvailabilityService.inputStaffAvailability(requests)).thenReturn(staffAvailabilityResponse);
         mockMvc.perform(post("/staff/input/availability").contentType("application/json")
