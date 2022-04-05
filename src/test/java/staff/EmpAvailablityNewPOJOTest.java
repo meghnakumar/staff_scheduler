@@ -1,16 +1,22 @@
 package staff;
 
+import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.staff.model.entity.EmpAvailablityNewPOJO;
 import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
 import com.scheduler.app.supervisor.model.entity.SupervisorPOJO;
 import com.scheduler.app.utility.model.entity.DepartmentPOJO;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Date;
 import java.sql.Time;
 
 import static org.junit.Assert.assertEquals;
 
+@SpringBootTest(classes = StaffSchedulerApplication.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class EmpAvailablityNewPOJOTest {
     private Integer ID = 1;
     private DepartmentPOJO departmentId;
@@ -21,6 +27,7 @@ public class EmpAvailablityNewPOJOTest {
     private String SHIFT_DAY = "monday";
     private Integer EMPLOYEE_ID = 1;
     private EmpAvailablityNewPOJO empAvailablityNewPOJOTest;
+
     @Test
     public void readyEmpAvailablityNewPOJOTest() {
 
