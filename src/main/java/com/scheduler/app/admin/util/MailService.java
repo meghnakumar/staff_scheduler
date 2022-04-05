@@ -43,13 +43,13 @@ public class MailService {
 
     private MailService() {
     }
-
-    private static MailService getInstance() {
-        if (mailServiceInstance == null) {
-            mailServiceInstance = new MailService();
-        }
-        return mailServiceInstance;
-    }
+//
+//    private static MailService getInstance() {
+//        if (mailServiceInstance == null) {
+//            mailServiceInstance = new MailService();
+//        }
+//        return mailServiceInstance;
+//    }
 
     /**
      * Send mail method generates, prepares, and sends the emails to the values provided.
