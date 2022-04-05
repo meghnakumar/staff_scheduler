@@ -33,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SupervisorControllerUnitTest {
 
+    private static final int SLOT_TYPE = 4;
     private MockMvc mockMvc;
 
     @InjectMocks
@@ -102,7 +103,7 @@ public class SupervisorControllerUnitTest {
 
     private void createShiftDetailsRequest() {
         shiftDetailsRequest.setDepartmentId("1");
-        shiftDetailsRequest.setSlotType(4);
+        shiftDetailsRequest.setSlotType(SLOT_TYPE);
         shiftDetailsRequest.setEndTime("16:00");
         shiftDetailsRequest.setShiftRoleHours(null);
         shiftDetailsRequest.setStartTime("12:00");

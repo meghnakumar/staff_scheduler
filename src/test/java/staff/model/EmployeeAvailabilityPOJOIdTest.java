@@ -1,4 +1,4 @@
-package staff;
+package staff.model;
 
 import com.scheduler.app.staff.model.entity.EmployeeAvailabilityPOJOId;
 import org.junit.Test;

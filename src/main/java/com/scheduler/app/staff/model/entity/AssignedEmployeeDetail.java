@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
+/*@AllArgsConstructor
 public class AssignedEmployeeDetail {
 
     @Getter
@@ -27,4 +27,4 @@ public class AssignedEmployeeDetail {
     @Setter
     private String assignedEndTime;
 
-}
+}*/

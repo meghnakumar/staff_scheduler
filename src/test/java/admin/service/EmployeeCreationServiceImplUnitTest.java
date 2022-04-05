@@ -27,6 +27,10 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class EmployeeCreationServiceImplUnitTest {
 
+    private static final int EMPLOYEE_ID = 123;
+    private static final long PHONE_NUMBER = 7L;
+    private static final int JOB_TYPE = 1;
+    private static final double MAX_AVAILABILITY_HOURS = 12.0;
     @InjectMocks
     private EmployeeCreationServiceImpl employeeCreationService = new EmployeeCreationServiceImpl();
 
@@ -65,15 +69,15 @@ public class EmployeeCreationServiceImplUnitTest {
 
     private void setupEmployeeInputRequest() {
         employeeCreationRequest = new EmployeeCreationRequest();
-        employeeCreationRequest.setEmployeeID(123);
+        employeeCreationRequest.setEmployeeID(EMPLOYEE_ID);
         employeeCreationRequest.setEmployeeNumber("EMP001");
         employeeCreationRequest.setEmailId("demo@abc.com");
         employeeCreationRequest.setDateOfJoining(LocalDate.now());
         employeeCreationRequest.setDepartmentId("DepartmentId");
         employeeCreationRequest.setFirstName("Some");
         employeeCreationRequest.setLastName("Person");
-        employeeCreationRequest.setPhoneNumber(7L);
-        employeeCreationRequest.setJobType(1);
-        employeeCreationRequest.setMaxAvailabilityHours(12.0);
+        employeeCreationRequest.setPhoneNumber(PHONE_NUMBER);
+        employeeCreationRequest.setJobType(JOB_TYPE);
+        employeeCreationRequest.setMaxAvailabilityHours(MAX_AVAILABILITY_HOURS);
     }
 }

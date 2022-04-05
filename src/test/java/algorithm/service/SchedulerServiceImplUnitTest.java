@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Date;
@@ -40,8 +41,12 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = StaffSchedulerApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
+@TestPropertySource(
+        locations = "classpath:application.test.properties")
 public class SchedulerServiceImplUnitTest {
 
+    private static final int EMPLOYEE_ID = 123;
+    private static final int EPOCH_DAY = 2020 - 11 - 02;
     @InjectMocks
     private SchedulerServiceImpl schedulerService = new SchedulerServiceImpl();
 
@@ -114,7 +119,7 @@ public class SchedulerServiceImplUnitTest {
         List<EmpHistoryPOJO> empHistoryPOJOS = new ArrayList<>();
         EmpHistoryPOJO empHistoryPOJO = new EmpHistoryPOJO();
         empHistoryPOJO.setId(EMP_ID_1);
-        empHistoryPOJO.setEmployeeId(123);
+        empHistoryPOJO.setEmployeeId(EMPLOYEE_ID);
         empHistoryPOJOS.add(empHistoryPOJO);
         when(employeeHistoryRepository.findEmpHistoryById(1)).thenReturn(empHistoryPOJOS);
         schedulerService.getEmpHistory(1);
@@ -124,7 +129,7 @@ public class SchedulerServiceImplUnitTest {
     public void testGetScheduleByDateTimeDepartment(){
         ScheduleOutputResponse ScheduleOutputResponse = new ScheduleOutputResponse(REQUEST_STATUS.FAILED,false,null);
         ScheduleOutputRequest ScheduleOutputRequest = new ScheduleOutputRequest();
-        ScheduleOutputRequest.setShiftDate(LocalDate.ofEpochDay(2020-11-02));
+        ScheduleOutputRequest.setShiftDate(LocalDate.ofEpochDay(EPOCH_DAY));
         ScheduleOutputRequest.setShiftTime(LocalTime.MAX);
         ScheduleOutputRequest.setDepartmentId(DEPT_ID_123);
         ScheduleOutputPOJO ScheduleOutputPOJO = new ScheduleOutputPOJO();
