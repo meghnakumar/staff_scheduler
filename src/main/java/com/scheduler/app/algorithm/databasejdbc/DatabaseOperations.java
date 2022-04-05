@@ -15,7 +15,7 @@ import java.util.List;
 public class DatabaseOperations {
 
 	// Global connection object - obtains a new connection using the DatabaseConnection class.
-	private static Connection connection = DatabaseConnection.openConnection();
+	private static Connection connection = new DatabaseConnection().openConnection();
 
 	/**
 	 * The enum for mapping Column indices in the tables.
