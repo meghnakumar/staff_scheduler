@@ -130,30 +130,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         return localTime;
     }
 
-    /**
-     * Gets shifts based on the Date inout.
-     *
-     * @param date the date
-     * @return the list of shifts
-     */
-    @Override
-    public List<DailyShiftPOJO> getShifts(Date date) {
-        List<DailyShiftPOJO> dailyShiftList = dailyShiftRepository.findByShiftDate(date);
-        return dailyShiftList;
-    }
-
-    /**
-     * Gets Employee history based on the employee id.
-     *
-     * @param employeeId the employee id
-     * @return the emp history
-     */
-    @Override
-    public List<EmpHistoryPOJO> getEmpHistory(int employeeId) {
-        List<EmpHistoryPOJO> empHistoryList = employeeHistoryRepository.findEmpHistoryById(employeeId);
-        return empHistoryList;
-    }
-
 
     /**
      * Gets schedule by the date, time, and department specified.
