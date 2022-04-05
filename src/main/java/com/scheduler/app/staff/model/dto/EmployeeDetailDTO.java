@@ -1,4 +1,4 @@
-package com.scheduler.app.admin.model.dto;
+package com.scheduler.app.staff.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

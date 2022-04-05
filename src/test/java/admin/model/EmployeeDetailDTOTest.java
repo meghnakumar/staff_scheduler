@@ -1,7 +1,7 @@
-package admin.model.entity;
+package admin.model;
 
 import com.scheduler.app.StaffSchedulerApplication;
-import com.scheduler.app.admin.model.dto.EmployeeDetailDTO;
+import com.scheduler.app.staff.model.dto.EmployeeDetailDTO;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

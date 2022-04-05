@@ -151,7 +151,6 @@ public class SchedulerServiceImpl implements SchedulerService {
         return empHistoryList;
     }
 
-
     /**
      * Gets schedule by the date, time, and department specified.
      *
@@ -229,10 +228,15 @@ public class SchedulerServiceImpl implements SchedulerService {
         // For each shift record in the list of shifts map with employees.
         for (DailyShiftPOJO dailyShiftPOJO : shiftList){
 
+            // Fetches list of employees who are eligible for a particular shift
+            // Eligibility is fetched based on availability given by employee in terms of start-time , end-time and shift-date
+            // Past week work hours of employee are fetched from employee history table and considered while selecting employees as eligible employees
+
             List<EligibleEmployees> eligibleEmployeesList = DatabaseOperations.getEligibleEmployees(dailyShiftPOJO.getRoleId().toString(), dailyShiftPOJO.getShiftDate().toString(), dailyShiftPOJO.getDepartment().getId());
             totalHours=dailyShiftPOJO.getEmployeeHours();
 
             for (EligibleEmployees eligibleEmployee: eligibleEmployeesList){
+
                 if(eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())) {
 
                     if(totalHours <= 0) {
@@ -246,6 +250,9 @@ public class SchedulerServiceImpl implements SchedulerService {
                     insertScheduleParam.setShift_date(dailyShiftPOJO.getShiftDate());
                     insertScheduleParam.setRoleId(dailyShiftPOJO.getRoleId()+"");
                     insertScheduleParam.setEmp_hours(dailyShiftPOJO.getShiftType() + "");
+
+                    // if an employee is available from shift starting time till end of the shift it will insert the time same as shift slot for each employee's history table
+
                     DatabaseOperations.insertFinalSchedule(insertScheduleParam);
                     DatabaseOperations.updateEmpHistory(Integer.parseInt(dailyShiftPOJO.getShiftType()),eligibleEmployee.getEmployeeId());
                     return true;
@@ -259,11 +266,15 @@ public class SchedulerServiceImpl implements SchedulerService {
                     try {
                         timeStart =  format.parse(String.valueOf(startTimeEmp));
                         timeEnd = format.parse(String.valueOf(endTimeEmp));
+
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
-                    long diff = timeEnd.getTime() - timeStart.getTime();
+                    long diff = 0;
+                    if (timeEnd != null && timeStart!=null) {
+                        diff = timeEnd.getTime() - timeStart.getTime();
+                    }
                     int diffHours = Math.toIntExact(diff / (SIXTY * SIXTY * THOUSAND));
 
                     if(totalHours <= 0) {
@@ -278,6 +289,8 @@ public class SchedulerServiceImpl implements SchedulerService {
                     insertScheduleParam.setShift_date(dailyShiftPOJO.getShiftDate());
                     insertScheduleParam.setStartTime(dailyShiftPOJO.getStartTime());
                     insertScheduleParam.setEndTime(dailyShiftPOJO.getEndTime());
+
+                    // if an employee is available from shift starting time but the end time is different, it will insert the amount of hours the employee worked in employee history table
 
                     DatabaseOperations.insertFinalSchedule(insertScheduleParam);
                     DatabaseOperations.updateEmpHistory(diffHours,eligibleEmployee.getEmployeeId());
