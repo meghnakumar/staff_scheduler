@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type - Response object for Shift creation.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

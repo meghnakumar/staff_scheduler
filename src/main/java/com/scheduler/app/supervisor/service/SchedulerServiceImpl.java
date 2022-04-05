@@ -151,6 +151,7 @@ public class SchedulerServiceImpl implements SchedulerService {
         return empHistoryList;
     }
 
+
     /**
      * Gets schedule by the date, time, and department specified.
      *
@@ -235,8 +236,7 @@ public class SchedulerServiceImpl implements SchedulerService {
             List<EligibleEmployees> eligibleEmployeesList = DatabaseOperations.getEligibleEmployees(dailyShiftPOJO.getRoleId().toString(), dailyShiftPOJO.getShiftDate().toString(), dailyShiftPOJO.getDepartment().getId());
             totalHours=dailyShiftPOJO.getEmployeeHours();
 
-            for (EligibleEmployees eligibleEmployee: eligibleEmployeesList){
-
+            for (EligibleEmployees eligibleEmployee: eligibleEmployeesList) {
                 if(eligibleEmployee.getAvailableStartTime().toString().equals(dailyShiftPOJO.getStartTime().toString())&&eligibleEmployee.getAvailableEndTime().toString().equals(dailyShiftPOJO.getEndTime().toString())) {
 
                     if(totalHours <= 0) {
