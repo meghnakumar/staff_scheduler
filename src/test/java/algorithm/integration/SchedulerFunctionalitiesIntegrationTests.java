@@ -22,7 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
         locations = "classpath:application.test.properties")
 public class SchedulerFunctionalitiesIntegrationTests {
 
-    final static private
+    final static private String DEPT_ID = "DepartmentId";
+    final static private LocalDate SHIFT_DATE = LocalDate.ofEpochDay(2020-11-02);
+    final static private LocalTime SHIFT_TIME = LocalTime.MAX;
 
     @Autowired
     private ScheduleController scheduleController;
@@ -33,9 +35,9 @@ public class SchedulerFunctionalitiesIntegrationTests {
     @Test
     public void getScheduleByShiftFromDB(){
         scheduleOutputRequest = new ScheduleOutputRequest();
-        scheduleOutputRequest.setDepartmentId("DepartmentId");
-        scheduleOutputRequest.setShiftDate(LocalDate.ofEpochDay(2020-11-02));
-        scheduleOutputRequest.setShiftTime(LocalTime.MAX);
+        scheduleOutputRequest.setDepartmentId(DEPT_ID);
+        scheduleOutputRequest.setShiftDate(SHIFT_DATE);
+        scheduleOutputRequest.setShiftTime(SHIFT_TIME);
         scheduleOutputResponse = scheduleController.getScheduleByShift(scheduleOutputRequest);
         assertNotNull(scheduleOutputResponse.getSchedule());
     }
