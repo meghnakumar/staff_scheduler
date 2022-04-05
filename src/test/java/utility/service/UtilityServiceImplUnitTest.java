@@ -3,6 +3,7 @@ package utility.service;
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.admin.model.entity.AdminShiftPOJO;
+import com.scheduler.app.supervisor.model.response.SupervisorInfoResponse;
 import com.scheduler.app.utility.model.entity.DepartmentPOJO;
 import com.scheduler.app.admin.model.entity.HolidayPOJO;
 import com.scheduler.app.admin.model.repo.AdminRepository;
@@ -80,6 +81,13 @@ public class UtilityServiceImplUnitTest {
     public void testFailGetStatistics(){
         adminInfoResponse = utilityService.getStatistics(false);
         assertEquals(REQUEST_STATUS.BAD_REQUEST, adminInfoResponse.getStatus());
+    }
+
+    @Test
+    public void testGetSupervisorStatistics(){
+        SupervisorInfoResponse supervisorInfoResponse = new SupervisorInfoResponse();
+        supervisorInfoResponse = utilityService.getSupervisorStats(false,null);
+        assertEquals(REQUEST_STATUS.BAD_REQUEST, supervisorInfoResponse.getStatus());
     }
 
     @Test

@@ -3,10 +3,13 @@ package staff;
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
+import com.scheduler.app.staff.model.entity.EmployeeAvailabilityPOJOId;
 import com.scheduler.app.staff.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.staff.model.repo.EmpDetailRepository;
 import com.scheduler.app.algorithm.model.repo.EmployeeHistoryRepository;
+import com.scheduler.app.staff.model.request.EmployeeAvailabilityExistsRequest;
 import com.scheduler.app.staff.model.request.StaffAvailabilityRequest;
+import com.scheduler.app.staff.model.response.EmployeeAvailabilityExistsResponse;
 import com.scheduler.app.staff.model.response.EmployeeDetailsResponse;
 import com.scheduler.app.staff.model.response.StaffAvailabilityResponse;
 import com.scheduler.app.staff.service.StaffAvailabilityServiceImpl;
@@ -17,8 +20,10 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -91,5 +96,24 @@ public class StaffAvailabilityServiceImplUnitTest {
         when(empDetailRepository.getTopByEmployeeNumber(employeeNumber)).thenReturn(null);
         employeeDetailsResponse = staffAvailabilityService.fetchEmployeeInfo(employeeNumber);
         assertEquals(REQUEST_STATUS.INVALID_REQUEST, employeeDetailsResponse.getStatus());
+    }
+
+    @Test
+    public void checkEmployeeAvailabilityTest(){
+        EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
+        EmployeeAvailabilityExistsRequest employeeAvailabilityExistsRequest = new EmployeeAvailabilityExistsRequest();
+        employeeAvailabilityExistsRequest.setEmployeeNumber("employee");
+        String date_1 = "2022-05-04";
+        String date_2 = "2022-05-05";
+        List<String> dates = new ArrayList<>();
+        dates.add(date_2);
+        dates.add(date_1);
+        employeeAvailabilityExistsRequest.setDates(dates);
+        when(empAvailabilityRepository.existsById(any())).thenReturn(true);
+        employeeAvailabilityExistsResponse = staffAvailabilityService.checkEmployeeAvailability(employeeAvailabilityExistsRequest);
+        assertEquals(REQUEST_STATUS.SUCCESS,employeeAvailabilityExistsResponse.getStatus());
+
+
+
     }
 }

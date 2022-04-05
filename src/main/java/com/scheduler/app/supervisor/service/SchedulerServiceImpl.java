@@ -147,26 +147,6 @@ public class SchedulerServiceImpl implements SchedulerService {
 //                empAvailability.getStartTime().toString(), empAvailability.getEndTime().toString(), "", "");
 //    }
 
-    public Map<String, Set<Integer>> getDepartMentRolesMap(List<DailyShiftPOJO> dayShifts) {
-        Map<String, Set<Integer>> departmentRoles = new HashMap();
-        List<String> departments = new ArrayList<>();
-        for(DailyShiftPOJO shift: dayShifts) {
-            DepartmentPOJO departmentInfo = shift.getDepartment();
-            String departmentId = departmentInfo.getId();
-            if(departments.contains(departmentId)) {
-                Set<Integer> roles = departmentRoles.get(departmentId);
-                roles.add(shift.getRoleId());
-                departmentRoles.put(departmentId, roles);
-            }else {
-                Set<Integer> roles = new HashSet<>();
-                departments.add(departmentId);
-                roles.add(shift.getRoleId());
-                departmentRoles.put(departmentId, roles);
-            }
-        }
-        return departmentRoles;
-    }
-
 //    public List<EmpAvailabilityPOJO> getShiftRoleEmployees(Date date, String department, Integer roleId) {
 //        List<EmpAvailabilityPOJO> availableEmployees = empAvailabilityRepository.findEmployeeByDateAndRoleAndDeparment(date, department, roleId);
 //        for(EmpAvailabilityPOJO employee: availableEmployees) {
