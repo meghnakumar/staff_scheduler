@@ -1,7 +1,7 @@
 package com.scheduler.app.staff.service;
 
 import com.scheduler.app.constants.REQUEST_STATUS;
-import com.scheduler.app.admin.model.dto.EmployeeDetailDTO;
+import com.scheduler.app.staff.model.dto.EmployeeDetailDTO;
 import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
 import com.scheduler.app.staff.model.entity.EmployeeAvailabilityPOJO;
@@ -63,20 +63,20 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
      * Inputs the availability of the staff member as they provide it for the coming week in the Front-end.
      * This availability data is later utilised by the Algorithm for generating the schedule.
      *
-     * @param staffAvailabilitiesRequest the staff availabilities request type object.
+     * @param staffAvailabilityRequest the staff availabilities request type object.
      * @return the staff availability response type object.
      */
     @Override
-    public StaffAvailabilityResponse inputStaffAvailability(List<StaffAvailabilityRequest> staffAvailabilitiesRequest) {
+    public StaffAvailabilityResponse inputStaffAvailability(List<StaffAvailabilityRequest> staffAvailabilityRequest) {
 
         //Check if the Staff member exists in the DB
-        checkIfExists = verifyStaff(staffAvailabilitiesRequest.get(0).getEmployeeNumber());
+        checkIfExists = verifyStaff(staffAvailabilityRequest.get(0).getEmployeeNumber());
         if (checkIfExists) {
 
             EmployeeAvailabilityPOJO employeeAvailabilityPOJO = null;
             EmployeeAvailabilityPOJOId employeeAvailabilityPOJOId = null;
             EmpHistoryPOJO empHistoryPOJO = null;
-            for (StaffAvailabilityRequest request : staffAvailabilitiesRequest) {
+            for (StaffAvailabilityRequest request : staffAvailabilityRequest) {
                 Date availableDate = Date.valueOf(request.getAvailableDate());
                 employeeAvailabilityPOJOId = new EmployeeAvailabilityPOJOId(request.getEmployeeNumber(), availableDate);
                 boolean exists = checkIfAvailabilityAlreadyGiven(employeeAvailabilityPOJOId);
@@ -92,6 +92,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                     employeeAvailabilityPOJO.setShiftDay(request.getAvailableDay());
                     employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
                     employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                    employeeAvailabilityPOJO.setEmployeeId(empDetailPOJO.getId());
                 }
                 empHistoryPOJO = new EmpHistoryPOJO();
                 empHistoryPOJO.setEmployeeId(empDetailPOJO.getId());

@@ -74,7 +74,7 @@ public class SchedulerServiceImplUnitTest {
     private static final Double EMP_HOURS = 9.0;
     private static final int ROLE_ID_1 = 1;
     private static final int ROLE_ID_2 = 2;
-    private static final Time START_TIME= Time.valueOf("12:00:00");
+    private static final Time START_TIME= Time.valueOf("16:00:00");
     private static final Time END_TIME = Time.valueOf("20:00:00");
     private static final String DEPT_ID_123 = "123";
     private static final String DEPT_ID_1 = "1";

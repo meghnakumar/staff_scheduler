@@ -1,4 +1,4 @@
-package admin.model.entity;
+package admin.model;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.admin.model.dto.EmployeeCredsDTO;

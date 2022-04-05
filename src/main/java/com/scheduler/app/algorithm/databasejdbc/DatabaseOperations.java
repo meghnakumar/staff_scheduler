@@ -61,7 +61,7 @@ public class DatabaseOperations {
 		try {
 
 			//The Query
-			String query = "SELECT starttime, endtime, empavailablitynew.employee_id, total_hours_weekly FROM empavailablitynew, emphistory  where emphistory.employee_id = empavailablitynew.employee_id and role_id = " + roleId + " and shiftdate = '"+ shiftDate +"' and department_id = '" + deptId + "' order by emphistory.total_hours_weekly;";
+			String query = "SELECT start_time, end_time, empavailability.employee_id, total_hours_weekly FROM empavailability, emphistory  where emphistory.employee_id = empavailability.employee_id and role_id = " + roleId + " and shift_date = '"+ shiftDate +"' and department_id = '" + deptId + "' order by emphistory.total_hours_weekly;";
 			Statement statement = connection.createStatement();
 
 			//Execute the query to get eligible employees
