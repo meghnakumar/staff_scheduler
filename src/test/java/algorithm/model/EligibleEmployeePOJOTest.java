@@ -20,23 +20,25 @@ import static org.junit.Assert.assertEquals;
 public class EligibleEmployeePOJOTest {
 
     private EligibleEmployees eligibleEmployees;
-
-
+    private final Time START_TIME = Time.valueOf("12:00:00");
+    private final Time END_TIME = Time.valueOf("18:00:00");
+    private final String EMP_ID = "EMP001";
+    private final int TOTAL_HOURS_WEEKLY =12;
 
     @Test
     public void readyEligibleEmployeePOJOTest() {
 
 
-        eligibleEmployees = new EligibleEmployees(Time.valueOf("12:00:00"),Time.valueOf("18:00:00"),"EMP001",12);
-        eligibleEmployees.setEmployeeId("EMP001");
-        eligibleEmployees.setAvailableStartTime(Time.valueOf("12:00:00"));
-        eligibleEmployees.setAvailableEndTime(Time.valueOf("18:00:00"));
-        eligibleEmployees.setTotalHoursLastWeek(12);
+        eligibleEmployees = new EligibleEmployees(START_TIME,END_TIME,EMP_ID,TOTAL_HOURS_WEEKLY);
+        eligibleEmployees.setEmployeeId(EMP_ID);
+        eligibleEmployees.setAvailableStartTime(START_TIME);
+        eligibleEmployees.setAvailableEndTime(END_TIME);
+        eligibleEmployees.setTotalHoursLastWeek(TOTAL_HOURS_WEEKLY);
 
-        assertEquals("EMP001", eligibleEmployees.getEmployeeId());
-        assertEquals(Time.valueOf("12:00:00"), eligibleEmployees.getAvailableStartTime());
-        assertEquals(Time.valueOf("18:00:00"), eligibleEmployees.getAvailableEndTime());
-        assertEquals( 12, eligibleEmployees.getTotalHoursLastWeek());
+        assertEquals(EMP_ID, eligibleEmployees.getEmployeeId());
+        assertEquals(START_TIME, eligibleEmployees.getAvailableStartTime());
+        assertEquals(END_TIME, eligibleEmployees.getAvailableEndTime());
+        assertEquals( TOTAL_HOURS_WEEKLY, eligibleEmployees.getTotalHoursLastWeek());
 
 
     }

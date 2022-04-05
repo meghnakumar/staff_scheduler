@@ -1,4 +1,4 @@
-package utility;
+package utility.entity;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
@@ -30,7 +30,6 @@ public class DepartmentPOJOTest {
         departmentPOJOTest.setDepartmentName("Android");
         departmentPOJOTest.setNumberOfShifts(2);
         departmentPOJOTest.setSupervisorPOJO(supervisorPOJO);
-
 
         assertEquals("D01", departmentPOJOTest.getId());
         assertEquals("Android", departmentPOJOTest.getDepartmentName());

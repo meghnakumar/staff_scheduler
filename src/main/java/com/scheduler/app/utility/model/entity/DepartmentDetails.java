@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-
-@AllArgsConstructor
+/*
+@AllArgsConstructor*/
 public class DepartmentDetails {
    /* @Getter
     @Setter

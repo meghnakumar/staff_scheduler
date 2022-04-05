@@ -1,4 +1,4 @@
-package utility;
+package utility.controller;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.utility.controller.UtilityController;
