@@ -24,7 +24,8 @@ import java.time.LocalTime;
 import java.util.*;
 
 /**
- * The type Utility service.
+ * Utility Service.
+ * This service is shared by many modules for the common functionalities of some utility methods.
  */
 @Service
 public class UtilityServiceImpl implements  UtilityService {
