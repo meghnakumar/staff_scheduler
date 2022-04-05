@@ -1,4 +1,4 @@
-package com.scheduler.app.algorithm.model.response;
+package com.scheduler.app.supervisor.model.response;
 
 import com.scheduler.app.constants.REQUEST_STATUS;
 import lombok.AllArgsConstructor;

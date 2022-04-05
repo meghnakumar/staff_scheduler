@@ -11,6 +11,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+/**
+ * The type - Schedule Output response.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

@@ -1,5 +1,6 @@
 package com.scheduler.app.algorithm.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,9 +9,11 @@ import java.io.Serializable;
 import java.sql.Time;
 
 
-
-
+/**
+ * The type - Eligible Employees - represents one employee eligible for a shift.
+ */
 @Data
+@AllArgsConstructor
 public class EligibleEmployees implements Serializable {
 
     @Column(name ="starttime")
@@ -33,11 +36,4 @@ public class EligibleEmployees implements Serializable {
     @Setter
     private int totalHoursLastWeek;
 
-    public EligibleEmployees(Time availableStartTime, Time availableEndTime, String employeeId, int totalHoursLastWeek){
-
-    this.availableStartTime=availableStartTime;
-    this.availableEndTime=availableEndTime;
-    this.totalHoursLastWeek=totalHoursLastWeek;
-    this.employeeId=employeeId;
-    }
 }
