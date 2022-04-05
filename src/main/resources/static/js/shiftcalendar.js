@@ -60,12 +60,20 @@ $(document).ready(function(){
 
 
     function openCalendar(events) {
+        var date = new Date();
+        var weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+        var weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekEnd.getDate()+7);
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',
                 themeSystem: 'bootstrap4',
                 businessHours: false,
                 editable: true,
+                validRange: {
+                    start: weekStart,
+                    end: weekEnd
+                },
                 headerToolbar: {
                     left: 'prev, next',
                     center: 'title',
