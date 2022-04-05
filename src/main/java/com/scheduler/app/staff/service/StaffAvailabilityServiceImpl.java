@@ -1,8 +1,7 @@
 package com.scheduler.app.staff.service;
 
 import com.scheduler.app.constants.REQUEST_STATUS;
-import com.scheduler.app.admin.model.dto.EmployeeCredsDTO;
-import com.scheduler.app.admin.model.dto.EmployeeDetailDTO;
+import com.scheduler.app.staff.model.dto.EmployeeDetailDTO;
 import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
 import com.scheduler.app.staff.model.entity.EmployeeAvailabilityPOJO;
@@ -24,34 +23,60 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Staff Availability Service.
+ * This service is responsible for handling the processing of the availability for a staff member in the system.
+ * This service inputs and fetches information from the employee availability tables in the database.
+ */
 @Service
 public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
 
+    /**
+     * Auto-wired Component : JPA Repo to the 'empdetails' table.
+     */
     @Autowired
     EmpDetailRepository empDetailRepository;
 
+    /**
+     * Auto-wired Component : JPA Repo to the 'empdetails' table.
+     */
     @Autowired
     EmpAvailabilityRepository empAvailabilityRepository;
 
+    /**
+     * Auto-wired Component : JPA Repo to the 'emphistory' table.
+     */
     @Autowired
     EmployeeHistoryRepository employeeHistoryRepository;
 
-    EmployeeCredsDTO employeeCredsDTO;
-
+    /**
+     * The Emp detail pojo.
+     */
     EmpDetailPOJO empDetailPOJO;
 
-    boolean check = false;
+    /**
+     * The check to see if the employee exists or not. Defaults to false.
+     */
+    boolean checkIfExists = false;
 
+    /**
+     * Inputs the availability of the staff member as they provide it for the coming week in the Front-end.
+     * This availability data is later utilised by the Algorithm for generating the schedule.
+     *
+     * @param staffAvailabilityRequest the staff availabilities request type object.
+     * @return the staff availability response type object.
+     */
     @Override
-    public StaffAvailabilityResponse inputStaffAvailability(List<StaffAvailabilityRequest> staffAvailabilitiesRequest) {
+    public StaffAvailabilityResponse inputStaffAvailability(List<StaffAvailabilityRequest> staffAvailabilityRequest) {
 
-        StaffAvailabilityResponse staffAvailabilityResponse = new StaffAvailabilityResponse();
-        check = verifyStaff(staffAvailabilitiesRequest.get(0).getEmployeeNumber());
-        if (check) {
+        //Check if the Staff member exists in the DB
+        checkIfExists = verifyStaff(staffAvailabilityRequest.get(0).getEmployeeNumber());
+        if (checkIfExists) {
+
             EmployeeAvailabilityPOJO employeeAvailabilityPOJO = null;
             EmployeeAvailabilityPOJOId employeeAvailabilityPOJOId = null;
             EmpHistoryPOJO empHistoryPOJO = null;
-            for (StaffAvailabilityRequest request : staffAvailabilitiesRequest) {
+            for (StaffAvailabilityRequest request : staffAvailabilityRequest) {
                 Date availableDate = Date.valueOf(request.getAvailableDate());
                 employeeAvailabilityPOJOId = new EmployeeAvailabilityPOJOId(request.getEmployeeNumber(), availableDate);
                 boolean exists = checkIfAvailabilityAlreadyGiven(employeeAvailabilityPOJOId);
@@ -67,6 +92,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                     employeeAvailabilityPOJO.setShiftDay(request.getAvailableDay());
                     employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
                     employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                    employeeAvailabilityPOJO.setEmployeeId(empDetailPOJO.getId());
                 }
                 empHistoryPOJO = new EmpHistoryPOJO();
                 empHistoryPOJO.setEmployeeId(empDetailPOJO.getId());
@@ -78,29 +104,42 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 employeeHistoryRepository.saveAndFlush(empHistoryPOJO);
 
             }
-            staffAvailabilityResponse.setStatus(REQUEST_STATUS.SUCCESS);
-            staffAvailabilityResponse.setEntered(true);
+
+            return new StaffAvailabilityResponse(REQUEST_STATUS.SUCCESS, true);
+
         } else {
-            staffAvailabilityResponse.setStatus(REQUEST_STATUS.INVALID_REQUEST);
-            staffAvailabilityResponse.setEntered(false);
+
+            return new StaffAvailabilityResponse(REQUEST_STATUS.INVALID_REQUEST, false);
         }
-        return staffAvailabilityResponse;
     }
 
+
+    /**
+     * Verify if the staff member with the given employee number exists or not.
+     *
+     * @param employeeNumber the employee number
+     * @return whether the employee exists in the DB or not.
+     */
     @Override
     public boolean verifyStaff(String employeeNumber) {
 
         empDetailPOJO = empDetailRepository.getTopByEmployeeNumber(employeeNumber);
 
-        if (null != empDetailPOJO && null != empDetailPOJO.getEmployeeNumber()) {
-            return true;
-        }
-        return false;
+        return null != empDetailPOJO && null != empDetailPOJO.getEmployeeNumber();
     }
 
+
+    /**
+     * Fetches the information of the staff member for the given employee number.
+     * The information is the basic information associated with that employee in the system
+     * which will be displayed on the staff homepage.
+     *
+     * @param employeeNumber the employee number
+     * @return the employee details response type object.
+     */
     @Override
     public EmployeeDetailsResponse fetchEmployeeInfo(String employeeNumber) {
-        EmployeeDetailsResponse employeeDetailsResponse = new EmployeeDetailsResponse();
+
         empDetailPOJO = empDetailRepository.getTopByEmployeeNumber(employeeNumber);
         if (null != empDetailPOJO) {
             EmployeeDetailDTO employeeDetailDTO = new EmployeeDetailDTO();
@@ -116,27 +155,50 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
             employeeDetailDTO.setSinNumber(empDetailPOJO.getSinNumber());
             employeeDetailDTO.setDateOfJoining(empDetailPOJO.getDateOfJoining());
             employeeDetailDTO.setRoleId(empDetailPOJO.getRoleId());
-            employeeDetailsResponse.setStatus(REQUEST_STATUS.SUCCESS);
-            employeeDetailsResponse.setResponse(employeeDetailDTO);
+
+            return new EmployeeDetailsResponse(REQUEST_STATUS.SUCCESS, employeeDetailDTO);
+
         } else {
-            employeeDetailsResponse.setStatus(REQUEST_STATUS.INVALID_REQUEST);
+
+            return new EmployeeDetailsResponse(REQUEST_STATUS.INVALID_REQUEST, new EmployeeDetailDTO());
         }
-        return employeeDetailsResponse;
+
     }
 
+    /**
+     * Gets LocalTime object from the time values given as a string.
+     *
+     * @param time the time in string format.
+     * @return the LocalTime object.
+     */
     private LocalTime getTime(String time) {
         String[] splitTime = time.split(":");
         return LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
     }
 
+    /**
+     * Check if availability already given.
+     *
+     * @param id the id
+     * @return the boolean
+     */
     public boolean checkIfAvailabilityAlreadyGiven(EmployeeAvailabilityPOJOId id) {
         Optional<EmployeeAvailabilityPOJO> result = empAvailabilityRepository.findById(id);
         return result.isPresent();
     }
 
 
+    /**
+     * Checks if the employee availability already exists or not.
+     * If it does, returns the object that contains the information about the availability.
+     *
+     * @param request the employee availability exists request type object.
+     * @return the employee availability exists response type object.
+     */
+    @Override
     public EmployeeAvailabilityExistsResponse checkEmployeeAvailability(EmployeeAvailabilityExistsRequest request) {
-        EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
+
+        EmployeeAvailabilityExistsResponse employeeAvaExiResponse = new EmployeeAvailabilityExistsResponse();
         String employeeNumber = request.getEmployeeNumber();
         EmployeeAvailabilityPOJOId employeeAvailabilityPOJOId = null;
         List<String> dates = request.getDates();
@@ -153,10 +215,10 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 modified = true;
             }
         }
-        employeeAvailabilityExistsResponse.setModified(modified);
-        employeeAvailabilityExistsResponse.setStatus(REQUEST_STATUS.SUCCESS);
-        employeeAvailabilityExistsResponse.setDates(alreadyExisitngDates);
-        return employeeAvailabilityExistsResponse;
+        employeeAvaExiResponse.setModified(modified);
+        employeeAvaExiResponse.setStatus(REQUEST_STATUS.SUCCESS);
+        employeeAvaExiResponse.setDates(alreadyExisitngDates);
+        return employeeAvaExiResponse;
     }
 }
 

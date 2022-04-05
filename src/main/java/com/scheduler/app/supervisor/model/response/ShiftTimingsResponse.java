@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * The type - Shift Timings response.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

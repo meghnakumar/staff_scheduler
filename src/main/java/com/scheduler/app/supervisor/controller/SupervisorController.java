@@ -3,7 +3,7 @@ package com.scheduler.app.supervisor.controller;
 import com.scheduler.app.supervisor.model.entity.DailyShiftPOJO;
 import com.scheduler.app.supervisor.model.request.ShiftDetailsRequest;
 import com.scheduler.app.admin.model.response.AdminInfoResponse;
-import com.scheduler.app.algorithm.model.response.ShiftDetailsResponse;
+import com.scheduler.app.supervisor.model.response.ShiftDetailsResponse;
 import com.scheduler.app.supervisor.model.response.SupervisorInfoResponse;
 import com.scheduler.app.supervisor.service.SchedulerService;
 import com.scheduler.app.utility.service.UtilityService;
@@ -23,16 +23,32 @@ import java.sql.Date;
 import java.util.List;
 
 
+/**
+ * The type - Supervisor controller.
+ * Spring Boot Controller for all the APIs for the Supervisor module.
+ */
 @RestController
 @RequestMapping("/supervisor")
 public class SupervisorController {
 
+    /**
+     * Auto-wired Component : Scheduler Service.
+     */
     @Autowired
     SchedulerService schedulerService;
 
+    /**
+     * Auto-wired Component : Utility Service.
+     */
     @Autowired
     UtilityService utilityService;
 
+    /**
+     * Inputs the Shift details for the upcoming week.
+     *
+     * @param shiftDetailsRequest the shift details request type object
+     * @return the shift details response type object
+     */
     @Operation(summary = "Store the shift details of staff for the next week in DB")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Provided shift is successfully added" +
@@ -47,17 +63,16 @@ public class SupervisorController {
     @Consumes(value = MediaType.APPLICATION_JSON)
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
-    ShiftDetailsResponse shiftDetails(@RequestBody ShiftDetailsRequest shiftDetailsRequest) {
+    ShiftDetailsResponse inputShiftDetails(@RequestBody ShiftDetailsRequest shiftDetailsRequest) {
         return schedulerService.saveShiftDetails(shiftDetailsRequest);
     }
 
-//    @GetMapping("/get-schedule")
-//    @Produces(value = MediaType.APPLICATION_JSON)
-//    public @ResponseBody
-//    List<ScheduleDetails> getEmployees(@RequestParam Date startDate, @RequestParam Date endDate) {
-//        return  schedulerService.getEmployees(startDate);
-//    }
-
+    /**
+     * Gets the list of daily shifts for a given date input.
+     *
+     * @param shiftDate the shift date
+     * @return the list of records where each one is a daily shift
+     */
     @GetMapping("/dailyshifts")
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
@@ -65,6 +80,10 @@ public class SupervisorController {
         return schedulerService.getShifts(shiftDate);
     }
 
+    /**
+     * Algorithm trigger - Triggers to Generate Schedule Algorithm.
+     * Had no Input Params or output as the algorithm uses data from the DB & writes the output to the DB as well.
+     */
     @GetMapping("/generate/schedule")
     @ResponseStatus(value = HttpStatus.OK)
     public void algorithmTrigger(){
@@ -72,6 +91,12 @@ public class SupervisorController {
     }
 
 
+    /**
+     * Gets the Employees work hour history based on the employee id.
+     *
+     * @param employeeId the employee id
+     * @return the string
+     */
     @GetMapping("/emphistory")
     @Produces(value = MediaType.APPLICATION_JSON)
     public @ResponseBody
@@ -80,6 +105,13 @@ public class SupervisorController {
         return "success";
     }
 
+    /**
+     * Get statistics for the Supervisor's homepage
+     *
+     * @param onload     the onload - signifies page load
+     * @param department the department to which the Supervisor belongs to.
+     * @return the supervisor info response type object
+     */
     @Operation(summary = "Retrieve the general information and display it on Supervisor homepage")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information like employee count, upcoming holidays etc are " +

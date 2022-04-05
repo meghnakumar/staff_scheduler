@@ -16,13 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * The type Utility controller.
+ * Spring Boot Controller for all the APIs for the Utility Module.
+ */
 @RestController
 @RequestMapping("/utility")
 public class UtilityController {
 
+    /**
+     * Auto-wired Component : Utility Service
+     */
     @Autowired
     UtilityService utilityService;
 
+    /**
+     * Fetches the shifts set by admin for the most recent date in the DB
+     *
+     * @return the shift timings response
+     */
     @Operation(summary = "Fetches the shifts set by admin for the most recent date")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Shifts for the most recent date are" +

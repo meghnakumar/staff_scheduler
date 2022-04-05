@@ -6,7 +6,7 @@ import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.supervisor.controller.SupervisorController;
 import com.scheduler.app.supervisor.model.entity.DailyShiftPOJO;
 import com.scheduler.app.supervisor.model.request.ShiftDetailsRequest;
-import com.scheduler.app.algorithm.model.response.ShiftDetailsResponse;
+import com.scheduler.app.supervisor.model.response.ShiftDetailsResponse;
 import com.scheduler.app.supervisor.service.SchedulerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SupervisorControllerUnitTest {
 
+    private static final int SLOT_TYPE = 4;
     private MockMvc mockMvc;
 
     @InjectMocks
@@ -92,10 +93,17 @@ public class SupervisorControllerUnitTest {
                 .andDo(print()).andExpect(status().isOk());
     }
 
+    @Test
+    public void testAlgorithmTrigger() throws Exception {
+        //when(schedulerService.getEmpHistory(1)).thenReturn(any());
+        mockMvc.perform(get("/supervisor/generate/schedule"))
+                .andDo(print()).andExpect(status().isOk());
+    }
+
 
     private void createShiftDetailsRequest() {
         shiftDetailsRequest.setDepartmentId("1");
-        shiftDetailsRequest.setSlotType(4);
+        shiftDetailsRequest.setSlotType(SLOT_TYPE);
         shiftDetailsRequest.setEndTime("16:00");
         shiftDetailsRequest.setShiftRoleHours(null);
         shiftDetailsRequest.setStartTime("12:00");

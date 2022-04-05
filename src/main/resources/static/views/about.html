@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Staff Scheduler</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link id="favicon" rel="shortcut icon" type="image/jpg" href=".././assets/images/login.jpg"/>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/login.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Staff Scheduler</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">About
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+        <a href="#" class="d-flex align-items-center text-decoration-none">
+            <i class="bi bi-calendar2-heart"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-calendar2-heart" viewBox="0 0 16 16">
+                <title>Staff Scheduler</title>
+                <path fill-rule="evenodd"
+                      d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3Zm2 .5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5H3Zm5 4.493c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+            </svg>
+            <span class="fs-4">&nbsp;&nbsp;&nbsp;Welcome to Staff Scheduler</span>
+        </a>
+    </header>
+
+    <div class="p-5 mb-4 text-white bg-dark rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Scheduling made easy</h1>
+            <p class="col-md-12 fs-4">We have built a system to automate the whole process which generates a tentative
+                schedule for the available staff to avoid any manual conflicts of shifts. The application will
+                centralise all the staff availability into a single place and avoid any manual data entry work for the
+                supervisors.
+            </p>
+            <p class="col-md-12 fs-4">Role based authentication is present. The menu display will be different for each
+                logged in roles.</p>
+            <p class="col-md-12 fs-6"><a href="https://tinyurl.com/3f47eebh" class="primary-link">Click here to download the Android version.</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="row align-items-md-stretch">
+        <div class="col-md-4">
+            <div class="h-100 p-5 bg-light border rounded-3">
+                <h2>Admin</h2>
+                <ul class="list-group list-group-flush">
+                    <li>will be the super-user and be able to register new users.</li>
+                    <li>will be able to create and inform new holidays to other users.</li>
+                    <li>Will be able to set shift timings which will be common across all departments.</li>
+                </ul>
+                <!--                <button class="btn btn-outline-light" type="button">Example button</button>-->
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="h-100 p-5 bg-light border rounded-3">
+                <h2>Supervisor</h2>
+                <ul class="list-group list-group-flush">
+                    <li>Will be head of a particular department. Will be able to declare shift start-time and shift
+                        end-time.
+                    </li>
+                    <li> Will be able to put in requirements of the number of employees required for each shift.Each
+                        shift requires different types of employees which will be marked by their role IDs
+                    </li>
+                    <li>Will be able to generate schedule for the upcoming week but only on saturday and sunday.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="h-100 p-5 bg-light border rounded-2">
+                <h2>Staff/Intern</h2>
+                <ul class="list-group list-group-flush">
+                    <li>Will be able to provide their availability for the next week from current week Monday to
+                        Friday.
+                    </li>
+                    <li> Shift timings will be based upon the timings provided by the supervisor.</li>
+                    <li>can also choose to not to provide availability for particular days and they will be excluded for
+                        that day.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-auto py-3 bg-primary text-white">
+       &nbsp &nbsp © ASDC | Group 20 | Dalhousie University | © Winter 2022
+    </footer>
+</div>
+</body>
+</html>

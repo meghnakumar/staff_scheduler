@@ -14,13 +14,26 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * The type - Login Controller.
+ * Spring Boot Controller for all the APIs for the Login module.
+ */
 @RestController
 @RequestMapping("/login")
 public class LoginController {
 
+    /**
+     * Auto-wired Component : Login Service.
+     */
     @Autowired
     LoginService loginService;
 
+    /**
+     * Consumes the login credentials from the Front-end for the logic validation process.
+     *
+     * @param loginRequest the login request type object
+     * @return the login response type object.
+     */
     @Operation(summary = "Validate the loginId and Password, and return the type of user to land on " +
             "on the desired landing page.")
     @ApiResponses(value = {

@@ -4,8 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 
+/**
+ * The type - Request object for Staff availabilities request.
+ */
 @Getter
 @Setter
 public class StaffAvailabilitiesRequest {
-    private List<StaffAvailabilityRequest> staffAvailabilityRequest;
+
+    private List<StaffAvailabilityRequest> staffAvailabilityRequestList;
 }

@@ -9,6 +9,9 @@ import lombok.Setter;
 import java.util.Map;
 
 
+/**
+ * The type - response object for Supervisor info.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
