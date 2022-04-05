@@ -6,7 +6,7 @@ import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.supervisor.controller.SupervisorController;
 import com.scheduler.app.supervisor.model.entity.DailyShiftPOJO;
 import com.scheduler.app.supervisor.model.request.ShiftDetailsRequest;
-import com.scheduler.app.algorithm.model.response.ShiftDetailsResponse;
+import com.scheduler.app.supervisor.model.response.ShiftDetailsResponse;
 import com.scheduler.app.supervisor.service.SchedulerService;
 import org.junit.Before;
 import org.junit.Test;

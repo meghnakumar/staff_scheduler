@@ -23,7 +23,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * The type - Admin controller.
+ * The type - Admin Controller.
+ * Spring Boot Controller for all the APIs for the Admin module.
  */
 @RestController
 @RequestMapping("/admin")

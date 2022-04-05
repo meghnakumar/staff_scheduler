@@ -10,7 +10,7 @@ import com.scheduler.app.supervisor.model.request.RequiredRoleHours;
 import com.scheduler.app.algorithm.model.request.ScheduleOutputRequest;
 import com.scheduler.app.supervisor.model.request.ShiftDetailsRequest;
 import com.scheduler.app.algorithm.model.response.ScheduleOutputResponse;
-import com.scheduler.app.algorithm.model.response.ShiftDetailsResponse;
+import com.scheduler.app.supervisor.model.response.ShiftDetailsResponse;
 import com.scheduler.app.supervisor.model.entity.ShiftDetailsPOJO;
 import com.scheduler.app.supervisor.model.repo.DailyShiftRepository;
 import com.scheduler.app.supervisor.model.repo.ScheduleRepository;
