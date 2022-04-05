@@ -32,6 +32,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -181,46 +182,4 @@ public class SchedulerServiceImplUnitTest {
         boolean result = schedulerService.algoImplementation();
         assertTrue(result);
     }
-
-    @Test
-    public void testAlgoImplementationWhenEndTimeNotEqual(){
-        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
-        dailyShiftPOJO.setShiftType(String.valueOf(SLOT_TYPE));
-        dailyShiftPOJO.setShiftDate(Date_4_4);
-        dailyShiftPOJO.setRoleId(ROLE_ID_2);
-        dailyShiftPOJO.setEmployeeHours(EMP_HOURS);
-        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
-        departmentPOJO.setDepartmentName(DEPT_NAME);
-        departmentPOJO.setId(DEPT_ID_D01);
-        dailyShiftPOJO.setDepartment(departmentPOJO);
-        dailyShiftPOJO.setStartTime(START_TIME);
-        dailyShiftPOJO.setEndTime(END_TIME);
-        List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
-        dailyShiftPOJOS.add(dailyShiftPOJO);
-        when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
-        boolean result = schedulerService.algoImplementation();
-        assertTrue(result);
-    }
-
-    @Test
-    public void testAlgoImplementationWhenNoValueInDB(){
-        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
-        dailyShiftPOJO.setShiftType(String.valueOf(SLOT_TYPE));
-        dailyShiftPOJO.setShiftDate(DATE_3_3);
-        dailyShiftPOJO.setRoleId(ROLE_ID_2);
-        dailyShiftPOJO.setEmployeeHours(EMP_HOURS);
-        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
-        departmentPOJO.setDepartmentName(DEPT_NAME);
-        departmentPOJO.setId(DEPT_ID_D01);
-        dailyShiftPOJO.setDepartment(departmentPOJO);
-        dailyShiftPOJO.setStartTime(START_TIME);
-        dailyShiftPOJO.setEndTime(END_TIME);
-        List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
-        dailyShiftPOJOS.add(dailyShiftPOJO);
-        when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
-        boolean result = schedulerService.algoImplementation();
-        assertFalse(result);
-    }
-
-
 }
