@@ -1,4 +1,4 @@
-package staff;
+package staff.integration;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.staff.controller.StaffController;

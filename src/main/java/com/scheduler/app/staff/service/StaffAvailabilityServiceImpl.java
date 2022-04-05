@@ -136,7 +136,7 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
 
 
     public EmployeeAvailabilityExistsResponse checkEmployeeAvailability(EmployeeAvailabilityExistsRequest request) {
-        EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
+        EmployeeAvailabilityExistsResponse employeeAvaExiResponse = new EmployeeAvailabilityExistsResponse();
         String employeeNumber = request.getEmployeeNumber();
         EmployeeAvailabilityPOJOId employeeAvailabilityPOJOId = null;
         List<String> dates = request.getDates();
@@ -153,10 +153,10 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 modified = true;
             }
         }
-        employeeAvailabilityExistsResponse.setModified(modified);
-        employeeAvailabilityExistsResponse.setStatus(REQUEST_STATUS.SUCCESS);
-        employeeAvailabilityExistsResponse.setDates(alreadyExisitngDates);
-        return employeeAvailabilityExistsResponse;
+        employeeAvaExiResponse.setModified(modified);
+        employeeAvaExiResponse.setStatus(REQUEST_STATUS.SUCCESS);
+        employeeAvaExiResponse.setDates(alreadyExisitngDates);
+        return employeeAvaExiResponse;
     }
 }
 

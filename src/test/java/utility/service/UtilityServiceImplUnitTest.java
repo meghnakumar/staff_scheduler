@@ -37,6 +37,15 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UtilityServiceImplUnitTest {
 
+    private static final long EMPLOYEE_COUNT = 2L;
+    private static final long DEPARTMENT_COUNT = 5L;
+    private static final int DATE = 20;
+    private static final int SHIFT_DURATION_SIX = 6;
+    private static final int SHIFT_DURATION_EIGHT = 8;
+    private static final int SHIFT_DURATION_FOUR = 4;
+    private static final int INVALID_DURATION = 9;
+
+
     @InjectMocks
     private UtilityServiceImpl utilityService = new UtilityServiceImpl();
 
@@ -63,13 +72,13 @@ public class UtilityServiceImplUnitTest {
         departmentPOJO.setDepartmentName("Android");
         List<DepartmentPOJO> departmentList = new ArrayList<>();
         departmentList.add(departmentPOJO);
-        when(empDetailRepository.count()).thenReturn(2L);
-        when(departmentRepository.count()).thenReturn(5L);
+        when(empDetailRepository.count()).thenReturn(EMPLOYEE_COUNT);
+        when(departmentRepository.count()).thenReturn(DEPARTMENT_COUNT);
         when(departmentRepository.findAll()).thenReturn(departmentList);
         HolidayPOJO holidayPOJO = new HolidayPOJO();
         holidayPOJO.setId(1);
         holidayPOJO.setHolidayTitle("Christmas");
-        holidayPOJO.setStartDate(new Date(20));
+        holidayPOJO.setStartDate(new Date(DATE));
         List<HolidayPOJO> holidayList = new ArrayList<>();
         holidayList.add(holidayPOJO);
         when(holidayRepository.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(any(),any())).thenReturn(holidayList);
@@ -93,7 +102,7 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testLogNewShiftDuration6(){
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(6);
+        shiftCreationRequest.setShiftDuration(SHIFT_DURATION_SIX);
         shiftCreationResponse = utilityService.logNewShiftDuration(shiftCreationRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftCreationResponse.getStatus());
     }
@@ -101,14 +110,14 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testLogNewShiftDuration8(){
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(8);
+        shiftCreationRequest.setShiftDuration(SHIFT_DURATION_EIGHT);
         shiftCreationResponse = utilityService.logNewShiftDuration(shiftCreationRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftCreationResponse.getStatus());
     }
     @Test
     public void testLogNewShiftDuration4(){
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(4);
+        shiftCreationRequest.setShiftDuration(SHIFT_DURATION_FOUR);
         shiftCreationResponse = utilityService.logNewShiftDuration(shiftCreationRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftCreationResponse.getStatus());
     }
@@ -116,14 +125,14 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testLogNewShiftDurationInvalidSlot() throws RuntimeException{
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(9);
+        shiftCreationRequest.setShiftDuration(INVALID_DURATION);
         shiftCreationResponse = utilityService.logNewShiftDuration(shiftCreationRequest);
     }
 
     @Test
     public void testGetShiftTime_4(){
         AdminShiftPOJO adminShiftPOJO = new AdminShiftPOJO();
-        adminShiftPOJO.setSlotType(4);
+        adminShiftPOJO.setSlotType(SHIFT_DURATION_FOUR);
         adminShiftPOJO.setShift1StartTime(LocalTime.NOON);
         adminShiftPOJO.setShift2StartTime(LocalTime.now());
         adminShiftPOJO.setShift3StartTime(LocalTime.MAX);
@@ -139,7 +148,7 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testGetShiftTime_6(){
         AdminShiftPOJO adminShiftPOJO = new AdminShiftPOJO();
-        adminShiftPOJO.setSlotType(6);
+        adminShiftPOJO.setSlotType(SHIFT_DURATION_SIX);
         adminShiftPOJO.setShift1StartTime(LocalTime.NOON);
         adminShiftPOJO.setShift2StartTime(LocalTime.now());
         adminShiftPOJO.setShift3StartTime(LocalTime.MAX);
@@ -154,7 +163,7 @@ public class UtilityServiceImplUnitTest {
     @Test
     public void testGetShiftTime_8(){
         AdminShiftPOJO adminShiftPOJO = new AdminShiftPOJO();
-        adminShiftPOJO.setSlotType(8);
+        adminShiftPOJO.setSlotType(SHIFT_DURATION_EIGHT);
         adminShiftPOJO.setShift1StartTime(LocalTime.NOON);
         adminShiftPOJO.setShift2StartTime(LocalTime.now());
         adminShiftPOJO.setShift3StartTime(LocalTime.MAX);

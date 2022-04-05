@@ -38,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AdminControllerUnitTest {
 
+    private static final int SHIFT_DURATION = 8;
     private MockMvc mockMvc;
 
     @InjectMocks
@@ -92,7 +93,7 @@ public class AdminControllerUnitTest {
     @Test
     public void testLogShiftDuration() throws Exception {
         ShiftCreationRequest shiftCreationRequest = new ShiftCreationRequest();
-        shiftCreationRequest.setShiftDuration(8);
+        shiftCreationRequest.setShiftDuration(SHIFT_DURATION);
         ShiftCreationResponse shiftCreationResponse = new ShiftCreationResponse(REQUEST_STATUS.SUCCESS,true);
         when(utilityService.logNewShiftDuration(shiftCreationRequest)).thenReturn(shiftCreationResponse);
         mockMvc.perform(post("/admin/shift").contentType("application/json")

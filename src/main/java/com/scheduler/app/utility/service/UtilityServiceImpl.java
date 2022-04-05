@@ -25,6 +25,8 @@ import java.util.*;
 
 @Service
 public class UtilityServiceImpl implements  UtilityService {
+    private static final int TIME_TWELVE = 12;
+    private static final int TIME_TEN = 10;
     int zero = UTIL_CONSTANTS.ZERO.getNumVal();
     int one = UTIL_CONSTANTS.ONE.getNumVal();
     int two = UTIL_CONSTANTS.TWO.getNumVal();
@@ -35,6 +37,12 @@ public class UtilityServiceImpl implements  UtilityService {
     int seven = UTIL_CONSTANTS.SEVEN.getNumVal();
     int eight = UTIL_CONSTANTS.EIGHT.getNumVal();
     String hyphen=UTIL_CONSTANTS.HYPHEN.getStringVal();
+
+    private static final int SHIFT_DURATION_FOUR = 4;
+    private static final int SHIFT_DURATION_SIX = 6;
+    private static final int SHIFT_DURATION_THREE = 3;
+
+
 
     @Autowired
     EmpDetailRepository empDetailRepository;
@@ -132,7 +140,7 @@ public class UtilityServiceImpl implements  UtilityService {
 
             switch (timeSlots.size()) {
 
-                case 6:
+                case SHIFT_DURATION_SIX:
                     adminShiftPOJO.setShift1StartTime(timeSlots.get(zero));
                     adminShiftPOJO.setShift2StartTime(timeSlots.get(one));
                     adminShiftPOJO.setShift3StartTime(timeSlots.get(two));
@@ -141,14 +149,14 @@ public class UtilityServiceImpl implements  UtilityService {
                     adminShiftPOJO.setShift6StartTime(timeSlots.get(five));
                     break;
 
-                case 4:
+                case SHIFT_DURATION_FOUR:
                     adminShiftPOJO.setShift1StartTime(timeSlots.get(zero));
                     adminShiftPOJO.setShift2StartTime(timeSlots.get(one));
                     adminShiftPOJO.setShift3StartTime(timeSlots.get(two));
                     adminShiftPOJO.setShift4StartTime(timeSlots.get(three));
                     break;
 
-                case 3:
+                case SHIFT_DURATION_THREE:
                     adminShiftPOJO.setShift1StartTime(timeSlots.get(zero));
                     adminShiftPOJO.setShift2StartTime(timeSlots.get(one));
                     adminShiftPOJO.setShift3StartTime(timeSlots.get(two));
@@ -253,16 +261,17 @@ public class UtilityServiceImpl implements  UtilityService {
             String pm =UTIL_CONSTANTS.PM.getStringVal();
             String singleZero = UTIL_CONSTANTS.SINGLE_ZERO.getStringVal();
 
-            if((Integer.parseInt(timeDivision[0]))>=12){
-                int convertedShiftTime = Integer.parseInt(timeDivision[0])==12?Integer.parseInt(timeDivision[0]):(Integer.parseInt(timeDivision[0])) - 12;
-                if(convertedShiftTime<10)
+
+            if((Integer.parseInt(timeDivision[0]))>= TIME_TWELVE){
+                int convertedShiftTime = Integer.parseInt(timeDivision[0])== TIME_TWELVE ?Integer.parseInt(timeDivision[0]):(Integer.parseInt(timeDivision[0])) - TIME_TWELVE;
+                if(convertedShiftTime< TIME_TEN)
                     finalShift = finalShift+singleZero+convertedShiftTime +colon+doubleZero+pm;
                 else
                     finalShift = finalShift+convertedShiftTime +colon+doubleZero+pm;
             }
-            else if((Integer.parseInt(timeDivision[0]))<12){
-                int convertedShiftTime = Integer.parseInt(timeDivision[0])==00?12:Integer.parseInt(timeDivision[0]);
-                if(convertedShiftTime<10)
+            else if((Integer.parseInt(timeDivision[0]))< TIME_TWELVE){
+                int convertedShiftTime = Integer.parseInt(timeDivision[0])==00? TIME_TWELVE :Integer.parseInt(timeDivision[0]);
+                if(convertedShiftTime< TIME_TEN)
                     finalShift = finalShift+singleZero+convertedShiftTime+colon+doubleZero+am;
                 else
                     finalShift = finalShift+convertedShiftTime+colon+doubleZero+am;
