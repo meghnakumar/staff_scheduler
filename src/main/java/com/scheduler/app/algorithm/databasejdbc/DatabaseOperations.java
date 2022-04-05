@@ -89,7 +89,7 @@ public class DatabaseOperations {
 	 * This makes sure that the schedule being sent to the front-end will always have the latest generated schedule.
 	 */
 	public static void truncateScheduleOutput(){
-
+		Connection connection=DatabaseConnection.openConnection();
 		try {
 
 			String query="truncate table scheduleoutput";
@@ -113,7 +113,7 @@ public class DatabaseOperations {
 	 * @param employeeId       the employee id
 	 */
 	public static void updateEmpHistory(int totalHoursWeekly, String employeeId) {
-
+		Connection connection=DatabaseConnection.openConnection();
 		try {
 
 			String query = "update emphistory set total_hours_weekly = ? where employee_id = ?";
@@ -139,7 +139,7 @@ public class DatabaseOperations {
 	 */
 	public static void insertFinalSchedule(InsertScheduleParam insertScheduleParam) {
 
-
+		Connection connection = DatabaseConnection.openConnection();
 		try {
 
 			String query = "Insert into  scheduleoutput (department_id, employee_id, shift_date, start_time, end_time, role_id, emp_hours) VALUES (?, ?, ?, ?, ?, ?, ?)";
