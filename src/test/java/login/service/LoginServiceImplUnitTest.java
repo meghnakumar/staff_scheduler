@@ -1,4 +1,4 @@
-package login;
+package login.service;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.constants.REQUEST_STATUS;
