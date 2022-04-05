@@ -15,23 +15,6 @@ import java.util.List;
  */
 public interface SchedulerService {
 
-     /**
-      * Gets shifts based on the Date inout.
-      *
-      * @param date the date
-      * @return the list of shifts
-      */
-     List<DailyShiftPOJO> getShifts(Date date);
-
-
-     /**
-      * Gets Employee history based on the employee id.
-      *
-      * @param employeeId the employee id
-      * @return the emp history
-      */
-     List<EmpHistoryPOJO> getEmpHistory(int employeeId);
-
 
      /**
       * Saves the shift details to the table in the DB.

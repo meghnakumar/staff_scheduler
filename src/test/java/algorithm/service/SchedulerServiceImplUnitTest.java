@@ -114,18 +114,6 @@ public class SchedulerServiceImplUnitTest {
         assertEquals(REQUEST_STATUS.SUCCESS, shiftDetailsResponse.getStatus());
     }
 
-
-    @Test
-    public void testGetEmpHistory(){
-        List<EmpHistoryPOJO> empHistoryPOJOS = new ArrayList<>();
-        EmpHistoryPOJO empHistoryPOJO = new EmpHistoryPOJO();
-        empHistoryPOJO.setId(EMP_ID_1);
-        empHistoryPOJO.setEmployeeId(EMPLOYEE_ID);
-        empHistoryPOJOS.add(empHistoryPOJO);
-        when(employeeHistoryRepository.findEmpHistoryById(1)).thenReturn(empHistoryPOJOS);
-        schedulerService.getEmpHistory(1);
-    }
-
     @Test
     public void testGetScheduleByDateTimeDepartment(){
         ScheduleOutputResponse ScheduleOutputResponse = new ScheduleOutputResponse(REQUEST_STATUS.FAILED,false,null);
