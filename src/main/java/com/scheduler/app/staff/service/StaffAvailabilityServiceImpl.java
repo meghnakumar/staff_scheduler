@@ -196,9 +196,8 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
      */
     @Override
     public EmployeeAvailabilityExistsResponse checkEmployeeAvailability(EmployeeAvailabilityExistsRequest request) {
-        EmployeeAvailabilityExistsResponse employeeAvaExiResponse = new EmployeeAvailabilityExistsResponse();
 
-        EmployeeAvailabilityExistsResponse employeeAvailabilityExistsResponse = new EmployeeAvailabilityExistsResponse();
+        EmployeeAvailabilityExistsResponse employeeAvaExiResponse = new EmployeeAvailabilityExistsResponse();
         String employeeNumber = request.getEmployeeNumber();
         EmployeeAvailabilityPOJOId employeeAvailabilityPOJOId = null;
         List<String> dates = request.getDates();
