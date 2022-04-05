@@ -19,9 +19,9 @@ import static org.junit.Assert.assertEquals;
 public class EmployeeHistoryPOJOTest {
 
     private EmpHistoryPOJO employeeHistoryPOJOTest;
-    private int ID =1;
-    private int DAILY_SHIFT_HOUR =4;
-    private int TOTAL_HOURS_WEEKLY =32;
+    final static private int ID =1;
+    final static private int DAILY_SHIFT_HOUR =4;
+    final static private int TOTAL_HOURS_WEEKLY =32;
     @Test
     public void readyEmployeeHistoryPOJOTest() {
 

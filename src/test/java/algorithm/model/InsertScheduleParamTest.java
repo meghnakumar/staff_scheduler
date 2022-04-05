@@ -19,13 +19,13 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InsertScheduleParamTest {
     private InsertScheduleParam insertScheduleParamTest;
-    private String DEPT_ID = "D01";
-    private String EMP_NO = "EMP001";
-    private Time START_TIME = Time.valueOf("16:00:00");
-    private Time END_TIME = Time.valueOf("20:00:00");
-    private Date SHIFT_DATE = Date.valueOf("2022-2-2");
-    private String ROLE_ID = "1";
-    private String EMP_HOURS = "56";
+    final static private String DEPT_ID = "D01";
+    final static private String EMP_NO = "EMP001";
+    final static private Time START_TIME = Time.valueOf("16:00:00");
+    final static private Time END_TIME = Time.valueOf("20:00:00");
+    final static private Date SHIFT_DATE = Date.valueOf("2022-2-2");
+    final static private String ROLE_ID = "1";
+    final static private String EMP_HOURS = "56";
 
     @Test
     public void readyInsertScheduleParamTest() {

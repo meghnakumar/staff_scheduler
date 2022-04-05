@@ -22,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
         locations = "classpath:application.test.properties")
 public class SchedulerFunctionalitiesIntegrationTests {
 
+    final static private
+
     @Autowired
     private ScheduleController scheduleController;
 

@@ -20,10 +20,10 @@ import static org.junit.Assert.assertEquals;
 public class EligibleEmployeePOJOTest {
 
     private EligibleEmployees eligibleEmployees;
-    private final Time START_TIME = Time.valueOf("12:00:00");
-    private final Time END_TIME = Time.valueOf("18:00:00");
-    private final String EMP_ID = "EMP001";
-    private final int TOTAL_HOURS_WEEKLY =12;
+    final static private  Time START_TIME = Time.valueOf("12:00:00");
+    final static private  Time END_TIME = Time.valueOf("18:00:00");
+    final static private  String EMP_ID = "EMP001";
+    final static private  int TOTAL_HOURS_WEEKLY =12;
 
     @Test
     public void readyEligibleEmployeePOJOTest() {

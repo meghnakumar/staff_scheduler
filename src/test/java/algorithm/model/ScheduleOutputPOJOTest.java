@@ -2,22 +2,10 @@ package algorithm.model;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.algorithm.model.entity.ScheduleOutputPOJO;
-import com.scheduler.app.staff.model.entity.EmpDetailPOJO;
-import com.scheduler.app.supervisor.model.entity.SupervisorPOJO;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -26,14 +14,14 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(classes = StaffSchedulerApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ScheduleOutputPOJOTest {
-    private Integer ID = 1;
-    private String DEPT_ID = "D01";
-    private Integer EMP_ID = 201;
-    private LocalDate SHIFT_DATE ;
-    private LocalTime START_TIME;
-    private LocalTime END_TIME;
-    private Integer ROLE_ID;
-    private Integer EMP_HOURS;
+   final static private Integer ID = 1;
+    final static private String DEPT_ID = "D01";
+    final static private Integer EMP_ID = 201;
+    final static private LocalDate SHIFT_DATE = LocalDate.of(2022,2,2) ;
+    final static private LocalTime START_TIME = LocalTime.of(16,00);
+    final static private LocalTime END_TIME = LocalTime.of(20,00);
+    final static private Integer ROLE_ID = 3;
+    final static private Integer EMP_HOURS = 30;
     private ScheduleOutputPOJO scheduleOutputPOJO;
 
     @Test
