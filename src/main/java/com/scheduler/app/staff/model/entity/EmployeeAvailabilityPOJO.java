@@ -27,6 +27,10 @@ public class EmployeeAvailabilityPOJO {
     @Setter
     private Integer roleId;
 
+    @Column(name = "employee_id")
+    @Getter
+    @Setter
+    private Integer employeeId;
 
     @Column(name = "shift_day")
     @Getter
