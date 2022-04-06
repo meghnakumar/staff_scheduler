@@ -34,7 +34,10 @@ $(document).ready(function(){
         var date = new Date();
         var weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
         console.log("weekStart", weekStart);
-        for(var day = 1; day < 6; day++) {
+        for(var day = 1; day < 13; day++) {
+            if(day == 6 || day == 7) {
+                continue;
+            }
             var shiftDate = new Date(weekStart);
             shiftDate.setDate(shiftDate.getDate()+day);
             var date = shiftDate.toLocaleDateString('en-CA');
@@ -63,7 +66,7 @@ $(document).ready(function(){
         var date = new Date();
         var weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
         var weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekEnd.getDate()+7);
+        weekEnd.setDate(weekEnd.getDate()+14);
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',

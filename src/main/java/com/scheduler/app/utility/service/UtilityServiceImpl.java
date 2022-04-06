@@ -93,7 +93,7 @@ public class UtilityServiceImpl implements  UtilityService {
     @Autowired
     AdminRepository adminRepository;
 
-    private List<String> shiftTimes = new ArrayList<>();
+
 
 
     /**
@@ -289,7 +289,7 @@ public class UtilityServiceImpl implements  UtilityService {
         if (null != adminShiftPOJO) {
             shiftTimingsResponse.setStatus(REQUEST_STATUS.SUCCESS);
             shiftTimingsResponse.setSlotType(adminShiftPOJO.getSlotType());
-            convertTimeFormat(adminShiftPOJO);
+            List<String> shiftTimes = convertTimeFormat(adminShiftPOJO);
             List<String> finalShiftTimes = new ArrayList<>();
             if (adminShiftPOJO.getSlotType() == eight) {
                 finalShiftTimes.add(shiftTimes.get(zero)+hyphen+shiftTimes.get(one));
@@ -322,7 +322,8 @@ public class UtilityServiceImpl implements  UtilityService {
         return shiftTimingsResponse;
     }
 
-    private void convertTimeFormat(AdminShiftPOJO adminShiftPOJO) {
+    private List<String> convertTimeFormat(AdminShiftPOJO adminShiftPOJO) {
+        List<String> shiftTimes = new ArrayList<>();
         if(null!=adminShiftPOJO.getShift1StartTime()){
             String finalShift1 = convertedTime(adminShiftPOJO.getShift1StartTime().toString());
             shiftTimes.add(finalShift1);
@@ -347,6 +348,7 @@ public class UtilityServiceImpl implements  UtilityService {
             String finalShift6 = convertedTime(adminShiftPOJO.getShift6StartTime().toString());
             shiftTimes.add(finalShift6);
         }
+        return shiftTimes;
     }
 
         private String convertedTime(String shiftTime){
