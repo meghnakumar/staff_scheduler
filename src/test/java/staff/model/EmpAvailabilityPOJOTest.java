@@ -20,8 +20,8 @@ import static org.junit.Assert.assertEquals;
 public class EmpAvailabilityPOJOTest {
     final static private Integer ID = 1;
     private DepartmentPOJO departmentId;
-    final static private LocalTime START_TIME = LocalTime.of(16,00,00);
-    final static private LocalTime END_TIME = LocalTime.of(20,00,00);
+    final static private Time START_TIME = Time.valueOf("16:00:00");
+    final static private Time END_TIME = Time.valueOf("20:00:00");
     final static private Integer ROLE_ID = 2;
     final static private String SHIFT_DAY = "monday";
     final static private String DEPT_ID ="D01";

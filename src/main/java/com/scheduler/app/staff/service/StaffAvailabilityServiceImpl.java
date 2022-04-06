@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,16 +83,16 @@ public class StaffAvailabilityServiceImpl implements StaffAvailabilityService {
                 boolean exists = checkIfAvailabilityAlreadyGiven(employeeAvailabilityPOJOId);
                 if (exists) {
                     employeeAvailabilityPOJO = empAvailabilityRepository.getById(employeeAvailabilityPOJOId);
-                    employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
-                    employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                    employeeAvailabilityPOJO.setStartTime(Time.valueOf(request.getStartTime()));
+                    employeeAvailabilityPOJO.setEndTime(Time.valueOf(request.getEndTime()));
                 } else {
                     employeeAvailabilityPOJO = new EmployeeAvailabilityPOJO();
                     employeeAvailabilityPOJO.setId(employeeAvailabilityPOJOId);
                     employeeAvailabilityPOJO.setDepartmentId(empDetailPOJO.getDepartmentId());
                     employeeAvailabilityPOJO.setRoleId(empDetailPOJO.getRoleId());
                     employeeAvailabilityPOJO.setShiftDay(request.getAvailableDay());
-                    employeeAvailabilityPOJO.setStartTime(getTime(request.getStartTime()));
-                    employeeAvailabilityPOJO.setEndTime(getTime(request.getEndTime()));
+                    employeeAvailabilityPOJO.setStartTime(Time.valueOf(request.getStartTime()));
+                    employeeAvailabilityPOJO.setEndTime(Time.valueOf(request.getEndTime()));
                     employeeAvailabilityPOJO.setEmployeeId(empDetailPOJO.getId());
                 }
                 empHistoryPOJO = new EmpHistoryPOJO();
