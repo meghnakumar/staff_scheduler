@@ -8,17 +8,12 @@
     <link rel="stylesheet" href="../css/all.min.css">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link id="favicon" rel="shortcut icon" type="image/jpg" href="./../assets/images/login.jpg" />
     <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/staffCheck.js"></script>
+    <script src="../js/common.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/createHoliday.js"></script>
-    <script src="../js/createEmployee.js"></script>
     <script src="../js/staffHome.js"></script>
-    <style>
-        body {
-            background-color: #ffffff;
-            font-family: "Times New Roman", Times, serif;
-        }
-    </style>
 </head>
 <body>
 
@@ -32,14 +27,18 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../views/staffavailability.html">Set Availability
-                        <span class="visually-hidden">(current)</span>
+                    <a class="nav-link active" href="#">Home
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../views/staffavailability.html">Set Availability</a>
+                </li>
             </ul>
-            <form class="d-flex">
-
-            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button type="button" id="logout" class="btn btn-danger">Logout</button>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -88,7 +87,9 @@
         </div>
     </div>
 </div>
-
+<footer class="mt-auto py-3 footer-new bg-primary text-white">
+    © ASDC | Group 20 | Dalhousie University | © Winter 2022
+</footer>
 
 <!--<div class="modal fade" id="invalid">-->
 <!--    <div class="modal-dialog" role="document">-->

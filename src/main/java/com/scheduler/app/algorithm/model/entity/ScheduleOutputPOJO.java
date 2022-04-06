@@ -7,6 +7,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * The type Schedule Output pojo.
+ * Maps the fields to the 'scheduleoutput' table in the DB.
+ */
 @Entity
 @Table(name = "scheduleoutput")
 public class ScheduleOutputPOJO {

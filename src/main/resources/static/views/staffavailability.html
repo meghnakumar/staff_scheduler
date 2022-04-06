@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="../css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/jquery-ui.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link id="favicon" rel="shortcut icon" type="image/jpg" href="./../assets/images/login.jpg" />
     <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script src="../js/common.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -24,9 +26,15 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../views/staffHome.html">Home
-                        <span class="visually-hidden">(current)</span>
-                    </a>
+                    <a class="nav-link" href="../views/staffHome.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Set Availability</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <button type="button" id="logout" class="btn btn-danger">Logout</button>
                 </li>
             </ul>
         </div>
@@ -189,8 +197,16 @@
     </div>
 </div>
 </div>
+<br>
+<br>
+<br>
+<br>
 
+<footer class="mt-auto py-3 footer-new bg-primary text-white">
+    © ASDC | Group 20 | Dalhousie University | © Winter 2022
+</footer>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="../js/staffCheck.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../js/staffAvailability.js"></script>
 </body>

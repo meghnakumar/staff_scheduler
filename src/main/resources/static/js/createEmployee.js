@@ -1,5 +1,36 @@
-$(document).ready(function(){
-    $("#register").submit(function(e) {
+$(document).ready(function () {
+
+    $("#employeeNumber").focusout(function () {
+        let employeeNum = $("#employeeNumber").val();
+        let warning = "";
+        $("#error").hide();
+        if (employeeNum != null) {
+            if (employeeNum.length !== 0) {
+                if (employeeNum.substring(0, 3) === 'EMP') {
+                    $("error").hide();
+                } else {
+                    $("#error").text("Employee Number should start with 'EMP'.");
+                    $("#error").show();
+                }
+            } else {
+                $("#error").text("Employee Number can't be empty.");
+                $("#error").show();
+            }
+        }
+    });
+
+    $("#departmentId").focusout(function () {
+        let departmentId = $("#departmentId").val();
+        let warning = "";
+        $("#error-department-id").hide();
+        console.log("departmentId", departmentId);
+        if (departmentId.length === 0) {
+            $("#error-department-id").text("Please select Department");
+            $("#error-department-id").show();
+        }
+    });
+
+    $("#register").submit(function (e) {
         e.preventDefault();
 
         var badCreds = function () {
@@ -7,7 +38,7 @@ $(document).ready(function(){
             if (inputs.length > 0) {
                 inputs[0].classList.add(["is-invalid"]);
             }
-            $("#error").show();
+            // $("#error").show();
             var valid = false;
             return false;
         };
@@ -15,42 +46,42 @@ $(document).ready(function(){
         let formData = {};
         var valid = false;
         var values = $("#register :input").serializeArray();
-        values.map( input => formData[input.name] = input.value);
+        values.map(input => formData[input.name] = input.value);
 
-        if(formData.employeeNumber === ''){
+        if (formData.employeeNumber === '') {
             badCreds();
-        } else{
+        } else {
             valid = true;
         }
 
-        if(formData.jobType === 'on'){
+        if (formData.jobType === 'on') {
             formData["jobType"] = 1;
         } else {
             formData["jobType"] = 0;
         }
-    if(valid){
+        if (valid) {
 
-        $.ajax({
-            contentType: 'application/json',
-            dataType: 'json',
-            data: JSON.stringify(formData),
-            type: 'POST',
-            url: '/admin/create/employee',
-            passwordType: false,
-            success: function(data, response){
-                console.log(response);
-                if(data.status === 'SUCCESS' && data.created === true){
-                    $("#informSuccess").modal('show');
-                } else if (data.status === 'INVALID_REQUEST' && data.created === false){
-                    $("#informClash").modal('show');
-                } else {
+            $.ajax({
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(formData),
+                type: 'POST',
+                url: '/admin/create/employee',
+                passwordType: false,
+                success: function (data, response) {
+                    console.log(response);
+                    if (data.status === 'SUCCESS' && data.created === true) {
+                        $("#informSuccess").modal('show');
+                    } else if (data.status === 'INVALID_REQUEST' && data.created === false) {
+                        $("#informClash").modal('show');
+                    } else {
+                        $("#informFailure").modal('show');
+                    }
+                }, error: function (response) {
                     $("#informFailure").modal('show');
+                    console.log("Error status", response.status, "Error text", response.statusText);
                 }
-            },error: function(response) {
-                $("#informFailure").modal('show');
-                console.log("Error status", response.status, "Error text", response.statusText);
-            }
-        });
-    }
+            });
+        }
     });
 });
