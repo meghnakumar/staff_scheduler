@@ -125,7 +125,7 @@ function submitForm(e, form, userId, dateDetails) {
         url: '/staff/input/availability',
         passwordType: true,
         success: function (data, response) {
-            if (response == "success") {
+            if (response === "success") {
                 console.log("Success:", response)
                 console.log("data:", data);
                 $("#informSuccess").modal("show");

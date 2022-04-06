@@ -34,7 +34,10 @@ $(document).ready(function(){
         var date = new Date();
         var weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
         console.log("weekStart", weekStart);
-        for(var day = 1; day < 6; day++) {
+        for(var day = 1; day < 13; day++) {
+            if(day == 6 || day == 7) {
+                continue;
+            }
             var shiftDate = new Date(weekStart);
             shiftDate.setDate(shiftDate.getDate()+day);
             var date = shiftDate.toLocaleDateString('en-CA');
@@ -42,7 +45,7 @@ $(document).ready(function(){
                 var timeArr = shifts[i].split("-");
                 var startTime = convertTime12to24(timeArr[0].trim());
                 var endTime = convertTime12to24(timeArr[1].trim());
-                endTime = endTime == "00:00" ? "24:00": endTime;
+                endTime = endTime === "00:00" ? "24:00": endTime;
                 events.push(
                     {
                         // title: 'Slot',
@@ -63,7 +66,7 @@ $(document).ready(function(){
         var date = new Date();
         var weekStart = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
         var weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekEnd.getDate()+7);
+        weekEnd.setDate(weekEnd.getDate()+14);
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',
@@ -86,7 +89,7 @@ $(document).ready(function(){
                     var shiftDate = info.event.start.toLocaleDateString('en-CA');
                     var shiftTime = convertTime12to24(info.event.start.toLocaleTimeString());
                     var time = shiftTime.split(':');
-                    var hour = time[0].length == 1 ? '0' + time[0] + ':' + time[1] : shiftTime;
+                    var hour = time[0].length === 1 ? '0' + time[0] + ':' + time[1] : shiftTime;
                     console.log("get date", shiftDate);
                     console.log("shift time", hour);
                     var scheduleObj = {

@@ -34,7 +34,6 @@ public class SupervisorFunctionalitiesIntegrationTests {
     private ShiftDetailsResponse shiftDetailsResponse;
     private ShiftDetailsRequest shiftDetailsRequest;
 
-    private List<DailyShiftPOJO> dailyShiftPOJOS;
     private SupervisorInfoResponse supervisorInfoResponse;
 
     private String START_TIME = "16:00";
@@ -63,20 +62,6 @@ public class SupervisorFunctionalitiesIntegrationTests {
         shiftDetailsRequest.setShiftDate(SHIFT_DATE);
         shiftDetailsResponse = supervisorController.inputShiftDetails(shiftDetailsRequest);
         assertEquals(REQUEST_STATUS.SUCCESS,shiftDetailsResponse.getStatus());
-    }
-
-    @Test
-    public void getShiftDetailsFromDBTest(){
-
-        Date dateValue = Date.valueOf(date);
-        dailyShiftPOJOS = supervisorController.getShifts(dateValue);
-        assertNotNull(dailyShiftPOJOS);
-    }
-
-    @Test
-    public void getEmployeeHistoryFromDBTest(){
-        String employeeHistory = supervisorController.getEmpHistory(1);
-        assertEquals(SUCCESS,employeeHistory);
     }
 
     @Test
