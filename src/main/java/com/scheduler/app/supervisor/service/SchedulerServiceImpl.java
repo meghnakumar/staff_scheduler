@@ -1,15 +1,11 @@
 package com.scheduler.app.supervisor.service;
 
-import com.scheduler.app.algorithm.databasejdbc.DatabaseConnection;
-import com.scheduler.app.algorithm.databasejdbc.DatabaseOperations;
 import com.scheduler.app.algorithm.model.DTO.EligibleEmployeesDTO;
-import com.scheduler.app.algorithm.model.entity.EligibleEmployees;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
 import com.scheduler.app.algorithm.model.entity.InsertScheduleParam;
 import com.scheduler.app.algorithm.model.entity.ScheduleOutputPOJO;
 import com.scheduler.app.algorithm.model.repo.EmployeeHistoryRepository;
 import com.scheduler.app.algorithm.service.AlgorithmService;
-import com.scheduler.app.algorithm.service.AlgorithmServiceImpl;
 import com.scheduler.app.constants.REQUEST_STATUS;
 import com.scheduler.app.staff.model.repo.EmpAvailabilityRepository;
 import com.scheduler.app.supervisor.model.request.RequiredRoleHours;
@@ -232,10 +228,7 @@ public class SchedulerServiceImpl implements SchedulerService {
     @Override
     public boolean algoImplementation(){
 
-//        DatabaseOperations databaseOperations = new DatabaseOperations();
-//        Connection connection = new DatabaseConnection().openConnection();
         algorithmService.truncateScheduleOutput();
-//        databaseOperations.truncateScheduleOutput(connection);
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 
         double totalHours;
@@ -248,10 +241,9 @@ public class SchedulerServiceImpl implements SchedulerService {
             // Eligibility is fetched based on availability given by employee in terms of start-time , end-time and shift-date
             // Past week work hours of employee are fetched from employee history table and considered while selecting employees as eligible employees
 
-//            List<EligibleEmployees> eligibleEmployeesList = databaseOperations.getEligibleEmployees(connection, dailyShiftPOJO.getRoleId().toString(), dailyShiftPOJO.getShiftDate().toString(), dailyShiftPOJO.getDepartment().getId());
-            List<String>eligibleEmployeesDTOStringList = empAvailabilityRepository.fetchEligibleEmployeesInnerJoin(dailyShiftPOJO.getRoleId(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getDepartment().getId());
+            List<String> eligibleEmpStrings = empAvailabilityRepository.fetchEligibleEmployeesInnerJoin(dailyShiftPOJO.getRoleId(), dailyShiftPOJO.getShiftDate(), dailyShiftPOJO.getDepartment().getId());
             List<EligibleEmployeesDTO> eligibleEmployeesDTOList = new ArrayList<>();
-            eligibleEmployeesDTOStringList.forEach(eligibleEmployeesDTOString->{
+            eligibleEmpStrings.forEach(eligibleEmployeesDTOString->{
                 String[] resultArr = eligibleEmployeesDTOString.split(",");
                 if(resultArr.length == 4){
                     Time availableStartTime= Time.valueOf(resultArr[0]);
@@ -262,8 +254,8 @@ public class SchedulerServiceImpl implements SchedulerService {
                         totalHoursLastWeek = 0;
                     }
                     else{
-                        double d = Double.parseDouble(resultArr[3]);
-                        totalHoursLastWeek  = (int) d;
+                        double value = Double.parseDouble(resultArr[3]);
+                        totalHoursLastWeek  = (int) value;
                     }
                     EligibleEmployeesDTO eligibleEmployeesDTO = new EligibleEmployeesDTO(availableStartTime, availableEndTime, employeeId, totalHoursLastWeek);
                     eligibleEmployeesDTOList.add(eligibleEmployeesDTO);
@@ -280,27 +272,28 @@ public class SchedulerServiceImpl implements SchedulerService {
                         break;
                     }
                     totalHours -= Double.parseDouble(dailyShiftPOJO.getShiftType());
-                    insertScheduleParam.setDeptId(dailyShiftPOJO.getDepartment().getId());
-                    insertScheduleParam.setEmpno(String.valueOf(eligibleEmployee.getEmployeeId()));
-                    insertScheduleParam.setStartTime(dailyShiftPOJO.getStartTime());
-                    insertScheduleParam.setEndTime( dailyShiftPOJO.getEndTime());
-                    insertScheduleParam.setShift_date(dailyShiftPOJO.getShiftDate());
-                    insertScheduleParam.setRoleId(dailyShiftPOJO.getRoleId()+"");
-                    insertScheduleParam.setEmp_hours(dailyShiftPOJO.getShiftType() + "");
+//                    insertScheduleParam.setDeptId(dailyShiftPOJO.getDepartment().getId());
+//                    insertScheduleParam.setEmpno(String.valueOf(eligibleEmployee.getEmployeeId()));
+//                    insertScheduleParam.setStartTime(dailyShiftPOJO.getStartTime());
+//                    insertScheduleParam.setEndTime( dailyShiftPOJO.getEndTime());
+//                    insertScheduleParam.setShift_date(dailyShiftPOJO.getShiftDate());
+//                    insertScheduleParam.setRoleId(dailyShiftPOJO.getRoleId()+"");
+//                    insertScheduleParam.setEmp_hours(dailyShiftPOJO.getShiftType() + "");
 
                     ScheduleOutputPOJO scheduleOutputPOJO = new ScheduleOutputPOJO();
                     scheduleOutputPOJO.setDepartmentId(dailyShiftPOJO.getDepartment().getId());
-                    scheduleOutputPOJO.setEmployeeId(Integer.valueOf(eligibleEmployee.getEmployeeId()));
+                    scheduleOutputPOJO.setEmployeeId(eligibleEmployee.getEmployeeId());
                     scheduleOutputPOJO.setShiftDate(dailyShiftPOJO.getShiftDate().toLocalDate());
                     scheduleOutputPOJO.setStartTime(dailyShiftPOJO.getStartTime().toLocalTime());
                     scheduleOutputPOJO.setEndTime(dailyShiftPOJO.getEndTime().toLocalTime());
                     scheduleOutputPOJO.setRoleId(dailyShiftPOJO.getRoleId());
                     scheduleOutputPOJO.setEmpHours(Integer.valueOf(dailyShiftPOJO.getShiftType()));
-                    scheduleRepository.saveAndFlush(scheduleOutputPOJO);
 
                     // if an employee is available from shift starting time till end of the shift it will insert the time same as shift slot for each employee's history table
-//                    databaseOperations.insertFinalSchedule(connection, insertScheduleParam);
-//                    databaseOperations.updateEmpHistory(connection, Integer.parseInt(dailyShiftPOJO.getShiftType()),String.valueOf(eligibleEmployee.getEmployeeId()));
+                    scheduleRepository.saveAndFlush(scheduleOutputPOJO);
+                    algorithmService.updateEmployeeHistory(eligibleEmployee.getEmployeeId(), Integer.parseInt(dailyShiftPOJO.getShiftType()));
+
+
 
                     return true;
                 }
@@ -340,33 +333,23 @@ public class SchedulerServiceImpl implements SchedulerService {
                     // if an employee is available from shift starting time but the end time is different, it will insert the amount of hours the employee worked in employee history table
                     ScheduleOutputPOJO scheduleOutputPOJO = new ScheduleOutputPOJO();
                     scheduleOutputPOJO.setDepartmentId(dailyShiftPOJO.getDepartment().getId());
-                    scheduleOutputPOJO.setEmployeeId(Integer.valueOf(eligibleEmployee.getEmployeeId()));
+                    scheduleOutputPOJO.setEmployeeId(eligibleEmployee.getEmployeeId());
                     scheduleOutputPOJO.setShiftDate(dailyShiftPOJO.getShiftDate().toLocalDate());
                     scheduleOutputPOJO.setStartTime(dailyShiftPOJO.getStartTime().toLocalTime());
                     scheduleOutputPOJO.setEndTime(dailyShiftPOJO.getEndTime().toLocalTime());
                     scheduleOutputPOJO.setRoleId(dailyShiftPOJO.getRoleId());
                     scheduleOutputPOJO.setEmpHours(diffHours);
+
                     scheduleRepository.saveAndFlush(scheduleOutputPOJO);
-
-//                    databaseOperations.insertFinalSchedule(connection,insertScheduleParam);
-//                    databaseOperations.updateEmpHistory(connection, diffHours,String.valueOf(eligibleEmployee.getEmployeeId()));
-
+                    algorithmService.updateEmployeeHistory(eligibleEmployee.getEmployeeId(), diffHours);
                 }
             }
         }
 
-
-//        DatabaseConnection.closeConnection(connection);
-
         if(shiftList.size() > 0){
-
             return true;
         } else {
-
             return false;
         }
-
-
     }
-
 }

@@ -28,4 +28,6 @@ public interface EmployeeHistoryRepository extends JpaRepository<EmpHistoryPOJO,
 
     //Checks if the employee with the employee id exists in the table.
     boolean existsByEmployeeId(int employeeId);
+
+    EmpHistoryPOJO findDistinctTopByEmployeeId(Integer employeeId);
 }

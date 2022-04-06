@@ -14,7 +14,7 @@ import java.util.List;
 public interface EmpAvailabilityRepository extends JpaRepository<EmployeeAvailabilityPOJO, EmployeeAvailabilityPOJOId> {
 
     @Query(value = "SELECT a.start_time, a.end_time, a.employee_id, b.total_hours_weekly FROM `empavailability` a INNER JOIN `emphistory` b ON a.employee_id = b.employee_id "
-            + "WHERE a.role_Id = 2 and a.shift_date = '2022-04-11' and a.department_id = 'D01' "
+            + "WHERE a.role_Id = :roleId and a.shift_date = :shiftDate and a.department_id = :deptId "
             + "ORDER BY b.total_hours_weekly", nativeQuery = true)
     List<String> fetchEligibleEmployeesInnerJoin(Integer roleId, Date shiftDate, String deptId);
 }
