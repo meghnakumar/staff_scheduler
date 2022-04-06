@@ -140,6 +140,8 @@
                 if(!localStorage.getItem("isDemo")) {
                     document.getElementById("scheduler-submit").disabled = true;
                     document.getElementById("supervisor-date-picker").disabled = true;
+                    document.getElementById("generateSchedule").disabled = true;
+
                     $("#informInvalidDate").modal('show');
                 }
             }
