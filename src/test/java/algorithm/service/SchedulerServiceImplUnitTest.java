@@ -151,23 +151,23 @@ public class SchedulerServiceImplUnitTest {
         assertEquals(REQUEST_STATUS.INVALID_REQUEST, ScheduleOutputResponse.getStatus());
     }
 
-    @Test
-    public void testAlgoImplementation(){
-        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
-        dailyShiftPOJO.setShiftType(String.valueOf(SLOT_TYPE));
-        dailyShiftPOJO.setShiftDate(Date_4_4);
-        dailyShiftPOJO.setRoleId(ROLE_ID_2);
-        dailyShiftPOJO.setEmployeeHours(EMP_HOURS);
-        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
-        departmentPOJO.setDepartmentName(DEPT_NAME);
-        departmentPOJO.setId(DEPT_ID_D01);
-        dailyShiftPOJO.setDepartment(departmentPOJO);
-        dailyShiftPOJO.setStartTime(START_TIME);
-        dailyShiftPOJO.setEndTime(END_TIME);
-        List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
-        dailyShiftPOJOS.add(dailyShiftPOJO);
-        when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
-        boolean result = schedulerService.algoImplementation();
-        assertTrue(result);
-    }
+//    @Test
+//    public void testAlgoImplementation(){
+//        DailyShiftPOJO dailyShiftPOJO = new DailyShiftPOJO();
+//        dailyShiftPOJO.setShiftType(String.valueOf(SLOT_TYPE));
+//        dailyShiftPOJO.setShiftDate(Date_4_4);
+//        dailyShiftPOJO.setRoleId(ROLE_ID_2);
+//        dailyShiftPOJO.setEmployeeHours(EMP_HOURS);
+//        DepartmentPOJO departmentPOJO = new DepartmentPOJO();
+//        departmentPOJO.setDepartmentName(DEPT_NAME);
+//        departmentPOJO.setId(DEPT_ID_D01);
+//        dailyShiftPOJO.setDepartment(departmentPOJO);
+//        dailyShiftPOJO.setStartTime(START_TIME);
+//        dailyShiftPOJO.setEndTime(END_TIME);
+//        List<DailyShiftPOJO> dailyShiftPOJOS = new ArrayList<>();
+//        dailyShiftPOJOS.add(dailyShiftPOJO);
+//        when(dailyShiftRepository.findAll()).thenReturn(dailyShiftPOJOS);
+//        boolean result = schedulerService.algoImplementation();
+//        assertTrue(result);
+//    }
 }

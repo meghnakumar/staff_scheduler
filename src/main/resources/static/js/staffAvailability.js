@@ -68,7 +68,7 @@ const convertTime12to24 = (time12h) => {
     if (modifier === 'PM') {
         hours = parseInt(hours, 10) + 12;
     }
-    return `${hours}:${minutes}`;
+    return `${hours}:${minutes}:00`;
 }
 
 function createRequestBody(form, userId, dateDetails) {

@@ -52,8 +52,8 @@ public class StaffAvailabilityServiceImplUnitTest {
     private static final String EMP_NUM = "EMP001";
     private static final int ID = 1;
     private static final String AVAILABLE_DATE = "2020-05-05";
-    private static final String START_TIME = "08:00";
-    private static final String END_TIME = "12:00";
+    private static final String START_TIME = "08:00:00";
+    private static final String END_TIME = "12:00:00";
     private static final String AVAILABLE_DAY = "Friday";
     private static final String EMP_NUM_17 = "EMP0017";
     private static final String EMP_NUM_25 = "EMP0025";

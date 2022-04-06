@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.sql.Time;
 import java.time.LocalTime;
 
 /**
@@ -45,11 +46,11 @@ public class EmployeeAvailabilityPOJO {
     @Column(name = "start_time")
     @Getter
     @Setter
-    private LocalTime startTime;
+    private Time startTime;
 
     @Column(name = "end_time")
     @Getter
     @Setter
-    private LocalTime endTime;
+    private Time endTime;
 
 }

@@ -3,6 +3,7 @@ package com.scheduler.app.algorithm.model.repo;
 import com.scheduler.app.algorithm.model.entity.EmpHistoryPOJO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Employee History JPA repository.
  */
+@Repository
 public interface EmployeeHistoryRepository extends JpaRepository<EmpHistoryPOJO, Integer> {
 
     /**
@@ -26,4 +28,6 @@ public interface EmployeeHistoryRepository extends JpaRepository<EmpHistoryPOJO,
 
     //Checks if the employee with the employee id exists in the table.
     boolean existsByEmployeeId(int employeeId);
+
+    EmpHistoryPOJO findDistinctTopByEmployeeId(Integer employeeId);
 }

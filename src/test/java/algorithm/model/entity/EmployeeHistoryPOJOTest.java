@@ -1,4 +1,4 @@
-package algorithm.model;
+package algorithm.model.entity;
 
 import com.scheduler.app.StaffSchedulerApplication;
 import com.scheduler.app.algorithm.model.entity.EligibleEmployees;
