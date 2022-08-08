@@ -40,7 +40,12 @@ spring.profiles.active=prod
 
 ## Contributors
 Ankush Mudgal
+
 Bhavesh Lalwani
+
 Hrishita Samir Mavani
+
 Gandhi Rajan Mahendran
+
 Meghna Kumar
+
